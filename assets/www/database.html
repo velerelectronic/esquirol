@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cordova</title>
+<script type="text/javascript" charset="utf-8" src="cordova-2.4.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolCommon.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolDatabase.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolAdvanced.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolEditorData.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolMain.js"></script>
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body onload="esquirol = new EsquirolMain('dades','menu'); esquirol.inicia(); advanced = new EsquirolAdvanced('dades');">
+<h1><input type="button" value="-" onclick="mostraOpcions('menu')">Base de dades</h1>
+<div id="menu">
+</div>
+
+<a class="opcions" href="index.html">Torna a la p&agrave;gina principal</a>
+<br>
+
+<div id="quadre">
+</div>
+
+<div id="dades">
+<ul>
+<input type="button" value="Alumnes" onclick="advanced.mostraLlistaIndividus('dades')">
+<li class="opcions"><a href="#" onclick="advanced.carrega2nSE('dades')">Carrega alumnes 2n SE</li>
+<li class="opcions"><a href="#" onclick="advanced.mostraTaules()">Llista taules</a></li>
+<li class="opcions"><a href="#" onclick="advanced.entrarValoracions()">Entrar valoracions</a></li>
+<li class="opcions"><a href="#">Emplena taules</a></li>
+<li class="opcions"><a href="#">Exporta: CSV, HTML...</a></li>
+<li class="opcions"><a href="#">...</a></li>
+<li class="opcions"><a href="#" onclick="advanced.reiniciaDB()">Reinicia DB</a></li>
+</ul>
+</div>
+
+</body>
+</html>

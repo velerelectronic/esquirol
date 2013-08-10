@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>AppName</title>
+<script type="application/javascript;version=1.7">
+</script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolCommon.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolMenu.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolPilaTasques.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/AnotadorManual.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolDocument.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolDatabase.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolAdvanced.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolAnotacions.js"></script>
+<script type="text/javascript" charset="utf-8" src="Data/alumnes.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolValoracions.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolSourceFilesystem.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolClock.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolForms.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolMain.js"></script>
+<script type="text/javascript" charset="utf-8">
+    document.addEventListener("deviceready", EsquirolMain, false);
+</script>
+
+<link rel="stylesheet" href="css/styles.css">
+
+<xforms:model>
+  <xforms:instance>
+    <ecommerce xmlns="">
+      <metodo/>
+      <numero/>
+      <caducidad/>
+    </ecommerce>
+  </xforms:instance>
+<xforms:submission action="http://www.w3c.es/ejemplo" method="post" 
+  id="submit" includenamespaceprefixes=""/>
+</xforms:model>
+
+</head>
+<body onload="esquirol = new EsquirolMain('dades','menu'); esquirol.inicia();">
+<div id="AppBar">AppName</div>
+
+<div id="menu">
+</div>
+
+<br>
+<div id="quadre">
+</div>
+
+<div id="dades">
+<p>Benvingut a Esquirol, el programa gestor d'anotacions!</p>
+
+<p>Tria una de les opcions que hi ha la capçalera d'aquesta p&agrave;gina per comen&ccedil;ar a treballar.</p>
+
+<xforms:select1 ref="metodo">
+  <xforms:label>Seleccione método de pago:</xforms:label>
+  <xforms:item>
+    <xforms:label>Efectivo</xforms:label>
+    <xforms:value>Efectivo</xforms:value>
+  </xforms:item>
+  <xforms:item>
+    <xforms:label>Crédito</xforms:label>
+    <xforms:value>cc</xforms:value>
+  </xforms:item>
+</xforms:select1>
+<xforms:input ref="numero">
+  <xforms:label>Número de Tarjeta de Crédito:</xforms:label>
+</xforms:input>
+<xforms:input ref="caducidad">
+  <xforms:label>Fecha de caducidad:</xforms:label>
+</xforms:input>
+<xforms:submit submission="submit">
+<xforms:label>Enviar</xforms:label>
+</xforms:submit>
+
+</div>
+
+</body>
+</html>
