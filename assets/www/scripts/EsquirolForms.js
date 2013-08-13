@@ -18,23 +18,26 @@ function EsquirolForms(id,parentNode) {
 		
 	    var div = document.createElement('div');
 	    node.appendChild(div);
-	    
-    	text = '<h:html xmlns:h="http://www.w3.org/1999/xhtml" ';
-        text += 'xmlns="http://www.w3.org/2002/xforms"> ';
-        text += '<h:head>';
-        text += '<h:title>Buscar</h:title>';
-        text += '<model>';
-        text +='<submission action="http://ejemplo.com/buscar" method="get" id="s"/>';
-        text += '</model>';
-        text += '</h:head>';
-        text += '<h:body>';
-        text += '<h:p>';
-        text += '<input ref="q"><label>Buscar</label></input>';
-        text += '<submit submission="s"><label>Enviar</label></submit>';
-        text += '</h:p>';
-        text += '</h:body>';
-        text += '</h:html>';
-	    div.innerHTML = text;
+
+        if (window.XMLHttpRequest) {
+        	xhttp = new XMLHttpRequest();
+        } else {
+        	// IE 5/6
+        	xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhttp.open("GET","/storage/emulated/0/Download/xform_unit_planning v02.xml",false);
+        xhttp.send();
+        xmlDoc = xhttp.responseXML;
+        
+//	    var parser = new DOMParser();
+//	    var doc = parser.parseFromString(text,"application/xml");
+
+        div.appendChild( document.createTextNode(xmlDoc.responseText));
+        var children = xmlDoc.childNodes;
+        for (var i=0; i<children.length; i++) {
+        	var linia = document.createTextNode('-');
+        	div.appendChild(linia);
+        }
 
 	}
 	
