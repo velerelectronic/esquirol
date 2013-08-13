@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title ref="jr:itext('planning_template')">Planning template</h:title>
+    <model>
+      <instance id="planning_template">
+        <planning_template name="Planning template" id="new_form1">
+          <unit_title>Untitled</unit_title>
+          <authors>Joan Miquel Payeras Cresp?</authors>
+          <with_the_support_of/>
+          <class_age_group/>
+          <subject_areas/>
+          <number_of_lessons/>
+          <cefr_level/>
+          <keywords>
+            <keyword/>
+          </keywords>
+          <introduction/>
+          <objectives>
+            <objective/>
+          </objectives>
+          <competence_ling/>
+          <competence_math/>
+          <competence_science/>
+          <competence_digital/>
+          <competence_social/>
+          <competence_cultural/>
+          <competence_learn/>
+          <competence_init/>
+          <tasks>
+            <task/>
+          </tasks>
+          <criteria_and_instruments>
+            <criterium_or_instrument/>
+          </criteria_and_instruments>
+          <knowledges>
+            <knowledge/>
+          </knowledges>
+          <deduced_skills/>
+          <content_language/>
+          <social_cultural_values_personal_emotional_development/>
+          <materials_and_resources>
+            <material_or_resource/>
+          </materials_and_resources>
+          <references>
+            <reference/>
+          </references>
+          <comments/>
+          <acknowledgements/>
+          <session_by_session>
+            <sessions xmlns="">
+              <sessionp/>
+              <activities>
+                <activity/>
+              </activities>
+            </sessions>
+          </session_by_session>
+        </planning_template>
+      </instance>
+      <bind id="unit_title" nodeset="/planning_template/unit_title" type="xsd:string" required="true()"/>
+      <bind id="authors" nodeset="/planning_template/authors" type="xsd:string" required="true()"/>
+      <bind id="with_the_support_of" nodeset="/planning_template/with_the_support_of" type="xsd:string"/>
+      <bind id="class_age_group" nodeset="/planning_template/class_age_group" type="xsd:string" required="true()"/>
+      <bind id="subject_areas" nodeset="/planning_template/subject_areas" type="xsd:string" required="true()"/>
+      <bind id="number_of_lessons" nodeset="/planning_template/number_of_lessons" type="xsd:int" locked="true()" calculate="count(../session_by_session)" readonly="true()"/>
+      <bind id="cefr_level" nodeset="/planning_template/cefr_level" type="xsd:string" required="true()"/>
+      <bind id="keywords" nodeset="/planning_template/keywords"/>
+      <bind id="keyword" nodeset="/planning_template/keywords/keyword" type="xsd:string"/>
+      <bind id="introduction" nodeset="/planning_template/introduction" type="xsd:string"/>
+      <bind id="objectives" nodeset="/planning_template/objectives" required="true()"/>
+      <bind id="objective" nodeset="/planning_template/objectives/objective" type="xsd:string" required="true()"/>
+      <bind id="competence_ling" nodeset="/planning_template/competence_ling" type="xsd:string" required="true()"/>
+      <bind id="competence_math" nodeset="/planning_template/competence_math" type="xsd:string" required="true()"/>
+      <bind id="competence_science" nodeset="/planning_template/competence_science" type="xsd:string" required="true()"/>
+      <bind id="competence_digital" nodeset="/planning_template/competence_digital" type="xsd:string" required="true()"/>
+      <bind id="competence_social" nodeset="/planning_template/competence_social" type="xsd:string" required="true()"/>
+      <bind id="competence_cultural" nodeset="/planning_template/competence_cultural" type="xsd:string" required="true()"/>
+      <bind id="competence_learn" nodeset="/planning_template/competence_learn" type="xsd:string" required="true()"/>
+      <bind id="competence_init" nodeset="/planning_template/competence_init" type="xsd:string" required="true()"/>
+      <bind id="tasks" nodeset="/planning_template/tasks" required="true()"/>
+      <bind id="task" nodeset="/planning_template/tasks/task" type="xsd:string" required="true()"/>
+      <bind id="criteria_and_instruments" nodeset="/planning_template/criteria_and_instruments" required="true()"/>
+      <bind id="criterium_or_instrument" nodeset="/planning_template/criteria_and_instruments/criterium_or_instrument" type="xsd:string" required="true()"/>
+      <bind id="knowledges" nodeset="/planning_template/knowledges" required="true()"/>
+      <bind id="knowledge" nodeset="/planning_template/knowledges/knowledge" type="xsd:string" required="true()"/>
+      <bind id="deduced_skills" nodeset="/planning_template/deduced_skills" type="xsd:string" locked="true()"/>
+      <bind id="content_language" nodeset="/planning_template/content_language" type="xsd:string" required="true()"/>
+      <bind id="social_cultural_values_personal_emotional_development" nodeset="/planning_template/social_cultural_values_personal_emotional_development" type="xsd:string"/>
+      <bind id="materials_and_resources" nodeset="/planning_template/materials_and_resources" required="true()"/>
+      <bind id="material_or_resource" nodeset="/planning_template/materials_and_resources/material_or_resource" type="xsd:string" required="true()"/>
+      <bind id="references" nodeset="/planning_template/references" required="true()"/>
+      <bind id="reference" nodeset="/planning_template/references/reference" type="xsd:string" required="true()"/>
+      <bind id="comments" nodeset="/planning_template/comments" type="xsd:string"/>
+      <bind id="acknowledgements" nodeset="/planning_template/acknowledgements" type="xsd:string"/>
+      <bind id="session_by_session" nodeset="/planning_template/session_by_session"/>
+      <bind xmlns="" id="sessionp" nodeset="/planning_template/sessions/sessionp" type="xsd:int" locked="true()"/>
+      <bind xmlns="" id="sessions" nodeset="/planning_template/session_by_session/sessions"/>
+      <bind xmlns="" id="activities" nodeset="/planning_template/sessions/activities"/>
+      <bind xmlns="" id="activity" nodeset="/planning_template/activities/activity" type="xsd:string"/>
+      <itext xmlns="">
+        <translation lang="en" lang-name="English">
+          <text id="planning_template">
+            <value>Planning template</value>
+          </text>
+        </translation>
+        <translation lang="fr" lang-name="French">
+          <text id="general_data">
+            <value>General data</value>
+          </text>
+          <text id="planning_template">
+            <value>Planning template</value>
+          </text>
+        </translation>
+      </itext>
+    </model>
+  </h:head>
+  <h:body>
+    <group id="1">
+      <label ref="jr:itext('general_data')"/>
+      <input bind="unit_title">
+        <label ref="jr:itext('unit_title')">Unit title</label>
+      </input>
+      <input bind="authors">
+        <label ref="jr:itext('authors')">Authors</label>
+      </input>
+      <input bind="with_the_support_of">
+        <label ref="jr:itext('with_the_support_of')">With the support of</label>
+      </input>
+      <input bind="class_age_group">
+        <label ref="jr:itext('class_slash_age_group')">Class/age group</label>
+      </input>
+      <input bind="subject_areas">
+        <label ref="jr:itext('subjects_languages_and_slash_or_subject_areas')">Subjects, languages and/or subject areas</label>
+      </input>
+      <input bind="number_of_lessons">
+        <label ref="jr:itext('number_of_lessons')">Number of lessons</label>
+      </input>
+      <select1 bind="cefr_level">
+        <label ref="jr:itext('cefr_level')">CEFR level</label>
+        <item id="a1">
+          <label ref="jr:itext('a1')">A1</label>
+          <value>a1</value>
+        </item>
+        <item id="a2">
+          <label ref="jr:itext('a2')">A2</label>
+          <value>a2</value>
+        </item>
+        <item id="b1">
+          <label ref="jr:itext('b1')">B1</label>
+          <value>b1</value>
+        </item>
+        <item id="b2">
+          <label ref="jr:itext('b2')">B2</label>
+          <value>b2</value>
+        </item>
+        <item id="c1">
+          <label ref="jr:itext('c1')">C1</label>
+          <value>c1</value>
+        </item>
+        <item id="c2">
+          <label ref="jr:itext('c2')">C2</label>
+          <value>c2</value>
+        </item>
+      </select1>
+      <group id="keywords">
+        <label ref="jr:itext('keywords')">Keywords</label>
+        <repeat bind="keywords">
+          <input ref="keyword">
+            <label ref="jr:itext('keyword')">Keyword</label>
+          </input>
+        </repeat>
+      </group>
+    </group>
+    <group id="1">
+      <label ref="jr:itext('introduction')">Introduction</label>
+      <input bind="introduction">
+        <label ref="jr:itext('introduction_to_the_unit_the_lesson_or_the_task')">Introduction to the unit (the lesson or the task)</label>
+      </input>
+    </group>
+  </h:body>
+  <group id="2">
+    <label ref="jr:itext('objectives_slash_goals')">Objectives / goals</label>
+    <group id="objectives">
+      <label ref="jr:itext('objectives_slash_goals')">Objectives / goals</label>
+      <repeat bind="objectives">
+        <input ref="objective">
+          <label ref="jr:itext('objective')">Objective</label>
+        </input>
+        <hint>By the end of the unit / lesson / task, the students will be able to...</hint>
+      </repeat>
+    </group>
+  </group>
+  <group id="3">
+    <label ref="jr:itext('key_competences')">Key competences</label>
+    <input bind="competence_ling">
+      <label ref="jr:itext('_1._linguistic_communication')">1. Linguistic communication</label>
+    </input>
+    <input bind="competence_math">
+      <label ref="jr:itext('_2._mathematical')">2. Mathematical</label>
+    </input>
+    <input bind="competence_science">
+      <label ref="jr:itext('_3._science_and_technology')">3. Science and technology</label>
+    </input>
+    <input bind="competence_digital">
+      <label ref="jr:itext('_4._digital_competence')">4. Digital competence</label>
+    </input>
+    <input bind="competence_social">
+      <label ref="jr:itext('_5._social_and_civic_competence')">5. Social and civic competence</label>
+    </input>
+    <input bind="competence_cultural">
+      <label ref="jr:itext('_6._cultural_awareness_and_expression')">6. Cultural awareness and expression</label>
+    </input>
+    <input bind="competence_learn">
+      <label ref="jr:itext('_7._learning_to_learn')">7. Learning to learn</label>
+    </input>
+    <input bind="competence_init">
+      <label ref="jr:itext('_8._sense_of_initiative_and_entrepreneurship')">8. Sense of initiative and entrepreneurship</label>
+    </input>
+  </group>
+  <group id="4">
+    <label ref="jr:itext('informative_and_formative_assessment')">Informative and formative assessment</label>
+    <group id="tasks">
+      <label ref="jr:itext('tasks')">Tasks</label>
+      <repeat bind="tasks">
+        <input bind="task">
+          <label ref="jr:itext('task')">Task</label>
+        </input>
+      </repeat>
+    </group>
+    <group id="criteria_and_instruments">
+      <label ref="jr:itext('criteria_and_instruments')">Criteria and instruments</label>
+      <repeat bind="criteria_and_instruments">
+        <input bind="criterium_or_instrument">
+          <label ref="jr:itext('criterium_or_instrument')">Criterium or instrument</label>
+        </input>
+      </repeat>
+    </group>
+  </group>
+  <group id="5">
+    <label ref="jr:itext('domain_or_topic_related_contents')">Domain or topic related contents</label>
+    <group id="knowledges">
+      <label ref="jr:itext('knowledges')">Knowledges</label>
+      <repeat bind="knowledges">
+        <input bind="knowledge">
+          <label ref="jr:itext('knowledge')">Knowledge</label>
+        </input>
+      </repeat>
+    </group>
+    <input bind="deduced_skills">
+      <label ref="jr:itext('skills')">Skills</label>
+    </input>
+  </group>
+  <group id="6">
+    <label ref="jr:itext('content_obligatory_slash_content_compatible_language_and_discourse_features')">Content obligatory / content compatible language and discourse features</label>
+    <input bind="content_language">
+      <label ref="jr:itext('content_language')">Content language</label>
+    </input>
+  </group>
+  <group id="7">
+    <label ref="jr:itext('social_cultural_values_personal_emotional_development')">Social &amp; cultural values, personal &amp; emotional development</label>
+    <input bind="social_cultural_values_personal_emotional_development">
+      <label ref="jr:itext('social_cultural_values_personal_emotional_development')">Social &amp; cultural values, personal &amp; emotional development</label>
+    </input>
+  </group>
+  <group id="8">
+    <label ref="jr:itext('materials_and_resources')">Materials and resources</label>
+    <group id="materials_and_resources">
+      <label ref="jr:itext('materials_and_resources')">Materials and resources</label>
+      <repeat bind="materials_and_resources">
+        <input bind="material_or_resource">
+          <label ref="jr:itext('material_or_resource')">Material or resource</label>
+        </input>
+      </repeat>
+    </group>
+  </group>
+  <group id="9">
+    <label ref="jr:itext('references')">References</label>
+    <group id="references">
+      <label ref="jr:itext('references')">References</label>
+      <repeat bind="references">
+        <input bind="reference">
+          <label ref="jr:itext('reference')">Reference</label>
+        </input>
+      </repeat>
+    </group>
+  </group>
+  <group id="10">
+    <label ref="jr:itext('comments')">Comments</label>
+    <input bind="comments">
+      <label ref="jr:itext('comments')">Comments</label>
+    </input>
+  </group>
+  <group id="11">
+    <label ref="jr:itext('acknowledgements')">Acknowledgements</label>
+    <input bind="acknowledgements">
+      <label ref="jr:itext('acknowledgements')">Acknowledgements</label>
+    </input>
+  </group>
+  <group id="12">
+    <label ref="jr:itext('session_by_session')">Session by session</label>
+    <group id="session_by_session">
+      <label ref="jr:itext('session_by_session')">Session by session</label>
+      <hint ref="jr:itext('unit_overview')">Unit overview</hint>
+      <repeat bind="session_by_session">
+        <group xmlns="" id="sessions">
+          <label>Sessions</label>
+          <repeat bind="sessions" id="activities">
+            <input bind="sessionp">
+              <label>Session</label>
+            </input>
+            <group id="activities">
+              <label>Activities</label>
+              <input bind="activity">
+                <label>Activity</label>
+              </input>
+            </group>
+          </repeat>
+        </group>
+      </repeat>
+    </group>
+  </group>
+</h:html>
