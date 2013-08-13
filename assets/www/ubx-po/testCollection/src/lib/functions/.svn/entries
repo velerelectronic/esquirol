@@ -1,0 +1,34 @@
+9
+
+dir
+3229
+https://ubiquity-xforms.googlecode.com/svn/trunk/src/lib/functions
+https://ubiquity-xforms.googlecode.com/svn
+
+
+
+2009-11-05T10:50:21.457238Z
+3154
+mark.birbeck@webBackplane.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+702bd106-314c-0410-bf92-7b4dcd54591c
+
+xforms
+dir
+
+xslt20
+dir
+

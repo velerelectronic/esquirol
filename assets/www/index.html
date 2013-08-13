@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms">
 <head>
 <title>AppName</title>
+
 <script type="application/javascript;version=1.7">
 </script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="ubx-po/testCollection/src/ubiquity-loader.js"></script>
 <script type="text/javascript" charset="utf-8" src="scripts/EsquirolCommon.js"></script>
 <script type="text/javascript" charset="utf-8" src="scripts/EsquirolMenu.js"></script>
 <script type="text/javascript" charset="utf-8" src="scripts/EsquirolPilaTasques.js"></script>
@@ -24,21 +26,9 @@
 </script>
 
 <link rel="stylesheet" href="css/styles.css">
-
-<xforms:model>
-  <xforms:instance>
-    <ecommerce xmlns="">
-      <metodo/>
-      <numero/>
-      <caducidad/>
-    </ecommerce>
-  </xforms:instance>
-<xforms:submission action="http://www.w3c.es/ejemplo" method="post" 
-  id="submit" includenamespaceprefixes=""/>
-</xforms:model>
-
 </head>
 <body onload="esquirol = new EsquirolMain('dades','menu'); esquirol.inicia();">
+    
 <div id="AppBar">AppName</div>
 
 <div id="menu">
@@ -51,28 +41,7 @@
 <div id="dades">
 <p>Benvingut a Esquirol, el programa gestor d'anotacions!</p>
 
-<p>Tria una de les opcions que hi ha la capçalera d'aquesta p&agrave;gina per comen&ccedil;ar a treballar.</p>
-
-<xforms:select1 ref="metodo">
-  <xforms:label>Seleccione método de pago:</xforms:label>
-  <xforms:item>
-    <xforms:label>Efectivo</xforms:label>
-    <xforms:value>Efectivo</xforms:value>
-  </xforms:item>
-  <xforms:item>
-    <xforms:label>Crédito</xforms:label>
-    <xforms:value>cc</xforms:value>
-  </xforms:item>
-</xforms:select1>
-<xforms:input ref="numero">
-  <xforms:label>Número de Tarjeta de Crédito:</xforms:label>
-</xforms:input>
-<xforms:input ref="caducidad">
-  <xforms:label>Fecha de caducidad:</xforms:label>
-</xforms:input>
-<xforms:submit submission="submit">
-<xforms:label>Enviar</xforms:label>
-</xforms:submit>
+<p>Tria una de les opcions que hi ha la cap√ßalera d'aquesta p&agrave;gina per comen&ccedil;ar a treballar.</p>
 
 </div>
 

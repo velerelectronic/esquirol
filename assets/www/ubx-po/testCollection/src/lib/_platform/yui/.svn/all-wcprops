@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/3226/trunk/src/lib/_platform/yui
+END
+message.js
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/3157/trunk/src/lib/_platform/yui/message.js
+END
+message-panel.css
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/1516/trunk/src/lib/_platform/yui/message-panel.css
+END
+xforms-submission-yui.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1804/trunk/src/lib/_platform/yui/xforms-submission-yui.js
+END
+dropbox-yui.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3226/trunk/src/lib/_platform/yui/dropbox-yui.js
+END
+xforms-loader-yui.js
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1516/trunk/src/lib/_platform/yui/xforms-loader-yui.js
+END

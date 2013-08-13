@@ -1,0 +1,47 @@
+<html>
+<body>
+<script>
+
+    function sBin(url) { 
+       // void netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); //not needed?
+        var req = new XMLHttpRequest();
+        req.open("GET", url, false);
+        req.overrideMimeType("text/plain; charset=x-user-defined");
+        req.send("");
+        if (req.status != 200) {
+            return "";
+        }
+        var t = req.responseText || "" ;
+        var ff = [];
+        var mx = t.length;   
+        var scc= String.fromCharCode;
+        for (var z = 0; z < mx; z++) {
+            ff[z] = scc(t.charCodeAt(z) & 255);
+        }
+        var b = ff.join("");
+        return b;
+    }
+
+
+
+document.getElementById("mytext").textContent = sBin("../pngIcons/Add.png");
+
+</script>
+
+<form>
+Text: <input type="text" id="mytext" name="mytext" size="40">
+<br>
+File: <input type="file" id="myfile" name="datafile" size="40"><br>
+<input type="button" id="ajaxbutton" value="AJAX IT" onclick="upload();">
+</form>
+
+<div id="sizespan"></div>
+<hr>
+<div id="myspan"></div
+
+
+
+</body>
+
+</html>
+

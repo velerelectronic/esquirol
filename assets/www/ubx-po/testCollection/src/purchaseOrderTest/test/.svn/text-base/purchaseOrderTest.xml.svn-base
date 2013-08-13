@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<purchaseOrder>
+	<product productID="-1">
+		<productName></productName>
+		<cost></cost>
+		<quantity>0</quantity>
+	</product>
+	<prototype>
+		<product productID="-1">
+		    <productName></productName>
+		    <cost></cost>
+		    <quantity>0</quantity>
+		</product>
+        </prototype>
+        <subTotal>0</subTotal>
+        <tax>0</tax>
+        <total></total>
+</purchaseOrder>

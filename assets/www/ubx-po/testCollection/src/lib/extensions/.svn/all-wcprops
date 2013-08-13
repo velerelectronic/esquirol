@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/3135/trunk/src/lib/extensions
+END
+output-googleMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2898/trunk/src/lib/extensions/output-googleMap.js
+END
+base-googleMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2958/trunk/src/lib/extensions/base-googleMap.js
+END
+range-googleMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2904/trunk/src/lib/extensions/range-googleMap.js
+END
+input-calendar.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1608/trunk/src/lib/extensions/input-calendar.js
+END
+input-color.js
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/3135/trunk/src/lib/extensions/input-color.js
+END
+hint-googleMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2904/trunk/src/lib/extensions/hint-googleMap.js
+END
+output-calendar.js
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1516/trunk/src/lib/extensions/output-calendar.js
+END

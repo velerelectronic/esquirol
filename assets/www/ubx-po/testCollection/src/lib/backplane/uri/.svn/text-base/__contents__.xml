@@ -1,0 +1,4 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/backplane/uri/.svn/text-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:08-08:00" version="1">
+    <resource type="BinaryResource" name="fragmentParsing.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:08-08:00" modified="2009-12-10T09:18:08-08:00" filename="fragmentParsing.js.svn-base" mimetype="application/octet-stream"/>
+    <resource type="BinaryResource" name="uri.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:08-08:00" modified="2009-12-10T09:18:08-08:00" filename="uri.js.svn-base" mimetype="application/octet-stream"/>
+</collection>

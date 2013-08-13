@@ -1,0 +1,10 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/images" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:22-08:00" version="1">
+    <resource type="BinaryResource" name="buttonBackground.gif" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:23-08:00" modified="2009-11-12T09:48:23-08:00" filename="buttonBackground.gif" mimetype="image/gif"/>
+    <resource type="BinaryResource" name="crayons.jpg" owner="admin" group="dba" mode="755" created="2009-12-10T10:25:12-08:00" modified="2009-12-10T10:25:12-08:00" filename="crayons.jpg" mimetype="image/jpeg"/>
+    <resource type="BinaryResource" name="notebook.png" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:24-08:00" modified="2009-11-12T09:48:24-08:00" filename="notebook.png" mimetype="image/png"/>
+    <resource type="BinaryResource" name="paper.png" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:24-08:00" modified="2009-11-12T09:48:24-08:00" filename="paper.png" mimetype="image/png"/>
+    <resource type="BinaryResource" name="pen.png" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:24-08:00" modified="2009-11-12T09:48:24-08:00" filename="pen.png" mimetype="image/png"/>
+    <resource type="BinaryResource" name="pencil.png" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:24-08:00" modified="2009-11-12T09:48:24-08:00" filename="pencil.png" mimetype="image/png"/>
+    <resource type="BinaryResource" name="testHeaderPurchaseOrder.gif" owner="admin" group="dba" mode="755" created="2009-11-12T09:48:24-08:00" modified="2009-11-12T09:48:24-08:00" filename="testHeaderPurchaseOrder.gif" mimetype="image/gif"/>
+    <subcollection name=".svn" filename=".svn"/>
+</collection>

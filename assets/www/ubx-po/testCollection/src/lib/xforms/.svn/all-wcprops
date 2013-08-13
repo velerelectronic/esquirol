@@ -1,0 +1,377 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/3226/trunk/src/lib/xforms
+END
+setfocus.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2638/trunk/src/lib/xforms/setfocus.js
+END
+modelactions.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2638/trunk/src/lib/xforms/modelactions.js
+END
+item.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/3226/trunk/src/lib/xforms/item.js
+END
+mip-eventtarget.js
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2638/trunk/src/lib/xforms/mip-eventtarget.js
+END
+state.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2638/trunk/src/lib/xforms/state.js
+END
+mip-handler.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3098/trunk/src/lib/xforms/mip-handler.js
+END
+case.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2583/trunk/src/lib/xforms/case.js
+END
+setindex.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2638/trunk/src/lib/xforms/setindex.js
+END
+ajaxslt-improvements.js
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2747/trunk/src/lib/xforms/ajaxslt-improvements.js
+END
+setvalue.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/1888/trunk/src/lib/xforms/setvalue.js
+END
+input-value.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3032/trunk/src/lib/xforms/input-value.js
+END
+ie6-css-selectors-fixer.js
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1516/trunk/src/lib/xforms/ie6-css-selectors-fixer.js
+END
+Submission.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/1795/trunk/src/lib/xforms/Submission.js
+END
+input-value-boolean.js
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3032/trunk/src/lib/xforms/input-value-boolean.js
+END
+xforms-defs.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3205/trunk/src/lib/xforms/xforms-defs.js
+END
+xforms-submission.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3169/trunk/src/lib/xforms/xforms-submission.js
+END
+xf4h.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/1608/trunk/src/lib/xforms/xf4h.js
+END
+container.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2737/trunk/src/lib/xforms/container.js
+END
+HelpMixin.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2638/trunk/src/lib/xforms/HelpMixin.js
+END
+dirtystate.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2638/trunk/src/lib/xforms/dirtystate.js
+END
+pds.js
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/1516/trunk/src/lib/xforms/pds.js
+END
+finite-control.js
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/1516/trunk/src/lib/xforms/finite-control.js
+END
+VertexTargets.js
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2638/trunk/src/lib/xforms/VertexTargets.js
+END
+xforms-core-function-library.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/3093/trunk/src/lib/xforms/xforms-core-function-library.js
+END
+Control.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/3226/trunk/src/lib/xforms/Control.js
+END
+actions.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2804/trunk/src/lib/xforms/actions.js
+END
+Repeat.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/3226/trunk/src/lib/xforms/Repeat.js
+END
+HintMixin.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2568/trunk/src/lib/xforms/HintMixin.js
+END
+insert.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2831/trunk/src/lib/xforms/insert.js
+END
+optional-binding.js
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2638/trunk/src/lib/xforms/optional-binding.js
+END
+submit.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/3134/trunk/src/lib/xforms/submit.js
+END
+TriggerMinimalMixin.js
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3000/trunk/src/lib/xforms/TriggerMinimalMixin.js
+END
+xforms.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/3093/trunk/src/lib/xforms/xforms.js
+END
+conditional-invocation.js
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2148/trunk/src/lib/xforms/conditional-invocation.js
+END
+copy.js
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2638/trunk/src/lib/xforms/copy.js
+END
+select1.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2638/trunk/src/lib/xforms/select1.js
+END
+Instance.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/3088/trunk/src/lib/xforms/Instance.js
+END
+xf-action.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/1860/trunk/src/lib/xforms/xf-action.js
+END
+Switch.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2638/trunk/src/lib/xforms/Switch.js
+END
+toggle.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2146/trunk/src/lib/xforms/toggle.js
+END
+validator.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2656/trunk/src/lib/xforms/validator.js
+END
+LoadExternalMixin.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3088/trunk/src/lib/xforms/LoadExternalMixin.js
+END
+context.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2741/trunk/src/lib/xforms/context.js
+END
+loader-begin.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/1516/trunk/src/lib/xforms/loader-begin.js
+END
+modelObj.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/3097/trunk/src/lib/xforms/modelObj.js
+END
+Header.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/3205/trunk/src/lib/xforms/Header.js
+END
+set-document-loaded.js
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3032/trunk/src/lib/xforms/set-document-loaded.js
+END
+navigable-control.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2733/trunk/src/lib/xforms/navigable-control.js
+END
+delete.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2717/trunk/src/lib/xforms/delete.js
+END
+xforms-loader.js
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/3154/trunk/src/lib/xforms/xforms-loader.js
+END
+model.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2638/trunk/src/lib/xforms/model.js
+END
+commonselect.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/3226/trunk/src/lib/xforms/commonselect.js
+END
+output-value.js
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/3032/trunk/src/lib/xforms/output-value.js
+END
+range-value.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2670/trunk/src/lib/xforms/range-value.js
+END
+loader-end.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/1516/trunk/src/lib/xforms/loader-end.js
+END
+navigable-control-list.js
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2733/trunk/src/lib/xforms/navigable-control-list.js
+END
+Group.js
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2305/trunk/src/lib/xforms/Group.js
+END
+SrcMixin.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/3088/trunk/src/lib/xforms/SrcMixin.js
+END
+select.js
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2809/trunk/src/lib/xforms/select.js
+END
+ie-instance-fixer.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1516/trunk/src/lib/xforms/ie-instance-fixer.js
+END
+xforms-defs-dojo.js
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/1516/trunk/src/lib/xforms/xforms-defs-dojo.js
+END
+pe-value.js
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2638/trunk/src/lib/xforms/pe-value.js
+END

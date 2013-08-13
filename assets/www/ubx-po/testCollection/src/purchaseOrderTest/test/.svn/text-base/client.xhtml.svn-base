@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xforms="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+ <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+    <meta name="AUTHOR" content="Erik A. Johnson" />
+    <title>Purchase Order Application XForm</title>    
+    <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+
+    <script src="format.js" type="text/javascript">/**/</script>
+	<link href="./style/mainStyle.css" rel="stylesheet"></link>
+	<link href="./style/gen_default.css" rel="stylesheet"></link>
+  </head>
+  <body class="yui-skin-sam">
+       <xforms:model id="Inventory">  
+           <!-- Main inventory listing retreived from the eXist database  -->
+           <xforms:instance id='products' src="http://localhost:8080/exist/rest/db/testCollection/testInventorylist.xml"/>
+           <!-- user is never exposed to the actual purchase order table, they mereley get a prototype and send away there request
+           	the Xquery on the server handles this request by taking the submitted request and updating the inventory.
+           	On the admin side, they get a snapshot of the purchases that are entered into the purchases file and these purchases submitted
+           	by the purchaseOrder instance affect the inventory status.-->
+          
+        </xforms:model>
+        <xforms:model id="purchases">
+         <xforms:instance id='purchaseOrder' src="http://localhost:8080/exist/rest/db/testCollection/purchaseOrderTest.xml"/>
+         
+         <xforms:submission id="updatePurchaseOrder" 
+                              method="put" 
+                              includenamespaceprefixes=""
+                              action="http://localhost:8080/exist/rest/db/testCollection/purchaseOrderTest.xml"> <!--need to submit to the xql or soemthing-->
+                <xforms:message ev:event="xforms-submit-error" level="modal" if="event('error-type')!='validation-error'">Unable to submit. Please try again later.</xforms:message>
+                <xforms:message ev:event="xforms-submit-error" level="modal" if="event('error-type')='validation-error'">Some of the data on this form is invalid. Please correct errors and try again.</xforms:message>
+           </xforms:submission>
+        </xforms:model>
+           
+           
+          
+          
+       
+
+  <xforms:output class="title">
+      <xforms:label>Client Purchase Order</xforms:label>
+  </xforms:output>
+ <hr class="rule"/>
+ 
+ <p>This is the client interface for the purchase order system.</p>
+ <br/>
+ <xforms:label>Purchases</xforms:label>
+ <br/>
+ <br/>
+ 
+ 		
+                
+ 
+      <xforms:repeat model="purchases" nodeset="/purchaseOrder/product" id="purchaseTable" startindex="1">
+         
+         	<xforms:select1 model="purchases" ref="/purchaseOrder/product/productName" appearance="minimal">
+                    <xforms:label>Choose product:</xforms:label>
+                    <xforms:itemset model="Inventory" nodeset="/productInventory/product">
+                        <xforms:label>
+						<xforms:output ref="productName"></xforms:output>
+						<!--<xforms:output ref="image" mediatype="image/*"></xforms:output>-->
+			</xforms:label>
+                        <xforms:value ref="@productID"></xforms:value>
+                    </xforms:itemset>
+                </xforms:select1>
+           
+			      <xforms:input ref="productName">
+				<xforms:label>Name:</xforms:label>
+			      </xforms:input>
+			      
+			      <xforms:input ref="cost">
+				<xforms:label>Cost:</xforms:label>
+			      </xforms:input>
+			      
+			      <xforms:input ref="quantity">
+				<xforms:label>Quantitiy:</xforms:label>
+			      </xforms:input>
+	</xforms:repeat>
+	
+	
+	<xforms:submit submission="updatePurchaseOrder" appearance="xf:image">
+	<img src="../pngIcons/Arrow up.png" />
+        <xforms:label>Update</xforms:label>
+    </xforms:submit>
+    
+    <xforms:trigger model="purchases" appearance="xf:image">
+    <img src="../pngIcons/Add.png" />
+        <xforms:label>Add</xforms:label>
+        <xforms:action ev:event="DOMActivate">
+        
+           <!-- Insert a new item after the currently indexed item
+                (the last focused item before this trigger was activated) -->
+           <xforms:insert context="/purchaseOrder" nodeset="product" at="index('purchaseTable')" 
+                          position="after" origin="./prototype/product"></xforms:insert>
+        
+           <!-- Send the focus to the new item in the order table -->
+           <xforms:setfocus control="purchaseTable"></xforms:setfocus>
+        
+        </xforms:action> 
+    </xforms:trigger>
+    
+    <xforms:trigger model="purchases" appearance="xf:image">
+    <img src="../pngIcons/Delete_01.png" />
+    <xforms:label>Delete</xforms:label>
+    <xforms:action ev:event="DOMActivate">
+
+       <!-- Delete the currently indexed item -->
+       <xforms:delete nodeset="product" at="index('purchaseTable')"></xforms:delete>
+
+       <!-- Insert a blank item if the last one was just deleted -->
+       <xforms:insert context="order" origin="../prototype/product" 
+       	              if="count(/productOrder/product)=0"></xforms:insert>
+       
+       <!-- Put the focus to the indexed item of the order table -->
+       <xforms:setfocus control="purchaseTable"></xforms:setfocus>
+       
+    </xforms:action>
+</xforms:trigger>
+
+    
+
+    
+   </body>
+</html>
