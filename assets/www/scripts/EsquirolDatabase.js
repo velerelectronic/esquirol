@@ -269,3 +269,48 @@ function eliminaRecordDatabase(taula,camp,valor) {
         );
     }
 }
+
+
+// Taula N-dimensional
+
+function creaLlistaTaulesDimensionals() {
+	dbShell.transaction(
+		function (tx) {
+		    tx.executeSql('DROP TABLE IF EXISTS llistaTaulesDimensionals');
+		    tx.executeSql('CREATE TABLE llistaTaulesDimensionals (id TEXT PRIMARY KEY,desc TEXT)');
+		}
+	);
+	
+}
+
+function llistaTaulesDimensionals(dataHandler) {
+    dbShell.transaction(
+        function (tx) {
+            tx.executeSql("SELECT * FROM llistaTaulesDimensionals",[],dataHandler,null);
+        }
+    );
+}
+
+function creaTaulaDimensional(nom,camps) {
+	textcamps = '';
+	for (var i=0; i<camps.length; i++) {
+		textcamps += ', camp';
+		textcamps += i.toString();
+		textcamps += ' TEXT'
+	}
+	dbShell.transaction(
+		function (tx) {
+		    tx.executeSql('DROP TABLE IF EXISTS '+nom);
+		    tx.executeSql('CREATE TABLE ' + nom + ' (id INTEGER PRIMARY KEY' + textcamps + ')');
+		    tx.executeSql('INSERT INTO llistaTaulesDimensionals VALUES(?,?)',[nom,nom]);
+		}
+	);
+}
+
+function llistaRegistresTaula(nom,dataHandler) {
+	dbShell.transaction(
+		function (tx) {
+			tx.executeSql('SELECT * FROM '+nom,[],dataHandler,null);
+		}
+	);
+}

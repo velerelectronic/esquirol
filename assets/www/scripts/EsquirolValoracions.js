@@ -1043,3 +1043,123 @@ function DiagramaValoracionsIndividu(arrel,individu) {
 
 }
 
+
+function DiagramaTaulaN (id,parentNode) {
+	var that = this;
+    var titol = id;
+	this.basicwidget = new EsquirolWidget();
+	this.basicwidget.createInitWidget(parentNode);
+
+	this.creaTaulaNdim = function(dim) {
+		
+	}
+	
+	this.mostraControls = function() {
+		var node = this.basicwidget.returnBasicNode();
+
+		var titol = document.createElement('h2');
+		titol.appendChild(document.createTextNode('Taules N-dimensionals'));
+		node.appendChild(titol);
+
+//		creaLlistaTaulesDimensionals();		
+		this.mostraLlista(node);
+
+	}
+
+	this.mostraLlista = function(node) {
+		function converteixLlista(desti,tx,results) {
+			if (results.rows.length==0) {
+				desti.appendChild(document.createTextNode('No hi ha taules dimensionals'));
+			} else {
+				var llista = document.createElement('ul');
+				desti.appendChild(llista);
+				for (var i=0; i<results.rows.length; i++) {
+	                var li = document.createElement('li');
+	                var nomtaula = results.rows.item(i)['id'];
+	                li.appendChild(document.createTextNode(nomtaula ));
+	                li.appendChild(createHiddenInfo('taula',nomtaula));
+	                li.onclick = that.obreTaula;
+	                llista.appendChild(li);
+				}
+			}
+		}
+		
+		var div = document.createElement('div');
+		node.appendChild(div);
+		
+		llistaTaulesDimensionals( function(tx,results) { converteixLlista(div,tx,results); } );
+
+		var boto = document.createElement('button');
+		boto.appendChild(document.createTextNode('Crea taula...'));
+		boto.onclick = this.dialegCrearTaula;
+		node.appendChild(boto);
+	}
+	
+	this.obreTaula = function(e) {
+		var node = that.basicwidget.returnBasicNode();
+		alert(e.currentTarget);
+		that.mostraTaula(recoverHiddenInfo(e.currentTarget,'taula'), node);
+	}
+	
+	this.dialegCrearTaula = function() {
+		var nomtaula = prompt('Nom de la nova taula:');
+		if (nomtaula != null && nomtaula !='') {
+			if (confirm('Nom de la taula: '+nomtaula)) {
+				var mescamps = true;
+				camps = [];
+				while (mescamps) {
+					var noucamp = prompt('Camp '+ (camps.length+1).toString());
+					if (noucamp != null && noucamp != '') {
+						camps.push(noucamp);
+					} else {
+						mescamps = false;
+					}
+				}
+			}
+		}
+		if (confirm('Taula: '+nomtaula + '; camps: ' + camps.toString() + '. Correcte?')) {
+			creaTaulaDimensional(nomtaula,camps);
+		}
+	}
+	
+	this.mostraTaula = function(nom,node) {
+		function converteixLlista(desti,tx,results) {
+			if (results.rows.length==0) {
+				desti.appendChild(document.createTextNode('No hi ha registres'));
+			} else {
+				var taula = document.createElement('table');
+				desti.appendChild(taula);
+				for (var i=0; i<results.rows.length; i++) {
+	                var tr = document.createElement('tr');
+	                var fila = results.rows.item(i);
+	                for (var prop in fila) {
+	                	var td = document.createElement('td');
+	                	tr.appendChild(td);
+		                td.appendChild(document.createTextNode(fila[prop] ));
+	                }
+	                taula.appendChild(tr);
+				}
+			}
+		}
+		
+		var div = document.createElement('div');
+		node.appendChild(div);
+		
+		llistaRegistresTaula( function(tx,results) { converteixLlista(div,tx,results); } );
+
+		var boto = document.createElement('button');
+		boto.appendChild(document.createTextNode('Insereix registre'));
+		boto.onclick = this.dialegInserirRegistre;
+		node.appendChild(boto);
+
+	}
+	
+	this.insereixRegistre = function() {
+		
+	}
+	
+	this.delimitaTaula = function (criteris) {
+		
+	}
+}
+

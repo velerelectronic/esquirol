@@ -142,6 +142,7 @@ function EsquirolMain(dades,menu) {
                  ["document.location='index.html'", 'Inicial'],
                  [that.mostraAnotacions, 'Anotacions'],
                  ['mostraQuadreNovaAnotacio(\'quadre\')', 'Nova anotació'],
+                 [that.mostraTaulaN, 'Taula N-dim'],
                  [that.mostraValoracions, 'Valoracions'],
                  [that.mostraRellotge,'Rellotge'],
                  [that.mostraForms,'Formularis'],
@@ -170,6 +171,13 @@ function EsquirolMain(dades,menu) {
         }
 
         nodemenu.onblur = function(e) { closeMenu(nodemenu); };
+	}
+
+	this.mostraTaulaN = function() {
+        that.tancaMenu();
+        diagtaulan = new DiagramaTaulaN('TaulaN',nodedades);
+        pilatasques.addTask('taulaN',diagtaulan);
+        diagtaulan.mostraControls();		
 	}
 	
     this.actualitzaStatus = function(nouestat) {
