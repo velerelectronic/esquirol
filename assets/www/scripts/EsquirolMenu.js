@@ -1,7 +1,7 @@
 function EsquirolMenu(parentNode) {
 	var that = this;
 	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentNode);
+	this.basicwidget.createInitWidget(parentNode,null);
 	
 	this.handleTouches = function() {
 		this.basicwidget.returnBasicNode().onclick = function(e) {
@@ -20,109 +20,56 @@ function EsquirolMenu(parentNode) {
 */
 	}
 	
-	var creaMenuOpcions = function (lloc, classe, func, text) {
-		var li = document.createElement('li');
-		li.setAttribute('class',classe);
-		li.onclick = func;
-		li.appendChild( document.createTextNode(text) );
-		lloc.appendChild(li);
-	}
-
-	this.creaMenu = function (titol, vectoritems) {
-		var nodemenu = this.basicwidget.returnBasicNode();
-        nodemenu.innerHTML = '';
-        this.openMenu();
-
-		var heading = document.createElement('h2');
-		
-        heading.appendChild( document.createTextNode(titol) );
-        nodemenu.appendChild( heading );
-
-		ul = document.createElement('ul');
-		ul.setAttribute('class','menu');
-		nodemenu.appendChild(ul);
-		
-		for (var i=0; i<vectoritems.length; i++) {
-			creaMenuOpcions(ul, 'opcions', vectoritems[i][0], vectoritems[i][1]);
-		}
-		this.handleTouches();
-
-	}
-
-	this.createMenuFromPileOfTasks = function (titol, func, pila) {
-		var nodemenu = this.basicwidget.returnBasicNode();
-        nodemenu.innerHTML = '';
-        this.openMenu();
-
-		var heading = document.createElement('h2');
-		
-        heading.appendChild( document.createTextNode(titol) );
-        nodemenu.appendChild( heading );
-
-        var quantitat = pila.lengthOfPile();
-        if (quantitat>0) {
-    		ul = document.createElement('ul');
-    		ul.setAttribute('class','menu');
-    		nodemenu.appendChild(ul);
-
-    		for (var i=0; i<quantitat; i++) {
-    			var task = pila.returnTask(i);
-    			var li = document.createElement('li');
-    			li.appendChild(document.createTextNode(task.returnText()));
-    			li.appendChild(document.createTextNode(' '));
-    			li.appendChild(document.createTextNode(task.returnState()));
-    			li.appendChild(createHiddenInfo('select',i+1));
-    			li.onclick = func;
-    			nodemenu.appendChild(li);
-    		}        	
+	// Builds the options for the menu
+	this.creaMenu = function (titol, genCont) {
+		if (this.isMenuOpen()) {
+        	this.closeMenu();
         } else {
-        	var par = document.createElement('p');
-        	par.appendChild( document.createTextNode('No hi ha tasques') );
-        	nodemenu.appendChild(par);
+        	this.openMenu();
+    		var nodemenu = this.basicwidget.returnBasicNode();
+//        	this.basicwidget.returnBasicNode().onclick = that.closeMenu();
+    		
+            nodemenu.innerHTML = '';
+        	var heading = document.createElement('h2');
+    		
+            heading.appendChild( document.createTextNode(titol) );
+            nodemenu.appendChild( heading );
+            nodemenu.appendChild ( genCont() );
+    		this.handleTouches();
         }
 	}
-	
-	this.creaMenuFromIterator = function (titol,func,gen) {
-		var nodemenu = this.basicwidget.returnBasicNode();
-        nodemenu.innerHTML = '';
-        this.openMenu();
 
-		var heading = document.createElement('h2');
-		
-        heading.appendChild( document.createTextNode(titol) );
-        nodemenu.appendChild( heading );
-
-		var next = gen.next();
-		if (next==null) {
-			// No hi ha tasques a la llista
-			var par = document.createElement('p');
-			par.appendChild( document.createTextNode('No hi ha tasques.') );			
-		} else {
-			ul = document.createElement('ul');
-			ul.setAttribute('class','menu');
-			nodemenu.appendChild(ul);
-			
-			while (next != null) {
-				var li = document.createElement('li');
-				li.setAttribute('class',classe);
-				li.onclick = func;
-				li.appendChild( next );
-				lloc.appendChild(li);
-				next = gen.next();
-			}			
+	// Builds a menu from a list
+	this.creaList = function (titol, vectoritems) {
+		var creaMenuOpcions = function (lloc, classe, func, text) {
+			var li = document.createElement('li');
+			li.setAttribute('class',classe);
+			li.onclick = func;
+			li.appendChild( document.createTextNode(text) );
+			lloc.appendChild(li);
 		}
+
+		this.creaMenu (titol,function() {
+			var ul = document.createElement('ul');
+			ul.setAttribute('class','menu');
+			
+			for (var i=0; i<vectoritems.length; i++) {
+				creaMenuOpcions(ul, 'opcions', vectoritems[i][0], vectoritems[i][1]);
+			}
+			return ul;
+		});
 	}
-	
+
 	this.isMenuOpen = function() {
-	    return this.basicwidget.returnBasicNode().parentNode.style.display=='block';
+	    return (this.basicwidget.isVisible());
 	}
 
 	this.openMenu = function() {
-		this.basicwidget.returnBasicNode().parentNode.style.display = 'block';
+		this.basicwidget.showContainer();
 	}
 
 	this.closeMenu = function() {
-		this.basicwidget.returnBasicNode().parentNode.style.display = 'none';
+		this.basicwidget.hideContainer();
 	}
 
 

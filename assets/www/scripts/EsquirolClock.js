@@ -13,6 +13,10 @@ function EsquirolClock(id,parentNode) {
 		return '';
 	}
 	
+	this.showContents = function() {
+		this.mostraTauler();
+	}
+	
 	this.mostraTauler = function() {
 		var node = this.basicwidget.returnBasicNode();
 		var div = document.createElement('div');

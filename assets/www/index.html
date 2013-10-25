@@ -7,7 +7,9 @@
 </script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="ubx-po/testCollection/src/ubiquity-loader.js"></script>
-<script type="text/javascript" charset="utf-8" src="scripts/EsquirolCommon.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolTouch.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolWidget.js"></script>
+<script type="text/javascript" charset="utf-8" src="scripts/EsquirolOptions.js"></script>
 <script type="text/javascript" charset="utf-8" src="scripts/EsquirolMenu.js"></script>
 <script type="text/javascript" charset="utf-8" src="scripts/EsquirolPilaTasques.js"></script>
 <script type="text/javascript" charset="utf-8" src="scripts/AnotadorManual.js"></script>
@@ -27,14 +29,16 @@
 
 <link rel="stylesheet" href="css/styles.css">
 </head>
-<body onload="esquirol = new EsquirolMain('dades','menu'); esquirol.inicia();">
+<body onload="esquirol = new EsquirolMain(); esquirol.inicia('dades','AppBar','menu','status');">
     
 <div id="AppBar">AppName</div>
 
 <div id="menu">
 </div>
 
-<br>
+<div id="status">
+</div>
+
 <div id="quadre">
 </div>
 

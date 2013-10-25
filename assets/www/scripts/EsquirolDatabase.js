@@ -1,20 +1,109 @@
 var coditemporal;
 
-function connectDatabase() {
-    dbShell = window.openDatabase("esquirol","1.0","Base de dades Esquirol",1000000);
+function EsquirolDatabase() {
+	var dbShell;
+	var that = this;
+	
+	this.init = function() {
+	    dbShell = window.openDatabase("esquirol","1.0","Base de dades Esquirol",1000000);		
+	}
 
+	function instantActual() {
+	    var now = new Date();
+	    var format = now.toISOString();
+	    return format;
+	}
+
+	this.creaLlistaTaulesDimensionals = function() {
+		dbShell.transaction(
+			function (tx) {
+			    tx.executeSql('DROP TABLE IF EXISTS llistaTaulesDimensionals');
+			    tx.executeSql('CREATE TABLE llistaTaulesDimensionals (id TEXT PRIMARY KEY,desc TEXT)');
+			},errorCB,successCB
+		);
+		
+	}
+
+	this.llistaTaulesDimensionals = function(dataHandler) {
+	    dbShell.transaction(
+	        function (tx) {
+	            tx.executeSql("SELECT * FROM llistaTaulesDimensionals",[],dataHandler,null);
+	        },errorCB,successCB
+	    );
+	}
+
+	this.InitTaulaNomsCamps = function() {
+		creaTaulaDimensional('NomsCamps',['taula','camp','desc'],['Taula','Camp','Descripci�']);
+	}
+
+	this.creaTaulaDimensional = function (nom,camps,desc) {
+		var textcamps = '';
+		for (var i=0; i<camps.length; i++) {
+			textcamps += ', ' + camps[i];
+			textcamps += ' TEXT';
+		}
+		dbShell.transaction(
+			function (tx) {
+			    tx.executeSql('DROP TABLE IF EXISTS '+nom);
+	    		tx.executeSql('DELETE FROM NomsCamps WHERE taula=?',[nom],successUpdateCB,errorUpdateCB);
+			    tx.executeSql('CREATE TABLE ' + nom + ' (creat TEXT PRIMARY KEY, modif TEXT, ref TEXT' + textcamps + ')');
+			    if (desc!=null) {
+			    	for (var i=0; i<desc.length; i++) {
+			    		var modif = instantActual()
+			    		var instant = modif + "_" + i.toString();
+			    		tx.executeSql('INSERT INTO NomsCamps VALUES(?,?,?,?,?,?)',[instant,instant,'',nom,camps[i],desc[i]]);
+			    	}
+			    }
+			},errorUpdateCB,successUpdateCB
+		);
+	}
+
+	this.llistaRegistresTaula = function(nom,order,limit,dataHandler) {
+		// If order is different from "", then the results will be sorted
+		// If the limit is 0, all the results will be selected
+		dbShell.transaction(
+			function (tx) {
+				var qs = "SELECT * FROM " + nom;
+				if (order != '') {
+					qs += " ORDER BY " + order + " DESC";
+				}
+				if (limit>0) {
+					qs += " LIMIT "+(limit.toString());
+				}
+				tx.executeSql(qs,[],dataHandler,errorCB);
+			},errorCB,successCB
+		);
+	}
+
+	this.afegeixRegistreTaula = function(taula,camps) {
+		dbShell.transaction(
+			function (tx) {
+				var text = '';
+				for (var i=0; i<camps.length; i++) {
+					text += '?,';
+				}
+				text += '?,?,?';
+				var instant = instantActual();
+				tx.executeSql("INSERT INTO " + taula + " VALUES ("+text+")",[instant,instant,''].concat(camps),null,errorCB);
+			},errorUpdateCB,successUpdateCB
+		);		
+	}
+	
+	this.llistaNomsCamps = function (taula,dataHandler) {
+		var camps = [];
+		dbShell.transaction(
+			function (tx) {
+				tx.executeSql("SELECT camp, desc FROM NomsCamps WHERE taula=?",[taula],dataHandler,errorCB);
+			},errorCB,successCB
+		);
+		return camps;
+	}
 }
 
-function instantActual() {
-    var now = new Date();
-    var format = now.toISOString();
-    return format;
-}
 
 
 function reiniciaDB() {
     if (confirm('Reinicia les dades? Això esborrarà tot el que hi hagi a la base de dades.')==true) {
-//    dbShell.transaction(rebuildTableAnotacions,errorCB,successCB);
 //        dbShell.transaction(rebuildTableObjectesValorables,errorCB,successCB);
 //        dbSehll.transaction(rebuildTablesValoracions,errorCB,successCB);
         dbShell.transaction(rebuildTablesValoracions,errorCB,successCB);
@@ -172,19 +261,6 @@ Anotacions
 ******/
 
 
-function rebuildTableAnotacions(tx) {
-    tx.executeSql('DROP TABLE IF EXISTS anotacions');
-    tx.executeSql('CREATE TABLE anotacions (instant TEXT PRIMARY KEY, titol TEXT, text TEXT, grafic BLOB)');
-}
-
-function afegeixGraficAnotacio() {
-	dbShell.transaction(
-		function (tx) {
-			tx.executeSql('ALTER TABLE anotacions ADD COLUMN grafic BLOB');			
-		},errorCB,successCB
-	);
-}
-
 function recordAnotacions(titol,anotacio,grafic) {
     dbShell.transaction(
         function (tx) {
@@ -202,44 +278,20 @@ function deleteAnotacio(instant) {
     );
 }
 
-function readAnotacions(dataHandler) {
-    dbShell.transaction(
-        function (tx) {
-            tx.executeSql('SELECT instant AS instant, titol AS titol, text AS text, grafic AS grafic FROM anotacions ORDER BY instant DESC',[],dataHandler,null);
-        }
-    );
-}
-
-function readSingleAnotacions(instant,dataHandler) {
-    dbShell.transaction(
-        function (tx) {
-            tx.executeSql('SELECT titol AS titol, text AS text FROM anotacions WHERE instant=?',[instant],dataHandler,null);
-        }
-    );
-}
-
-function exportAnotacions() {
-// Cal acabar d'escriure aquesta funcio
-// !!!!!!!!!!!!!!!
-	
-	dbShell.transaction(
-            function (tx) {
-                tx.executeSql('SELECT titol AS titol, text AS text FROM anotacions',[],dataHandler,null);
-            }
-        );
-}
-
-function importAnotacions() {
-	
-}
-
 function errorCB(err) {
-    alert('Error base de dades: ' + err.code);
+    esquirol.actualitzaStatus('Error general en la base de dades: ' + err.code);
+}
+
+function errorUpdateCB(err) {
+    esquirol.actualitzaStatus('Error en canviar la base de dades: ' + err.code);
 }
 
 function successCB() {
+	// Do nothing
+}
+
+function successUpdateCB() {
     esquirol.actualitzaStatus('Base de dades actualitzada');
-//    alert('Base de dades actualitzada');
 }
 
 // Taules
@@ -273,44 +325,3 @@ function eliminaRecordDatabase(taula,camp,valor) {
 
 // Taula N-dimensional
 
-function creaLlistaTaulesDimensionals() {
-	dbShell.transaction(
-		function (tx) {
-		    tx.executeSql('DROP TABLE IF EXISTS llistaTaulesDimensionals');
-		    tx.executeSql('CREATE TABLE llistaTaulesDimensionals (id TEXT PRIMARY KEY,desc TEXT)');
-		}
-	);
-	
-}
-
-function llistaTaulesDimensionals(dataHandler) {
-    dbShell.transaction(
-        function (tx) {
-            tx.executeSql("SELECT * FROM llistaTaulesDimensionals",[],dataHandler,null);
-        }
-    );
-}
-
-function creaTaulaDimensional(nom,camps) {
-	textcamps = '';
-	for (var i=0; i<camps.length; i++) {
-		textcamps += ', camp';
-		textcamps += i.toString();
-		textcamps += ' TEXT'
-	}
-	dbShell.transaction(
-		function (tx) {
-		    tx.executeSql('DROP TABLE IF EXISTS '+nom);
-		    tx.executeSql('CREATE TABLE ' + nom + ' (id INTEGER PRIMARY KEY' + textcamps + ')');
-		    tx.executeSql('INSERT INTO llistaTaulesDimensionals VALUES(?,?)',[nom,nom]);
-		}
-	);
-}
-
-function llistaRegistresTaula(nom,dataHandler) {
-	dbShell.transaction(
-		function (tx) {
-			tx.executeSql('SELECT * FROM '+nom,[],dataHandler,null);
-		}
-	);
-}

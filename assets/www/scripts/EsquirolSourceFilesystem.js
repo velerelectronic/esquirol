@@ -1,22 +1,23 @@
 
 // Funcions per crear una font de sistema de fitxers. Local file system
 
-function EsquirolSourceFilesystem(id) {
-	this.name = '';
-	var that = this;
-	var doc;
-	var node;
-	var directoryEntry;
+function EsquirolSourceFilesystem(id, parentNode) {
 	var titol = id;
+	var that = this;
+	this.basicwidget = new EsquirolWidget();
+	this.basicwidget.createInitWidget(parentNode);
+	
+	this.name = '';
+	this.doc;
+	var node;
+	this.directoryEntry;
 
 	this.returnText = function() {
 		return titol;
 	}
 
-	this.start = function(win, name_, node_, doc_) {
+	this.start = function(win, name_) {
 		this.name = name_;
-		this.doc = doc_;
-		this.node = node_;
 		win.requestFileSystem(LocalFileSystem.PERSISTENT, 0, this.gotFS, this.fail);
 	}
 	
@@ -37,52 +38,59 @@ function EsquirolSourceFilesystem(id) {
 	}
 
 	this.gotFileEntries = function(fileEntries) {
-		that.node.innerHTML = '';
-		var ul = document.createElement('ul');
-		ul['id'] = 'filelist';
-		that.node.appendChild(ul);
-
+		var node = that.basicwidget.returnBasicNode();
+		node.innerHTML = '';
+		var table = document.createElement('table');
+		table['id'] = 'filelist';
+		node.appendChild(table);
+		
 		for (var i=0; i<fileEntries.length; i++) {
 			item = fileEntries[i];
 			if (item['isFile']) {
-				var li = document.createElement('li');
-				ul.appendChild(li);
+				var size;
+				item.file( function(f) { size = f.size.toString(); });
+
+				var tr = document.createElement('tr');
+				table.appendChild(tr);
+
+				var td = document.createElement('td');
+				tr.appendChild(td);
 				var nomfitxer = document.createTextNode(item['name']);
-				li.appendChild(nomfitxer);
-				li.href = item['name'];
-				li.onclick=function(e) { that.showFile(e.currentTarget['href']); };
+				td.appendChild(nomfitxer);
+				td.href = item['name'];
+				td.onclick=function(e) { that.showFile(e.currentTarget['href']); };
+
+				td = document.createElement('td');
+				tr.appendChild(td);
+				td.appendChild( document.createTextNode(size));
+
+				td = document.createElement('td');
+				tr.appendChild(td);
+				var modtime = ''; // item.lastModifiedDate.toLocaleDateString();
+				td.appendChild( document.createTextNode(modtime));
 			}
 		}
 
 	}
 	
 	this.showFile = function(file) {
-		that.directoryEntry.getFile(file,null,that.gotFile,that.fail);
+		this.file = file;
+		that.directoryEntry.getFile(file,{create: false, exclusive: false},that.gotFile,that.fail);
 	}
 	
 	this.gotFileEntry = function(fileEntry) {
 		fileEntry.file(that.gotFile, that.fail);
 	}
 	
-	this.gotFile = function(file) {
-		that.readAsText(file,this.doc);
+	this.gotFile = function(f) {
+		var node = that.basicwidget.returnBasicNode();
+        that.doc = new VisorDocument(node);
+        that.doc.reinicia();
+		that.doc.llegeix(f);
 	}
 	
-	this.readDataUrl = function(file) {
-		var reader = new FileReader();
-		alert("Read as data URL");
-		reader.onloadend = function(evt) {
-			alert(evt.target.result);
-		};
-		reader.readAsDataURL(file);
-	}
-	
-	this.readAsText = function(file,doc) {
-		var reader = new FileReader();
-		reader.onloadend = function(evt) {
-			doc.carrega(evt.target.result);
-		};
-		reader.readAsText(file);
+	this.loaded = function(evt) {
+		
 	}
 	
 	this.fail = function(evt) {

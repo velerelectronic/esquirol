@@ -1,10 +1,12 @@
-function GestorAnotacions(id,parentNode) {
+function GestorAnotacions(id,parentNode,database) {
 	var anotador;
 	var that = this;
 	var taulaAnot;
 	var titol = id;
 	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentNode);
+	this.basicwidget.createInitWidget(parentNode,database);
+	var TAULA = 'anotacions';
+	var db = database;
 
 	this.returnText = function() {
 		return titol;
@@ -14,28 +16,32 @@ function GestorAnotacions(id,parentNode) {
 		return '';
 	}
 	
+	this.inicialitzaTaula = function() {
+		if (confirm('Segur que voleu esborrar la taula i refer-la?')) {
+			// InitTaulaNomsCamps();
+			db.creaTaulaDimensional('anotacions',['titol','desc','imatge'],['T’tol','Descripci—','Imatge']);			
+		}
+	}
+	
+	this.showContents = function() {
+		this.generaQuadreAnotacions();
+	}
 	
 	this.generaQuadreAnotacions = function() {
-	    // node.innerHTML = '';
-
 		var node = this.basicwidget.returnBasicNode();
+	    node.innerHTML = '';
+
+	    this.basicwidget.creaBotoOpcions(node, this.inicialitzaTaula, 'Inicialitza');
 		
 	    var div = document.createElement('div');
 	    node.appendChild(div);
 	    
 	    var input = document.createElement('input');
-	    div.appendChild(input);
-	    input.type = 'button';
-	    input.value = 'Anota...';
-	    
-	    var div2 = document.createElement('div');
-	    div.appendChild(div2);
-	    input.onclick = function(e) { that.creaAnotadorManual(div2); };
-
-	    taulaAnot = document.createElement('table');
-	    taulaAnot.id = 'totesAnotacions';
-	    node.appendChild(taulaAnot);
-	    readAnotacions(this.transformaAnotacionsHTML);
+	    var nav = document.createElement('nav');
+	    div.appendChild(nav);
+	    this.basicwidget.creaBotoOpcions(nav, function(e) { that.creaAnotadorManual(div2); }, 'Nova');
+	    this.basicwidget.creaBotoOpcions(nav, function(e) {}, 'Ordena', 'Filtra');
+	    this.basicwidget.fillBasicTable(node,TAULA,'resumDades');
 	}
 
 	this.creaAnotacioBuida = function() {
@@ -59,37 +65,9 @@ function GestorAnotacions(id,parentNode) {
 
 		td_temps.appendChild(temps);
 		td_anot.appendChild(nodeanotacio);
+
 	}
 	
-	this.transformaAnotacionsHTML = function(tx,results) {
-	    for (var i=0; i<results.rows.length; i++) {
-	        var instant = results.rows.item(i)['instant'];
-
-	        var fila = document.createElement('tr');
-	        fila.id = instant;
-	        taulaAnot.appendChild(fila);
-	        fila.onclick = that.mostraControls;
-
-	        var divanot = document.createElement('div');
-	        var par = document.createElement('p');
-	        par.setAttribute('class','titol');
-	        par.appendChild( document.createTextNode( results.rows.item(i)['titol']) );
-	        divanot.appendChild(par);
-
-	        par = document.createElement('p');
-	        par.innerHTML = results.rows.item(i)['text'];
-	        divanot.appendChild(par);
-
-	        if (results.rows.item(i)['grafic'] != null) {
-		        var img = document.createElement('img');
-		        img.src = results.rows.item(i)['grafic'];	        	
-		        divanot.appendChild(img);
-	        }
-
-	        that.generaFilaHTML(fila,instant,divanot);
-	    }
-	}
-
 	this.enregistraAnotacioAmbGrafic = function(imatge) {
 	    var text = ''; // document.getElementById('anotacio').value;
 	    var titol = document.getElementById('titol').value;

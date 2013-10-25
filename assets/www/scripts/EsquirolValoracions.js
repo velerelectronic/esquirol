@@ -495,8 +495,12 @@ function DiagramaValoracions(id,parentNode) {
 		var text = diagramagrups.returnState();
 		return text;
 	}
+
+	this.showContents = function() {
+		this.mostraQuadreValoracions();
+	}
 	
-    
+   
     this.showCriteriaForIndividuals = function(base,criteri) {
     	var tds = base.querySelectorAll("td[class='criteris']");
     	for (var i=0; i<tds.length; i++) {
@@ -523,8 +527,7 @@ function DiagramaValoracions(id,parentNode) {
     }
     
     this.mostraQuadreValoracions = function() {
-    	var node = this.basicwidget.returnBasicNode();
-        var that = this;
+		var node = this.basicwidget.returnBasicNode();
         var form;
         // node.innerHTML = '';
 
@@ -533,8 +536,7 @@ function DiagramaValoracions(id,parentNode) {
         form = document.createElement('form');
         node.appendChild(form);
         
-        diagramagrups.mostraTaula(form);
-
+        diagramagrups.mostraTaula(form);		
     };
 
 

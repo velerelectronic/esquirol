@@ -29,6 +29,7 @@ function EsquirolPilaTasques() {
 			hideTask(selectedtask);
 		}
 		selectedtask = this.lengthOfPile();
+		object.showContents();
 	}
 	
 	this.removeTask = function(pos) {
@@ -45,6 +46,14 @@ function EsquirolPilaTasques() {
 		var node = returnTaskNode(index);		
 		node.style.visibility = 'hidden';
 		node.style.display = 'none';		
+	}
+	
+	this.returnCurrentTask = function() {
+		if (selectedtask>0) {
+			return pila[selectedtask-1][0];			
+		} else {
+			return null;
+		}
 	}
 	
 	var returnTaskNode = function(taskIndex) {

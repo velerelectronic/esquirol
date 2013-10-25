@@ -30,6 +30,9 @@
 	padding: 1ex;
 }
 
+#menu {
+	z-index: 100;
+}
 
 #menu li {
 	padding: 1ex;
@@ -319,17 +322,22 @@ div#documentarea {
 }
 
 /*
-------------
- Anotacions
-------------
+--------------
+ Resums dades
+--------------
 */
 
-table#totesAnotacions {
+table.resumDades {
 	border-collapse: collapse;
 }
 
-#totesAnotacions tr {
+.resumDades tr {
 	border-bottom: dashed 2pt green;
+}
+
+.resumDades th {
+	padding-top: 1ex;
+	padding-bottom: 1ex;
 }
 
 tr#control td {
@@ -440,4 +448,8 @@ Clock
 	padding: 1ex;
 	text-align: center;
 	display: inline;
+}
+
+*[contenteditable=true] {
+	border: solid 1pt black;
 }
