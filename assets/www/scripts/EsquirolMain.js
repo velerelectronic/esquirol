@@ -149,7 +149,6 @@ function EsquirolMain() {
         nodestatus.appendChild(div);
         div.appendChild( document.createTextNode(nouestat));
         window.clearTimeout(timeout);
-        openQuadre(nodestatus);
         timeout = window.setTimeout(that.esborraStatus,3000);
     }
     

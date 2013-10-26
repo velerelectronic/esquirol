@@ -31,7 +31,7 @@ function GestorAnotacions(id,parentNode,database) {
 		var node = this.basicwidget.returnBasicNode();
 	    node.innerHTML = '';
 
-	    this.basicwidget.creaBotoOpcions(node, this.inicialitzaTaula, 'Inicialitza');
+	    this.basicwidget.creaBotoOpcions(node, 'Inicialitza',this.inicialitzaTaula);
 		
 	    var div = document.createElement('div');
 	    node.appendChild(div);
@@ -39,8 +39,8 @@ function GestorAnotacions(id,parentNode,database) {
 	    var input = document.createElement('input');
 	    var nav = document.createElement('nav');
 	    div.appendChild(nav);
-	    this.basicwidget.creaBotoOpcions(nav, function(e) { that.creaAnotadorManual(div2); }, 'Nova');
-	    this.basicwidget.creaBotoOpcions(nav, function(e) {}, 'Ordena', 'Filtra');
+	    this.basicwidget.creaBotoOpcions(nav, 'Ordena', function(e) {});
+	    this.basicwidget.creaBotoOpcions(nav, 'Filtra', function(e) {});
 	    this.basicwidget.fillBasicTable(node,TAULA,'resumDades');
 	}
 
@@ -77,10 +77,6 @@ function GestorAnotacions(id,parentNode,database) {
 	    alert('Desat')
 	}
 
-
-	this.creaAnotadorManual = function(node) {
-		anotador = new AnotadorManual(node,this.enregistraAnotacioAmbGrafic);
-	}
 
 	this.mostraControls = function(e) {
 		// Show a row with the controls to make a copy of an annotation

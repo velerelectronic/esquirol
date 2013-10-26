@@ -329,15 +329,27 @@ div#documentarea {
 
 table.resumDades {
 	border-collapse: collapse;
+	border: solid 1pt green;
 }
 
 .resumDades tr {
-	border-bottom: dashed 2pt green;
+	border-bottom: solid 1pt green;
 }
 
 .resumDades th {
-	padding-top: 1ex;
-	padding-bottom: 1ex;
+	padding: 1ex;
+	border: dotted 1px green;	
+	background-color: yellow;
+}
+
+.resumDades td {
+	padding: 1ex;
+	border: dotted 1px green;	
+}
+
+.resumDades td[contenteditable=true] {
+	border: solid 2pt blue;
+	background-color: yellow;
 }
 
 tr#control td {

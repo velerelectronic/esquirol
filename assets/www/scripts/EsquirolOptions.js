@@ -21,11 +21,11 @@ function EsquirolOptions(parentNode) {
 		node.appendChild(botons);
 
 		//var tmp = EsquirolWidget();
-		basicwidget.creaBotoOpcions(botons, func_opcions, 'Menu');
-		basicwidget.creaBotoOpcions(botons, func_tasques, 'Tsk');
-		basicwidget.creaBotoOpcions(botons, func_act, 'Act');
-		basicwidget.creaBotoOpcions(botons, func_comp, 'Sha');
-		basicwidget.creaBotoOpcions(botons, function() { alert(document.documentElement.innerHTML); },'TOT');
+		basicwidget.creaBotoOpcions(botons, 'Menu', func_opcions);
+		basicwidget.creaBotoOpcions(botons, 'Tsk', func_tasques);
+		basicwidget.creaBotoOpcions(botons, 'Act', func_act);
+		basicwidget.creaBotoOpcions(botons, 'Sha', func_comp);
+		basicwidget.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
 		
 //		node.addEventListener('touchstart',function() { basicwidget.touch.touchStart(event,"AppBar"); }, false);
 //		node.addEventListener('touchend', function() { basicwidget.touch.touchEnd(event); }, false);
