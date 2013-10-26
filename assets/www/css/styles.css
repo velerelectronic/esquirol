@@ -349,7 +349,7 @@ table.resumDades {
 
 .resumDades td[contenteditable=true] {
 	border: solid 2pt blue;
-	background-color: yellow;
+	background-color: rgb(200,200,200);
 }
 
 tr#control td {

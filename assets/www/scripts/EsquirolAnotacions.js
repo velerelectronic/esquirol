@@ -7,6 +7,9 @@ function GestorAnotacions(id,parentNode,database) {
 	this.basicwidget.createInitWidget(parentNode,database);
 	var TAULA = 'anotacions';
 	var db = database;
+	var tables = new EsquirolTables(database);
+
+	tables.setTableName(TAULA);
 
 	this.returnText = function() {
 		return titol;
@@ -29,19 +32,10 @@ function GestorAnotacions(id,parentNode,database) {
 	
 	this.generaQuadreAnotacions = function() {
 		var node = this.basicwidget.returnBasicNode();
-	    node.innerHTML = '';
 
-	    this.basicwidget.creaBotoOpcions(node, 'Inicialitza',this.inicialitzaTaula);
-		
-	    var div = document.createElement('div');
-	    node.appendChild(div);
-	    
-	    var input = document.createElement('input');
-	    var nav = document.createElement('nav');
-	    div.appendChild(nav);
-	    this.basicwidget.creaBotoOpcions(nav, 'Ordena', function(e) {});
-	    this.basicwidget.creaBotoOpcions(nav, 'Filtra', function(e) {});
-	    this.basicwidget.fillBasicTable(node,TAULA,'resumDades');
+		node.innerHTML = '';
+
+	    tables.fillBasicTable(node,'resumDades');
 	}
 
 	this.creaAnotacioBuida = function() {
@@ -193,6 +187,3 @@ function enregistraAnotacio() {
 }
 
 
-function nouGraficAnotacio() {
-	
-}
