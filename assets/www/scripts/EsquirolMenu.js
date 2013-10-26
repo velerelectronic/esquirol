@@ -47,6 +47,7 @@ function EsquirolMenu(parentNode) {
 			li.onclick = func;
 			li.appendChild( document.createTextNode(text) );
 			lloc.appendChild(li);
+			lloc.onclick = function(e) { that.closeMenu(); };
 		}
 
 		this.creaMenu (titol,function() {

@@ -4,18 +4,84 @@ function EsquirolTables(database) {
 	var db = database;
 	var tablename;
 	var tablenamealt;
+	var controlrow = null;
+	var hihacanvis = false;
+	var newrow = false;
 	
 	this.setTableName = function(name) {
 		tablename = name;
 	}
 
-	var newEditableRow = function(creat,columns) {
+	function removeRow(row) {
+		row.parentNode.removeChild(row);
+	}
+	
+	function closeControlRow() {
+		var tancada = true;
+		if (controlrow != null) {
+			// We must check if something must be done...
+			if (hihacanvis) {
+				if (!confirm('Es perdran els canvis. Segur?')) {
+					tancada = false;
+				}
+			}
+			if (tancada) {
+				// Remove the control row
+				removeRow(controlrow);
+				controlrow = null;
+				hihacanvis = false;
+				newrow = false;
+			}				
+		}
+		return tancada;
+	}
+
+	function controlMode(fila) {
+		// Delete all the control rows
+		var parent = fila.parentNode;
+		var numcols = fila.getElementsByTagName('td').length;
+
+		if (closeControlRow()) {
+			// Create new control row
+			controlrow = document.createElement('tr');
+			controlrow.className = 'control';
+			var td = document.createElement('td');
+			td.colSpan = numcols + 1;
+			controlrow.appendChild(td);
+			parent.insertBefore(controlrow, fila.nextSibling);
+
+			if (newrow) {
+				editMode(fila);
+			} else {
+				creaBotoOpcions(td, 'Edita', function(e) { editMode(fila); });
+				creaBotoOpcions(td,
+					'Duplica',
+					function(e) {
+						var novafila = fila.cloneNode(true);
+						var td = novafila.children[0];
+						td.innerHTML='';
+						if (closeControlRow()) {
+							parent.insertBefore(novafila, parent.children[0]);
+							newrow = true;
+							controlMode(novafila);
+						}
+					});
+				creaBotoOpcions(td,
+					'Cancela',
+					function(e) {
+						closeControlRow();
+					});				
+			}
+		}
+	}
+
+	function newEditableRow (creat,columns) {
 		// Create row
         var fila = document.createElement('tr');
         fila['id'] = creat;
 
         fila.onclick = function(e) {
-        	that.openControlRow(e);
+        	controlMode(e.currentTarget);
         };
 
         // Fill in the details
@@ -31,12 +97,9 @@ function EsquirolTables(database) {
         }
         return fila;
 	}
+
 	
-	var newControlRow = function() {
-		
-	}
-	
-	var creaBotoOpcions = function(lloc,text,func) {
+	function creaBotoOpcions (lloc,text,func) {
 		var btn = document.createElement('button');
 		btn['class'] = 'botoOpcions';
 		btn.onclick = function (e) { e.stopPropagation(); func(); };
@@ -44,11 +107,11 @@ function EsquirolTables(database) {
 		lloc.appendChild(btn);
 	}
 	
-	var addHiddenInfo = function(node,label,value) {
+	function addHiddenInfo (node,label,value) {
 		node.setAttribute('data-'+label,value);
 	}
 	
-	var getHiddenInfo = function(node,label) {
+	function getHiddenInfo (node,label) {
 		return node.getAttribute('data-'+label);
 	}
 	
@@ -109,6 +172,17 @@ function EsquirolTables(database) {
 			creaBotoOpcions(td, 'Mostra-ho tot', function() { that.fillTable(tbody, 0); });
 			creaBotoOpcions(td, '+',
 					function(e) {
+						if (closeControlRow()) {
+							var camps = [];
+							for (var i=0; i<numcols; i++) {
+								camps.push('');
+							}
+							var novafila = newEditableRow('',camps);
+							tbody.insertBefore(novafila, tbody.children[0]);
+							newrow = true;
+							controlMode(novafila);
+						}
+				
 						var node = e.currentTarget.parentNode.parentNode;
 						camps = [];
 						var nextnode = node.firstChild.nextElementSibling;
@@ -159,7 +233,7 @@ function EsquirolTables(database) {
 		var column = getHiddenInfo(node, 'column');
 	}
 
-	var toggleEditable = function(basenode,option) {
+	function toggleEditable (basenode,option) {
 		var nodes = basenode.getElementsByTagName('td');
 		for (var i=1; i<nodes.length; i++) {
 			var item = nodes[i];
@@ -167,91 +241,51 @@ function EsquirolTables(database) {
 		}
 	}
 
-	function closeAllControlRows(collection) {
-		var llista = collection.querySelectorAll('tr[class="control"]');
-		for (var i=0; i<llista.length; i++) {
-			toggleEditable(llista[i].previousSibling,'false');
-			collection.removeChild( llista[i] );
-		}			
-	}
 
+
+	
 	function closeEditRow(fila) {
 
 	}
 	
 
-	this.openControlRow = function(e) {
-		// Delete all the control rows
-		var node = e.currentTarget;
-		var parent = node.parentNode;
-		var numcols = node.getElementsByTagName('td').length;
 
-		function removeRow(fila) {
-			fila.parentNode.removeChild(fila);
-		}
+	function editMode(fila) {
+		// Set the edit focus on the previous row
+		toggleEditable(fila,'true');
+		var td = controlrow.children[0];
+		td.innerHTML = '';
+		hihacanvis = true;
 		
-		function setEditRow(fila) {
-			var td = fila.children[0];
-			var savecontents = td.textContent;
-			td.textContent = '';
-			creaBotoOpcions(td,
+		creaBotoOpcions(td,
 				'Desa',
 				function() {
 					// Save the data in the cells of the same row
 					var camps = [];
 					var neighboors = fila.children;
 					for (i=1; i<neighboors.length; i++) {
-						alert(neighboors[i].textContent);
 						camps.push(neighboors[i].textContent);
 					}
 					db.afegeixRegistreTaula(tablename, camps);
-					td.textContent = savecontents;
 					toggleEditable(fila,'false');
+					hihacanvis = false;
+					closeControlRow();
 				});
-			creaBotoOpcions(td,
-					'Esborra',
-					function(e) {
-						alert('Esborra');
+		creaBotoOpcions(td,
+				'Esborra',
+				function(e) {
+					if (closeControlRow()) {
+						removeRow(fila);
+					}
+				});
+		if (!newrow) {
+			creaBotoOpcions(td, 'Cancela', 
+					function() {
+						if (closeControlRow()) {
+							toggleEditable(fila,'false');					
+						}
 					});
-			creaBotoOpcions(td, 'Cancela',
-				function() {
-					td.textContent = savecontents;
-					toggleEditable(fila,'false');				
-				});
-			toggleEditable(fila,'true');
 		}
-		
-		closeAllControlRows(parent);
-		var control = document.createElement('tr');
-		control.className = 'control';
-		var td = document.createElement('td');
-		td.colSpan = numcols + 1;
-		control.appendChild(td);
-		parent.insertBefore(control, node.nextSibling);
-
-		creaBotoOpcions(td,
-			'Edita',
-			function(e) {
-				// Remove the control row
-				removeRow(control);
-				// Set the edit focus on the previous row
-				setEditRow(node);
-			});
-		creaBotoOpcions(td,
-			'Duplica',
-			function(e) {
-				var tr = node.cloneNode(true);
-				var td = tr.children[0];
-				td.innerHTML='';
-				closeAllControlRows(parent);
-				parent.insertBefore(tr, parent.children[0]);
-				setEditRow(tr);
-			});
-		creaBotoOpcions(td,
-			'Tanca',
-			function(e) {
-				alert('Cancela');
-			});
 	}
 
 }

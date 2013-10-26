@@ -348,7 +348,7 @@ table.resumDades {
 }
 
 .resumDades td[contenteditable=true] {
-	border: solid 2pt blue;
+	border-color: blue;
 	background-color: rgb(200,200,200);
 }
 
