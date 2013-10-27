@@ -7,7 +7,7 @@ function GestorAnotacions(id,parentNode,database) {
 	this.basicwidget.createInitWidget(parentNode,database);
 	var TAULA = 'anotacions';
 	var db = database;
-	var tables = new EsquirolTables(database);
+	var tables = new EsquirolTable(database);
 
 	tables.setTableName(TAULA);
 

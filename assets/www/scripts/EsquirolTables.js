@@ -1,24 +1,85 @@
-function EsquirolTables(database) {
+function EsquirolTable(database) {
 	// Class for handling several tables simultaneously
 	var that = this;
 	var db = database;
 	var tablename;
-	var tablenamealt;
-	var controlrow = null;
-	var hihacanvis = false;
-	var newrow = false;
+	var numcols;
 	
+	var editRow = null;
+	var controlRow = null;
+	var newRow = null;
+	var hihacanvis = false;
+
+	var EDITABLE = 'editableRow';
+	var CONTROL = 'controlRow';
+	var EDITING = 'editingRow';
+	var NEWEDIT = 'newEditRow';
+	var POSSIBLE = 'possibleRow';
+
 	this.setTableName = function(name) {
 		tablename = name;
 	}
 
-	function removeRow(row) {
-		row.parentNode.removeChild(row);
+	function newPossibleRow (numcols) {
+		var camps = [];
+		for (var i=0; i<numcols; i++) {
+			camps.push('');
+		}
+		var tr = newEditableRow ('',camps);
+		tr.className = POSSIBLE;
+
+		return tr;
+	}
+
+	function newEditableRow (creat,columns) {
+		// Create row
+        var fila = document.createElement('tr');
+        fila.className = EDITABLE;
+        fila['id'] = creat;
+
+        fila.onclick = function (e) { controlMode(e.currentTarget); };
+        
+        // Fill in the details
+        var td = document.createElement('td');
+        fila.appendChild(td);
+        td.appendChild( document.createTextNode(creat));
+        
+        // Fill in the columns
+        for (var i=0; i<columns.length; i++) {
+        	var td = document.createElement('td');
+        	fila.appendChild(td);
+        	td.onclick = function(e) {
+        		if (e.currentTarget.parentNode.className == EDITING) {
+            		e.stopPropagation();
+        		}
+        	};
+        	td.appendChild( document.createTextNode(columns[i]));
+        }
+        return fila;
 	}
 	
+
+	function newControlRow (numcols) {
+		var row = document.createElement('tr');
+		row.className = CONTROL;
+		var td = document.createElement('td');
+		td.colSpan = numcols + 1;
+		row.appendChild(td);
+		return row;
+	}
+	
+	function newFooterRow (numcols,tbody) {
+		var fila = document.createElement('tr');
+		var td = document.createElement('td');
+		td.colSpan = (numcols + 1).toString();
+		fila.appendChild(td);
+		creaBotoOpcions(td, 'Mostra-ho tot', function() { that.fillTable(tbody, 0); });
+		return fila;
+	}
+
 	function closeControlRow() {
 		var tancada = true;
-		if (controlrow != null) {
+		if (controlRow != null) {
 			// We must check if something must be done...
 			if (hihacanvis) {
 				if (!confirm('Es perdran els canvis. Segur?')) {
@@ -27,10 +88,9 @@ function EsquirolTables(database) {
 			}
 			if (tancada) {
 				// Remove the control row
-				removeRow(controlrow);
-				controlrow = null;
+				controlRow.parentNode.removeChild(controlRow);
+				controlRow = null;
 				hihacanvis = false;
-				newrow = false;
 			}				
 		}
 		return tancada;
@@ -39,31 +99,27 @@ function EsquirolTables(database) {
 	function controlMode(fila) {
 		// Delete all the control rows
 		var parent = fila.parentNode;
-		var numcols = fila.getElementsByTagName('td').length;
+		numcols = fila.getElementsByTagName('td').length;
 
 		if (closeControlRow()) {
 			// Create new control row
-			controlrow = document.createElement('tr');
-			controlrow.className = 'control';
-			var td = document.createElement('td');
-			td.colSpan = numcols + 1;
-			controlrow.appendChild(td);
-			parent.insertBefore(controlrow, fila.nextSibling);
+			controlRow = newControlRow(numcols);
+			parent.insertBefore(controlRow, fila.nextSibling);
 
-			if (newrow) {
+			if (fila.className == POSSIBLE) {
+				// This means, the row affected is really a new row. So we must enter the edit mode.
 				editMode(fila);
 			} else {
+				var td = controlRow.children[0];
 				creaBotoOpcions(td, 'Edita', function(e) { editMode(fila); });
 				creaBotoOpcions(td,
 					'Duplica',
 					function(e) {
-						var novafila = fila.cloneNode(true);
-						var td = novafila.children[0];
-						td.innerHTML='';
 						if (closeControlRow()) {
-							parent.insertBefore(novafila, parent.children[0]);
-							newrow = true;
-							controlMode(novafila);
+							for (var i=1; i<numcols; i++) {
+								newRow.children[i].textContent = fila.children[i].textContent;
+							}
+							controlMode(newRow);
 						}
 					});
 				creaBotoOpcions(td,
@@ -75,29 +131,11 @@ function EsquirolTables(database) {
 		}
 	}
 
-	function newEditableRow (creat,columns) {
-		// Create row
-        var fila = document.createElement('tr');
-        fila['id'] = creat;
-
-        fila.onclick = function(e) {
-        	controlMode(e.currentTarget);
-        };
-
-        // Fill in the details
-        var td = document.createElement('td');
-        fila.appendChild(td);
-        td.appendChild( document.createTextNode(creat));
-        
-        // Fill in the columns
-        for (var i=0; i<columns.length; i++) {
-        	var td = document.createElement('td');
-        	fila.appendChild(td);
-        	td.appendChild( document.createTextNode(columns[i]));
-        }
-        return fila;
+	function changeRowContents(row,contents) {
+		for (var i=1; i<contents.length; i++) {
+			row.children[i].textContent = contents[i];
+		}
 	}
-
 	
 	function creaBotoOpcions (lloc,text,func) {
 		var btn = document.createElement('button');
@@ -114,7 +152,7 @@ function EsquirolTables(database) {
 	function getHiddenInfo (node,label) {
 		return node.getAttribute('data-'+label);
 	}
-	
+
 
 	this.fillBasicTable = function(desti,tableClass) {
 		// Basic buttons
@@ -143,9 +181,12 @@ function EsquirolTables(database) {
 		taulaAnot.appendChild(tfoot);
 
 		db.llistaNomsCamps(tablename, function(tx,results) {
-			var numcols = 0;
 			var camps = [];
-			
+
+			// Number of columns
+			numcols = results.rows.length;
+
+			// Build the table header
 	    	var fila = document.createElement('tr');
 			thead.appendChild(fila);
 			var th = document.createElement('th');
@@ -153,7 +194,7 @@ function EsquirolTables(database) {
 			th.appendChild( document.createTextNode('Detalls') );
 			th.onclick = that.columnOptions;
 			addHiddenInfo(th, 'column', 'details');
-			numcols = results.rows.length
+
 			for (var i=0; i<numcols; i++) {
 				th = document.createElement('th');
 				fila.appendChild(th);
@@ -163,46 +204,22 @@ function EsquirolTables(database) {
 				camps.push(results.rows.item(i)['camp']);
 			}
 
-			// Build the footer for the table
-			fila = document.createElement('tr');
-			tfoot.appendChild(fila);
-			var td = document.createElement('td');
-			td.colSpan = (numcols + 1).toString();
-			fila.appendChild(td);
-			creaBotoOpcions(td, 'Mostra-ho tot', function() { that.fillTable(tbody, 0); });
-			creaBotoOpcions(td, '+',
-					function(e) {
-						if (closeControlRow()) {
-							var camps = [];
-							for (var i=0; i<numcols; i++) {
-								camps.push('');
-							}
-							var novafila = newEditableRow('',camps);
-							tbody.insertBefore(novafila, tbody.children[0]);
-							newrow = true;
-							controlMode(novafila);
-						}
-				
-						var node = e.currentTarget.parentNode.parentNode;
-						camps = [];
-						var nextnode = node.firstChild.nextElementSibling;
-						while (nextnode != null) {
-							camps.push(nextnode.innerHTML);
-							nextnode = nextnode.nextElementSibling;
-						}
-						db.afegeixRegistreTaula(tablename,camps);
-					});
+			that.fillTable(tbody,5);
 			
+			// Build the footer for the table
+			var fila = newFooterRow(numcols,tbody);
+			tfoot.appendChild(fila);		
 		});
-		
-		this.fillTable(tbody,5);
 	}
-	
+
+
 	this.fillTable = function(tbody, limit) {
 		// Remove the contents in tbody
 		tbody.innerHTML = '';
-		var numcols;
-		
+		// Special row for inserting new row
+		newRow = newPossibleRow(numcols);
+		tbody.appendChild(newRow);
+
 	    db.llistaRegistresTaula(tablename, 'creat', limit, function(tx,results) {
 	    	var numreg = results.rows.length;
 	    	if (numreg>0) {
@@ -247,13 +264,12 @@ function EsquirolTables(database) {
 	function closeEditRow(fila) {
 
 	}
+
 	
-
-
 	function editMode(fila) {
 		// Set the edit focus on the previous row
-		toggleEditable(fila,'true');
-		var td = controlrow.children[0];
+		var previousClass = fila.className;
+		var td = controlRow.children[0];
 		td.innerHTML = '';
 		hihacanvis = true;
 		
@@ -271,21 +287,36 @@ function EsquirolTables(database) {
 					hihacanvis = false;
 					closeControlRow();
 				});
-		creaBotoOpcions(td,
+		if (previousClass != POSSIBLE) {
+			creaBotoOpcions(td,
 				'Esborra',
 				function(e) {
 					if (closeControlRow()) {
 						removeRow(fila);
+						toggleEditable(fila,'false');
 					}
 				});
-		if (!newrow) {
-			creaBotoOpcions(td, 'Cancela', 
-					function() {
-						if (closeControlRow()) {
-							toggleEditable(fila,'false');					
-						}
-					});
 		}
+		creaBotoOpcions(td, 'Cancela', 
+				function() {
+					if (closeControlRow()) {
+						toggleEditable(fila,'false');
+						fila.className = previousClass;
+					}
+				});
+		fila.className = EDITING;
+		toggleEditable(fila,'true');
+	}
+
+	function insertMode(e) {
+		// We must open a control row
+		var cell = e.currentTarget;
+		var row = cell.parentNode;
+		newrow = true;
+		controlMode(row);
+		
+		// Focus on the cell pressed
+		alert(cell);
 	}
 
 }

@@ -465,3 +465,24 @@ Clock
 *[contenteditable=true] {
 	border: solid 1pt black;
 }
+
+
+/* =============
+   Types of rows
+   =============
+   */
+
+.controlRow td {
+	border-style: inset;
+	border-width: 1ex;
+	border-color: green;	
+}
+
+.possibleRow td {
+	color: gray;
+	background-color: rgb(200,255,200);
+}
+
+.possibleRow td:before {
+	content: "[...]";
+}
