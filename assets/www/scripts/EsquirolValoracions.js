@@ -462,7 +462,7 @@ function DiagramaGrups() {
     
 
 	this.mostraTaula = function(form) {
-		listGroups(function(tx,results) { that.printGeneralTableGroups(tx, results, form); } );
+		db.listGroups(function(tx,results) { that.printGeneralTableGroups(tx, results, form); } );
 	}
         
 

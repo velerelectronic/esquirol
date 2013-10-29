@@ -14,6 +14,22 @@ function EsquirolDatabase() {
 	    return format;
 	}
 
+	function errorCB(err) {
+	    esquirol.actualitzaStatus('Error general en la base de dades: ' + err.code);
+	}
+
+	function errorUpdateCB(err) {
+	    esquirol.actualitzaStatus('Error en canviar la base de dades: ' + err.code);
+	}
+
+	function successCB() {
+		// Do nothing
+	}
+
+	function successUpdateCB() {
+	    esquirol.actualitzaStatus('Base de dades actualitzada');
+	}
+
 	this.creaLlistaTaulesDimensionals = function() {
 		dbShell.transaction(
 			function (tx) {
@@ -75,7 +91,7 @@ function EsquirolDatabase() {
 		);
 	}
 
-	this.afegeixRegistreTaula = function(taula,camps) {
+	this.afegeixRegistreTaula = function(taula,camps,ref) {
 		dbShell.transaction(
 			function (tx) {
 				var text = '';
@@ -84,9 +100,27 @@ function EsquirolDatabase() {
 				}
 				text += '?,?,?';
 				var instant = instantActual();
-				tx.executeSql("INSERT INTO " + taula + " VALUES ("+text+")",[instant,instant,''].concat(camps),null,errorCB);
+				tx.executeSql("INSERT INTO " + taula + " VALUES ("+text+")",[instant,instant,(ref==null)?instant:ref].concat(camps),null,errorCB);
+				if (ref!=null) {
+					alert('Actualitzat el registre');
+				}
 			},errorUpdateCB,successUpdateCB
 		);		
+	}
+	
+	this.actualitzaRegistreTaula = function(taula,id,camps,valors) {
+/*
+		dbShell.transaction(
+			function (tx) {
+				var text = 'UPDATE ' + taula + ' ';
+				for (var i=0; i<camps.length; i++) {
+					text += camps[i]+'=? ';
+				}
+				text += 'WHERE creat=?';
+				tx.executeSql(text,[i] + valors,null,errorCB);
+			},errorUpdateCB,successUpdateCB
+		);
+*/
 	}
 	
 	this.llistaNomsCamps = function (taula,dataHandler) {
@@ -98,17 +132,21 @@ function EsquirolDatabase() {
 		);
 		return camps;
 	}
-}
+
+    /**************************************
+     * A partir d'aqu� cal revisar-ho tot *
+     **************************************
+     ****/
 
 
-
-function reiniciaDB() {
-    if (confirm('Reinicia les dades? Això esborrarà tot el que hi hagi a la base de dades.')==true) {
-//        dbShell.transaction(rebuildTableObjectesValorables,errorCB,successCB);
-//        dbSehll.transaction(rebuildTablesValoracions,errorCB,successCB);
-        dbShell.transaction(rebuildTablesValoracions,errorCB,successCB);
-    }
-}
+	
+	this.reiniciaDB = function() {
+	    if (confirm('Reinicia les dades? Això esborrarà tot el que hi hagi a la base de dades.')==true) {
+	//        dbShell.transaction(rebuildTableObjectesValorables,errorCB,successCB);
+	//        dbSehll.transaction(rebuildTablesValoracions,errorCB,successCB);
+	        dbShell.transaction(rebuildTablesValoracions,errorCB,successCB);
+	    }
+	}
 
 /******
 ===================
@@ -116,7 +154,7 @@ Objectes valorables
 ===================
 ******/
 
-function rebuildTableObjectesValorables(tx) {
+this.rebuildTableObjectesValorables = function(tx) {
     tx.executeSql('DROP TABLE IF EXISTS agrupamentsObjectes');
     tx.executeSql('DROP TABLE IF EXISTS grupsObjectes');
     tx.executeSql('DROP TABLE IF EXISTS objectesValorables');
@@ -125,7 +163,7 @@ function rebuildTableObjectesValorables(tx) {
     tx.executeSql('CREATE TABLE agrupamentsObjectes (codi INTEGER PRIMARY KEY, codiGrup TEXT, codiObjecte TEXT)');
 }
 
-function recordObjectesValorables(objectes) {
+this.recordObjectesValorables = function(objectes) {
     dbShell.transaction(
         function (tx) {
             for (var i=0; i<objectes.length; i++) {
@@ -135,7 +173,7 @@ function recordObjectesValorables(objectes) {
     );
 }
 
-function listIndividusByGroup(group, dataHandler) {
+this.listIndividusByGroup = function(group, dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql('SELECT o.codi AS codi, o.nom1 AS nom1, o.nom2 AS nom2, o.nom3 AS nom3, o.text AS text, COUNT(assig.criteri) AS valoracions FROM objectesValorables AS o, agrupamentsObjectes AS g, assignacionsValoracio AS assig WHERE g.codiObjecte=o.codi AND assig.individu=o.codi AND g.codiGrup=? GROUP BY o.codi ORDER BY o.codi',[group],dataHandler,null);
@@ -143,7 +181,7 @@ function listIndividusByGroup(group, dataHandler) {
     );
 }
 
-function listIndividusValorables(dataHandler) {
+this.listIndividusValorables = function (dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql('SELECT o.codi, o.nom1, o.nom2, o.nom3, o.text FROM objectesValorables AS o ORDER BY o.codi',[],dataHandler,null);
@@ -151,7 +189,7 @@ function listIndividusValorables(dataHandler) {
     );
 }
 
-function listGroups(dataHandler) {
+this.listGroups = function (dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql('SELECT g.codi AS codi, g.desc AS desc, COUNT(o.codiObjecte) AS individus FROM grupsObjectes AS g, agrupamentsObjectes AS o WHERE g.codi=o.codiGrup GROUP BY o.codiGrup',[], dataHandler, null);
@@ -159,7 +197,7 @@ function listGroups(dataHandler) {
     );
 }
 
-function saveGroup(codi,desc) {
+this.saveGroup = function (codi,desc) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("INSERT INTO grupsObjectes VALUES(?,?)", [codi,desc]);
@@ -169,7 +207,7 @@ function saveGroup(codi,desc) {
 
 
 
-function recordGrupsObjectes(grups) {
+this.recordGrupsObjectes = function (grups) {
     dbShell.transaction(
         function (tx) {
             for (var i in grups) {
@@ -180,14 +218,13 @@ function recordGrupsObjectes(grups) {
     );
 }
 
-
 /******
 ======================
 Criteris i Valoracions
 ======================
 ******/
 
-function rebuildTablesValoracions(tx) {
+this.rebuildTablesValoracions = function(tx) {
 //    tx.executeSql('DROP TABLE IF EXISTS criterisValoracio');
 //    tx.executeSql('CREATE TABLE criterisValoracio (id TEXT, desc TEXT)');
 //    tx.executeSql('DROP TABLE IF EXISTS rangCriteris');
@@ -196,7 +233,7 @@ function rebuildTablesValoracions(tx) {
     tx.executeSql('CREATE TABLE assignacionsValoracio (instant TEXT PRIMARY KEY, criteri TEXT, individu TEXT, valor TEXT)');
 }
 
-function listCriterisValoracio(dataHandler) {
+this.listCriterisValoracio = function (dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("SELECT id, desc FROM criterisValoracio",[],dataHandler,null);
@@ -204,7 +241,7 @@ function listCriterisValoracio(dataHandler) {
     );
 }
 
-function saveCriteriValoracio(codi,desc) {
+this.saveCriteriValoracio = function(codi,desc) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("INSERT INTO criterisValoracio VALUES(?,?)", [codi,desc]);
@@ -212,7 +249,7 @@ function saveCriteriValoracio(codi,desc) {
     );
 }
 
-function saveAssignacioValoracio(instant,criteri,individu,valor) {
+this.saveAssignacioValoracio = function(instant,criteri,individu,valor) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("INSERT INTO assignacionsValoracio VALUES(?,?,?,?)", [instant,criteri,individu,valor]);
@@ -220,7 +257,7 @@ function saveAssignacioValoracio(instant,criteri,individu,valor) {
     );    
 }
 
-function deleteAssignacioValoracio(instant) {
+this.deleteAssignacioValoracio = function(instant) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("DELETE FROM assignacionsValoracio WHERE instant=?",[instant]);
@@ -228,7 +265,7 @@ function deleteAssignacioValoracio(instant) {
     );
 }
 
-function listAssignacionsValoracio(limit,dataHandler) {
+this.listAssignacionsValoracio = function(limit,dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql('SELECT instant AS instant, criteri AS criteri, individu AS individu, valor AS valor FROM assignacionsValoracio ORDER BY instant DESC LIMIT ?',[limit],dataHandler,null);
@@ -236,7 +273,7 @@ function listAssignacionsValoracio(limit,dataHandler) {
     );
 }
 
-function listAssignacionsValoracioPerIndividu(codi,dataHandler) {
+this.listAssignacionsValoracioPerIndividu = function(codi,dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql('SELECT instant AS instant, criteri AS criteri, valor AS valor FROM assignacionsValoracio WHERE individu=? ORDER BY instant DESC',[codi],dataHandler,null);
@@ -244,7 +281,7 @@ function listAssignacionsValoracioPerIndividu(codi,dataHandler) {
     );
 }
 
-function listAssignacionsValoracioPerIndividuGrup(codiInd,codiGr,dataHandler) {
+this.listAssignacionsValoracioPerIndividuGrup = function(codiInd,codiGr,dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql('SELECT instant AS instant, criteri AS criteri, valor AS valor FROM assignacionsValoracio WHERE individu=? AND ORDER BY instant DESC',[codi],dataHandler,null);
@@ -252,7 +289,7 @@ function listAssignacionsValoracioPerIndividuGrup(codiInd,codiGr,dataHandler) {
     );
 }
 
-function listAssignacionsValoracioPerCriteri() {
+this.listAssignacionsValoracioPerCriteri = function() {
 }
 
 
@@ -261,7 +298,7 @@ Anotacions
 ******/
 
 
-function recordAnotacions(titol,anotacio,grafic) {
+this.recordAnotacions = function (titol,anotacio,grafic) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("INSERT INTO anotacions (instant, titol, text, grafic) VALUES(?,?,?,?)",[instantActual(),titol,anotacio,grafic]);
@@ -270,7 +307,7 @@ function recordAnotacions(titol,anotacio,grafic) {
 }
 
 
-function deleteAnotacio(instant) {
+this.deleteAnotacio = function(instant) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("DELETE FROM anotacions WHERE instant=?",[instant]);
@@ -278,25 +315,9 @@ function deleteAnotacio(instant) {
     );
 }
 
-function errorCB(err) {
-    esquirol.actualitzaStatus('Error general en la base de dades: ' + err.code);
-}
-
-function errorUpdateCB(err) {
-    esquirol.actualitzaStatus('Error en canviar la base de dades: ' + err.code);
-}
-
-function successCB() {
-	// Do nothing
-}
-
-function successUpdateCB() {
-    esquirol.actualitzaStatus('Base de dades actualitzada');
-}
-
 // Taules
 
-function listTables(dataHandler) {
+this.listTables = function(dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("SELECT tbl_name FROM sqlite_master WHERE type='table' and name!='__WebKitDatabaseInfoTable__'",[],dataHandler,null);
@@ -304,7 +325,7 @@ function listTables(dataHandler) {
     );
 }
 
-function queryTable(tableName,dataHandler) {
+this.queryTable = function(tableName,dataHandler) {
     dbShell.transaction(
         function (tx) {
             tx.executeSql("SELECT * FROM '"+tableName+"'",[],dataHandler,null);
@@ -312,7 +333,7 @@ function queryTable(tableName,dataHandler) {
     );
 }
 
-function eliminaRecordDatabase(taula,camp,valor) {
+this.eliminaRecordDatabase = function(taula,camp,valor) {
     if (confirm("S'esborrarà el camp '" + camp + "' amb valor '" + valor + "' dins la taula '"+taula+"'. Vols continuar?")) {
         dbShell.transaction(
             function (tx) {
@@ -322,6 +343,5 @@ function eliminaRecordDatabase(taula,camp,valor) {
     }
 }
 
-
-// Taula N-dimensional
+}
 

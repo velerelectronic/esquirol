@@ -1,15 +1,19 @@
-function GestorAnotacions(id,parentNode,database) {
+function GestorAnotacions(id,parentNode,database,tipus) {
 	var anotador;
 	var that = this;
 	var taulaAnot;
 	var titol = id;
 	this.basicwidget = new EsquirolWidget();
 	this.basicwidget.createInitWidget(parentNode,database);
-	var TAULA = 'anotacions';
+	var TABLEANOT = 'anotacions';
+	var TABLEVALOR = 'graellaavaluacio';
 	var db = database;
-	var tables = new EsquirolTable(database);
+	var table_anot = new EsquirolTable(database);
+	var table_valor = new EsquirolTable(database);
+	var type = tipus;
 
-	tables.setTableName(TAULA);
+	table_anot.setTableName(TABLEANOT);
+	table_valor.setTableName(TABLEVALOR);
 
 	this.returnText = function() {
 		return titol;
@@ -19,171 +23,34 @@ function GestorAnotacions(id,parentNode,database) {
 		return '';
 	}
 	
-	this.inicialitzaTaula = function() {
-		if (confirm('Segur que voleu esborrar la taula i refer-la?')) {
-			// InitTaulaNomsCamps();
-			db.creaTaulaDimensional('anotacions',['titol','desc','imatge'],['Títol','Descripció','Imatge']);			
-		}
-	}
-	
 	this.showContents = function() {
 		this.generaQuadreAnotacions();
 	}
 	
+	this.inicialitzaTaula = function() {
+		if (confirm('Segur que voleu esborrar la taula i refer-la?')) {
+			// InitTaulaNomsCamps();
+			// db.creaTaulaDimensional('anotacions',['titol','desc','imatge'],['Títol','Descripció','Imatge']);
+			db.creaTaulaDimensional(TABLEVALOR,
+					['grup','alumne','data','criteri','valor','comentaris'],
+					['Grup','Alumne','Data','Criteri de valoració','Valor','Comentaris']
+			);
+
+		}
+	}
+	
+
 	this.generaQuadreAnotacions = function() {
 		var node = this.basicwidget.returnBasicNode();
 
 		node.innerHTML = '';
 
-	    tables.fillBasicTable(node,'resumDades');
+		if (type==1) {
+			table_anot.fillBasicTable(node,'resumDades');
+		} else {
+			table_valor.botoInicialitza(node,this.inicialitzaTaula);
+			table_valor.fillBasicTable(node,'resumDades');
+		}
 	}
-
-	this.creaAnotacioBuida = function() {
-		var fila = document.createElement('tr');
-		var td_temps = document.createElement('td');
-		var td_anot = document.createElement('td');
-	}
-	
-	this.generaFilaHTML = function(fila,instant,nodeanotacio) {
-        var td_temps = document.createElement('td');
-        var td_anot = document.createElement('td');
-
-        td_temps.setAttribute('class','temps');
-        td_anot.setAttribute('class','anotacio');
-
-        fila.appendChild(td_temps);
-		fila.appendChild(td_anot);
-
-		var temps = document.createTextNode(instant);
-		var par = document.createElement('p');
-
-		td_temps.appendChild(temps);
-		td_anot.appendChild(nodeanotacio);
-
-	}
-	
-	this.enregistraAnotacioAmbGrafic = function(imatge) {
-	    var text = ''; // document.getElementById('anotacio').value;
-	    var titol = document.getElementById('titol').value;
-	    var grafic = imatge;
-	    
-	    recordAnotacions(titol,text,grafic);
-	    alert('Desat')
-	}
-
-
-	this.mostraControls = function(e) {
-		// Show a row with the controls to make a copy of an annotation
-		
-	    var node = e.currentTarget;
-
-	    var instantPrevi = node.id;
-	    
-	    var taula = node.parentNode;
-	    
-	    var controlrow = document.createElement('tr');
-
-	    // Only one "control" id at a time
-	    controlrow.id = 'control';
-	    
-	    var td_edit = document.createElement('td');
-	    td_edit.setAttribute('colspan','2');
-	    td_edit.setAttribute('class','editcontrols');
-	    controlrow.appendChild(td_edit);
-
-	    taula.insertBefore(controlrow,node.nextSibling);
-
-	    // Add a copy button
-	    var btnCopia = document.createElement('input');
-	    btnCopia.type = 'button';
-	    btnCopia.value = 'Copia';
-	    btnCopia.onclick = function(e) { that.quadreCopiaAnotacio(node,td_edit); };
-	    td_edit.appendChild(btnCopia);
-	    
-	    // Add a delete button
-	    var btnDelete = document.createElement('input');
-	    btnDelete.type = 'button';
-	    btnDelete.value = 'Elimina';
-	    btnDelete.onclick = function(e) { that.borraAnotacio(instantPrevi,node,controlrow); };
-	    td_edit.appendChild(btnDelete);
-
-	    // Add a cancel button
-	    var btnCancel = document.createElement('input');
-	    btnCancel.type = 'button';
-	    btnCancel.value = 'Tanca';
-	    btnCancel.onclick = function(e) { closeControl('control'); };
-	    td_edit.appendChild(btnCancel);
-
-	}
-
-	this.borraAnotacio = function(instantPrevi,nodeInfo,nodeEdit) {
-		// Delete an annotation based on 'instantPrevi'
-	    if (confirm("S'eliminar√† l'anotaci√≥ de la base de dades. N'est√†s segur?")) {
-	        deleteAnotacio(instantPrevi);
-	        nodeInfo.parentNode.removeChild(nodeInfo);
-	        nodeEdit.parentNode.removeChild(nodeEdit);
-//	        alert('Anotaci√≥ esborrada.');
-	    }
-	}
-
-	this.quadreCopiaAnotacio = function (nodeInfo,nodeEdit) {
-		// A dialog to copy the contents of an annotation into another one
-
-	    nodeEdit.innerHTML = '';
-	    
-	    var instantPrevi = nodeInfo.id;
-	    
-	    var h = document.createElement('h2')
-	    h.appendChild( document.createTextNode('Afegeix anotaci√≥') );
-	    nodeEdit.appendChild(h);
-	    
-	    nodeEdit.appendChild( document.createTextNode('T√≠tol') );
-	    var input = document.createElement('input');
-	    input.setAttribute('id','titol');
-
-	    nodeEdit.appendChild(input);
-	    var textarea = document.createElement('textarea');
-	    textarea.setAttribute('id','anotacio');
-
-	    nodeEdit.appendChild(textarea);
-	    var btn = document.createElement('input');
-	    btn.setAttribute('type','button');
-	    btn.setAttribute('value','Enregistra');
-	    btn.setAttribute('onclick','enregistraAnotacio()');
-	    nodeEdit.appendChild(btn);
-
-	    var btnCancel = document.createElement('input')
-	    btnCancel.setAttribute('type','button');
-	    btnCancel.setAttribute('value','Cancela');
-	    btnCancel.onclick = function(e) { nodeEdit.parentNode.parentNode.removeChild(nodeEdit.parentNode); };
-	    nodeEdit.appendChild(btnCancel);
-
-	    if (instantPrevi) {
-	        readSingleAnotacions(instantPrevi,transformaDadesAnotacio);
-	    }
-	}
-
 }
-
-
-
-function transformaDadesAnotacio(tx,results) {
-    var node1 = document.getElementById('titol');
-    var node2 = document.getElementById('anotacio');
-    if (results.rows.length==1) {
-        node1.setAttribute('value',results.rows.item(0)['titol']);
-        node2.appendChild(document.createTextNode(results.rows.item(0)['text']));
-    }    
-}
-
-
-
-
-function enregistraAnotacio() {
-    var text = document.getElementById('anotacio').value;
-    var titol = document.getElementById('titol').value;
-    recordAnotacions(titol,text,null);
-    closeControl('control');
-}
-
 

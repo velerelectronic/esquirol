@@ -10,40 +10,40 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	this.name = '';
 	this.doc;
 	var node;
-	this.directoryEntry;
+	var fileSystem;
+	var dirEntry;
 
 	this.returnText = function() {
 		return titol;
 	}
 
-	this.start = function(win, name_) {
-		this.name = name_;
-		win.requestFileSystem(LocalFileSystem.PERSISTENT, 0, this.gotFS, this.fail);
-	}
-	
-	this.listFiles = function() {
-		dirEntry.createReader();
-	}
-	
-	this.gotFS = function(fileSystem) {
-		fileSystem.root.getDirectory(that.name, null, that.gotDirectory, that.fail);
-		
-//		fileSystem.root.getFile(that.name, null, that.gotFileEntry, that.fail);
+	this.getFileSystem = function() {
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) { fileSystem = fs; }, this.fail);
 	}
 
-	this.gotDirectory = function(dirEntry) {
-		dirReader = dirEntry.createReader();
-		that.directoryEntry = dirEntry;
-		dirReader.readEntries(that.gotFileEntries,that.fail);
+	this.getDirectoryEntry = function(name) {
+		this.name = name;
+		fileSystem.root.getDirectory(this.name, null, function(de) { dirEntry = de; },this.fail);
+	}
+	
+	this.getFileEntries = function() {
+		var dirReader = dirEntry.createReader();
+		dirReader.readEntries(gotFileEntries,that.fail);		
 	}
 
-	this.gotFileEntries = function(fileEntries) {
+	this.showContents = function() {
+		this.getFileSystem();
+		this.getDirectoryEntry('/storage/emulated/legacy/documents/Esquirol');
+		this.getFileEntries();
+	}	
+
+	function gotFileEntries (fileEntries) {
 		var node = that.basicwidget.returnBasicNode();
 		node.innerHTML = '';
 		var table = document.createElement('table');
 		table['id'] = 'filelist';
 		node.appendChild(table);
-		
+
 		for (var i=0; i<fileEntries.length; i++) {
 			item = fileEntries[i];
 			if (item['isFile']) {
@@ -70,23 +70,21 @@ function EsquirolSourceFilesystem(id, parentNode) {
 				td.appendChild( document.createTextNode(modtime));
 			}
 		}
-
 	}
 	
 	this.showFile = function(file) {
 		this.file = file;
-		that.directoryEntry.getFile(file,{create: false, exclusive: false},that.gotFile,that.fail);
-	}
-	
-	this.gotFileEntry = function(fileEntry) {
-		fileEntry.file(that.gotFile, that.fail);
-	}
-	
-	this.gotFile = function(f) {
-		var node = that.basicwidget.returnBasicNode();
-        that.doc = new VisorDocument(node);
-        that.doc.reinicia();
-		that.doc.llegeix(f);
+		dirEntry.getFile(
+				file,
+				{create: false, exclusive: false},
+				// Got file
+				function (f) {
+					var node = that.basicwidget.returnBasicNode();
+			        that.doc = new VisorDocument(node);
+			        that.doc.reinicia();
+					that.doc.llegeix(f);
+				},
+				that.fail);
 	}
 	
 	this.loaded = function(evt) {

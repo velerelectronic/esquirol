@@ -45,39 +45,39 @@ function EsquirolMain() {
 
     // Show annotations
     this.mostraAnotacions = function () {
-        that.tancaMenu();
-        gestoranotacions = new GestorAnotacions('Anotacions',nodedades,database);
+        gestoranotacions = new GestorAnotacions('Anotacions',nodedades,database,1);
         pilatasques.addTask('anotacions',gestoranotacions);
-    }
+    };
 
     this.mostraValoracions = function () {
-        that.tancaMenu();
+        gestoranotacions = new GestorAnotacions('Anotacions',nodedades,database,2);
+        pilatasques.addTask('anotacions',gestoranotacions);    	
+    }
+    this.mostraValoracions2 = function () {
         diagvaloracio = new DiagramaValoracions('Valoracions',nodedades);
         pilatasques.addTask('anotacions',diagvaloracio);
-    }
+    };
 
     this.mostraRellotge = function () {
     	that.tancaMenu();
     	var rell = new EsquirolClock('Rellotge',nodedades);
     	pilatasques.addTask('rellotge',rell);
-    }
+    };
     
     this.mostraForms = function () {
     	that.tancaMenu();
     	var forms = new EsquirolForms('Formularis',nodedades);
     	pilatasques.addTask('formularis',forms);
     	forms.mostraForm();
-    }
+    };
     
 	this.mostraDocuments = function () {
 		that.tancaMenu();
 
         // Build a space to read documents from the local file system
         var docslocalfilesystem = new EsquirolSourceFilesystem('Sistema de fitxers',nodedades);
-        pilatasques.addTask('sistemafitxers', docslocalfilesystem);
-        
-        docslocalfilesystem.start(window,'/storage/emulated/0/documents/Esquirol/');
-	}
+        pilatasques.addTask('sistemafitxers', docslocalfilesystem);        
+	};
 	
 	
     this.tancaMenu = function() {
@@ -88,8 +88,8 @@ function EsquirolMain() {
     	mainmenu.creaList('Opcions',[
                      ["document.location='index.html'", 'Inicial'],
                      [that.mostraAnotacions, 'Anotacions'],
-                     ['mostraQuadreNovaAnotacio(\'quadre\')', 'Nova anotació'],
                      [that.mostraValoracions, 'Valoracions'],
+                     [that.mostraValoracions2, 'Valoracions'],
                      [that.mostraRellotge,'Rellotge'],
                      [that.mostraForms,'Formularis'],
                      ['exportaHTML()', 'Exporta'],
@@ -111,6 +111,7 @@ function EsquirolMain() {
     	mainmenu.creaMenu('Tasques',
     		function () {
     			var r;
+    			alert('aqui');
                 var quantitat = pila.lengthOfPile();
                 if (quantitat>0) {
             		ul = document.createElement('ul');
@@ -153,6 +154,6 @@ function EsquirolMain() {
     }
     
     this.esborraStatus = function() {
-        closeQuadre(nodestatus);
+
     }
 }

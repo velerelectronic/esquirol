@@ -289,23 +289,22 @@ Files
 ------------
 */
 
-ul#filelist {
-	list-style-type: none;
-	display: block;
-	left: 0;
-	right: 0;
+#filelist {
 	margin: 1ex;
-	overflow-x: auto;
-	position: fixed;
-	top: 4em;
 	white-space: nowrap;
+	border-collapse: collapse;
 }
 
-ul#filelist li {
-	display: inline-block;
+#filelist td {
 	padding: 1ex;
-	background-color: rgb(200,200,255);
-	margin: 1ex;
+}
+
+#filelist tr:nth-child(even) {
+	background-color: rgb(220,220,255);
+}
+	
+#filelist tr:nth-child(odd) {
+	background-color: rgb(240,240,255);
 }
 
 /*

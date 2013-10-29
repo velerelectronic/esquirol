@@ -20,7 +20,7 @@ function EsquirolTable(database) {
 		tablename = name;
 	}
 
-	function newPossibleRow (numcols) {
+	function newPossibleRow () {
 		var camps = [];
 		for (var i=0; i<numcols; i++) {
 			camps.push('');
@@ -42,6 +42,7 @@ function EsquirolTable(database) {
         // Fill in the details
         var td = document.createElement('td');
         fila.appendChild(td);
+        addHiddenInfo(td,'id',creat);
         td.appendChild( document.createTextNode(creat));
         
         // Fill in the columns
@@ -59,7 +60,7 @@ function EsquirolTable(database) {
 	}
 	
 
-	function newControlRow (numcols) {
+	function newControlRow () {
 		var row = document.createElement('tr');
 		row.className = CONTROL;
 		var td = document.createElement('td');
@@ -68,7 +69,7 @@ function EsquirolTable(database) {
 		return row;
 	}
 	
-	function newFooterRow (numcols,tbody) {
+	function newFooterRow (tbody) {
 		var fila = document.createElement('tr');
 		var td = document.createElement('td');
 		td.colSpan = (numcols + 1).toString();
@@ -99,11 +100,10 @@ function EsquirolTable(database) {
 	function controlMode(fila) {
 		// Delete all the control rows
 		var parent = fila.parentNode;
-		numcols = fila.getElementsByTagName('td').length;
 
 		if (closeControlRow()) {
 			// Create new control row
-			controlRow = newControlRow(numcols);
+			controlRow = newControlRow();
 			parent.insertBefore(controlRow, fila.nextSibling);
 
 			if (fila.className == POSSIBLE) {
@@ -147,17 +147,19 @@ function EsquirolTable(database) {
 	
 	function addHiddenInfo (node,label,value) {
 		node.setAttribute('data-'+label,value);
-	}
+	};
 	
 	function getHiddenInfo (node,label) {
 		return node.getAttribute('data-'+label);
-	}
+	};
 
 
-	this.fillBasicTable = function(desti,tableClass) {
+	this.botoInicialitza = function (desti,funcInit) {
 		// Basic buttons
-	    creaBotoOpcions(desti, 'Inicialitza',this.inicialitzaTaula);
-		
+	    creaBotoOpcions(desti, 'Inicialitza',funcInit);		
+	}
+	
+	this.fillBasicTable = function(desti,tableClass) {
 	    var div = document.createElement('div');
 	    desti.appendChild(div);
 	    
@@ -207,7 +209,7 @@ function EsquirolTable(database) {
 			that.fillTable(tbody,5);
 			
 			// Build the footer for the table
-			var fila = newFooterRow(numcols,tbody);
+			var fila = newFooterRow(tbody);
 			tfoot.appendChild(fila);		
 		});
 	}
@@ -217,7 +219,7 @@ function EsquirolTable(database) {
 		// Remove the contents in tbody
 		tbody.innerHTML = '';
 		// Special row for inserting new row
-		newRow = newPossibleRow(numcols);
+		newRow = newPossibleRow();
 		tbody.appendChild(newRow);
 
 	    db.llistaRegistresTaula(tablename, 'creat', limit, function(tx,results) {
@@ -227,7 +229,6 @@ function EsquirolTable(database) {
 	    		for (var camp in results.rows.item(0)) {
 	    			camps.push(camp);
 	    		}
-	    		numcols = camps.length;
 	    		
 		        for (var i=0; i<numreg; i++) {
 		        	var item = results.rows.item(i);
@@ -236,7 +237,7 @@ function EsquirolTable(database) {
 			        var ref = item['ref'];
 
 			        var items = [];
-			        for (var j=3; j<numcols; j++) {
+			        for (var j=3; j<numcols+3; j++) {
 			        	items.push(item[camps[j]]);
 			        }
 			        tbody.appendChild( newEditableRow(item['creat'],items) );
@@ -274,7 +275,7 @@ function EsquirolTable(database) {
 		hihacanvis = true;
 		
 		creaBotoOpcions(td,
-				'Desa',
+				(previousClass == POSSIBLE) ? 'Desa': 'Actualitza',
 				function() {
 					// Save the data in the cells of the same row
 					var camps = [];
@@ -282,7 +283,13 @@ function EsquirolTable(database) {
 					for (i=1; i<neighboors.length; i++) {
 						camps.push(neighboors[i].textContent);
 					}
-					db.afegeixRegistreTaula(tablename, camps);
+					if (previousClass == POSSIBLE) {
+						db.afegeixRegistreTaula(tablename, camps, null);						
+					} else {
+						var ref = getHiddenInfo(neighboors[0],'id');
+						alert(ref);
+						db.afegeixRegistreTaula(tablename, camps, ref);
+					}
 					toggleEditable(fila,'false');
 					hihacanvis = false;
 					closeControlRow();
