@@ -12,6 +12,26 @@ function EsquirolMain() {
     
     this.AppName = function() { return 'Esquirol 0.5'; };
     
+    function PaginaInicial(id,parentNode,db) {
+    	var titol = id;
+    	this.basicwidget = new EsquirolWidget();
+    	this.basicwidget.createInitWidget(parentNode,db);
+
+    	this.returnText = function() {
+    		return titol;
+    	}
+    	
+    	this.returnState = function() {
+    		return '';
+    	}
+    	
+    	this.showContents = function() {
+    		var node = this.basicwidget.returnBasicNode();
+    		node.innerHTML = "<p>Benvingut a Esquirol, el programa gestor d'anotacions!</p><p>Tria una de les opcions que hi ha la capçalera d'aquesta p&agrave;gina per comen&ccedil;ar a treballar.</p>";
+    	}
+    	
+    };
+    
     // Methods
     
     this.inicia = function(dades,bar,menu,status) {
@@ -43,9 +63,15 @@ function EsquirolMain() {
         nodestatus = document.getElementById(status);
     }
 
+    this.mostraInicial = function() {
+    	var inicial = new PaginaInicial('Pàgina inicial',nodedades,database);
+    	pilatasques.addTask('inicial',inicial);
+    };
+    
+    
     // Show annotations
     this.mostraAnotacions = function () {
-        gestoranotacions = new GestorAnotacions('Anotacions',nodedades,database,1);
+        var gestoranotacions = new GestorAnotacions('Anotacions',nodedades,database,1);
         pilatasques.addTask('anotacions',gestoranotacions);
     };
 
@@ -86,7 +112,7 @@ function EsquirolMain() {
     
     this.mostraMenuOpcions = function() {
     	mainmenu.creaList('Opcions',[
-                     ["document.location='index.html'", 'Inicial'],
+                     [that.mostraInicial, 'Inicial'],
                      [that.mostraAnotacions, 'Anotacions'],
                      [that.mostraValoracions, 'Valoracions'],
                      [that.mostraValoracions2, 'Valoracions'],
@@ -139,7 +165,7 @@ function EsquirolMain() {
     	// mainmenu.creaMenuFromIterator('Tasques',that.canviaTasca,new pilatasques.generateList());
 	}
 
-	this.mostraCompartir = function() {
+	this.mostraMenuCompartir = function() {
 //		mainmenu.closeMenu();
         pilatasques.returnCurrentTask().basicwidget.saveAsHTML();
 	}

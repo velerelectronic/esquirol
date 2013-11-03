@@ -1,135 +1,284 @@
-function EsquirolTable(database) {
+function SearchFilters (parentWidget,database) {
+	var that = this;
+	var basicwidget = new EsquirolWidget();
+	basicwidget.createInitWidget(parentWidget);
+	var db = database;
+	var searchArray = [];
+	var actionLabels;
+	var actionFiltersChange;
+	
+	this.addActionLabels = function(action) {
+		actionLabels = action;
+	}
+	
+	this.addActionFiltersChange = function(action) {
+		actionFiltersChange = action;
+	}
+	
+	this.showFilters = function() {
+		var node = basicwidget.returnBasicNode();
+		node.innerHTML = '';
+		for (var i=0; i<searchArray.length; i++) {
+			var div = document.createElement('div');
+			div.className = 'filter';
+			node.appendChild(div);
+			var field = searchArray[i][0];
+			var value = searchArray[i][1];
+			div.textContent = field + ": '" + value + "'";
+			basicwidget.addHiddenInfo(div, 'field', field);
+			basicwidget.addHiddenInfo(div, 'value', value);
+			div.onclick = function(e) {
+				var node = e.currentTarget;
+				var f = basicwidget.getHiddenInfo(node,'field');
+				var v = basicwidget.getHiddenInfo(node,'value');
+				actionLabels(node,f,v);
+			};
+		}
+	}
+	
+	this.addFilter = function(field,value) {
+		searchArray.push([field,value]);
+		this.showFilters();
+		actionFiltersChange();
+	}
+
+	this.substituteFilter = function(field,value) {
+		for (var i=0; i<searchArray.length; i++) {
+			if (searchArray[i][0] == field) {
+				searchArray[i][1] = value;
+			}
+		}
+		this.showFilters();
+		actionFiltersChange();
+	}
+	
+	this.deleteFilter = function(field) {
+		for (var i=0; i<searchArray.length; i++) {
+			if (searchArray[i][0] == field) {
+				searchArray.splice(i,1);
+			}
+		}
+		this.showFilters();
+		actionFiltersChange();
+	}
+
+	this.getTextFromFilters = function(field) {
+		var value = '';
+		for (var i=0; i<searchArray.length; i++) {
+			if (searchArray[i][0] == field) {
+				value = searchArray[i][1];
+			}
+		}
+		return value;
+	}
+	
+	this.toSqlFilter = function() {
+		var camps = [];
+		var filterStr = " WHERE";
+		for (var i=0; i<searchArray.length; i++) {
+			filterStr += " " + searchArray[i][0] + "=? AND";
+			camps.push(searchArray[i][1]);
+		}
+		filterStr += " 1=1";
+		return [filterStr,camps];
+	}
+}
+
+function rowEditor(id,parentWidget) {
+	var that = this;
+	var titol = id;
+	this.basicwidget = new EsquirolWidget();
+	this.basicwidget.createInitWidget(parentWidget);
+	var originCells;
+	var editCells = [];
+	var rowid;
+
+	this.openEditor = function(origin,rowid,fieldNames,filters,actionSave,actionDel,actionClose) {
+		originCells = origin;
+		editCells = [];
+		var table = document.createElement('table');
+		table.className = 'edit';
+		var node = this.basicwidget.returnBasicNode();
+		node.className = 'editor';
+		node.innerHTML = '';
+		node.appendChild(table);
+
+		// Print the ROW ID
+		var tr = document.createElement('tr');
+		table.appendChild(tr);
+		var td1 = document.createElement('th');
+		var td2 = document.createElement('th');
+		td1.textContent = 'Row ID';
+		td2.textContent = (rowid==''?'Nou':rowid);
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		
+		// Build space for the fields
+		for (var i=0; i<fieldNames.length; i++) {
+			var tr = document.createElement('tr');
+			table.appendChild(tr);
+			var td1 = document.createElement('th');
+			var td2 = document.createElement('td');
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			td1.textContent = fieldNames[i];
+			td2.textContent = filters.getTextFromFilters(fieldNames[i]);
+			td2.setAttribute('contenteditable','true');
+			editCells.push(td2);
+		}
+		
+		// Get the fields
+		this.getFromRow();
+
+		// Buttons for the main actions
+		var nav = document.createElement('nav');
+		node.appendChild(nav);
+		
+		this.basicwidget.creaBotoOpcions(nav, 'Actualitza', function() {
+			actionSave(editCells,rowid);
+		});
+		this.basicwidget.creaBotoOpcions(nav, 'Duplica', function() {
+			actionSave(editCells,null);
+		});
+		this.basicwidget.creaBotoOpcions(nav, 'Esborra', function() {
+			actionDel(rowid);
+		});
+		this.basicwidget.creaBotoOpcions(nav, 'Tanca', function() {
+			actionClose();
+		});
+	}
+		
+	this.getFromRow = function (searchFilters) {
+		for (var i=0; i<originCells.length; i++) {
+			var contents = (typeof originCells[i] == 'undefined'?'':originCells[i].textContent);
+			if (editCells[i].textContent == '') {
+				editCells[i].textContent = contents;				
+			}
+		}
+	}
+	
+	this.putToRow = function () {
+		for (var i=0; i<originCells.length; i++) {
+			originCells[i].textContent = editCells[i].textContent;
+		}
+	}
+	
+	this.closeEditor = function() {
+		var node = this.basicwidget.autodestroy();
+	}
+}
+
+
+function EsquirolTable(parentWidget,database) {
 	// Class for handling several tables simultaneously
 	var that = this;
+	this.basicwidget = new EsquirolWidget();
+	this.basicwidget.createInitWidget(parentWidget);
+
 	var db = database;
 	var tablename;
 	var numcols;
-	
-	var editRow = null;
-	var controlRow = null;
-	var newRow = null;
-	var hihacanvis = false;
+	var nomsCamps;
 
-	var EDITABLE = 'editableRow';
-	var CONTROL = 'controlRow';
-	var EDITING = 'editingRow';
-	var NEWEDIT = 'newEditRow';
+	var thead;
+	var tbody;
+	var tfoot;
+	
+	var row_editor = null;
+	var filters;
+
 	var POSSIBLE = 'possibleRow';
 
 	this.setTableName = function(name) {
 		tablename = name;
 	}
 
+
 	function newPossibleRow () {
-		var camps = [];
-		for (var i=0; i<numcols; i++) {
-			camps.push('');
+		var tr = document.createElement('tr');
+		var td;
+		for (var i=0; i<=numcols; i++) {
+			td = document.createElement('td');
+			td.textContent = '';
+			tr.appendChild(td);
 		}
-		var tr = newEditableRow ('',camps);
+		tr.children[0].colSpan = "3";
 		tr.className = POSSIBLE;
 
 		return tr;
 	}
 
-	function newEditableRow (creat,columns) {
-		// Create row
-        var fila = document.createElement('tr');
-        fila.className = EDITABLE;
-        fila['id'] = creat;
+	function addFeatures () {
+		// Feature: add new records
+		if (tbody.children.length>0) {
+			tbody.insertBefore(newPossibleRow(),tbody.children[0]);
+		} else {
+			tbody.appendChild(newPossibleRow());
+		}
+		// Feature: edit rows
+		for (var i=0; i<tbody.children.length; i++) {
+			var row = tbody.children[i];
+			if (row.className=='updated') {
+				row.style.display='none';
+			}
+			row.onclick = function(e) {
+				var fila = e.currentTarget;
+				if (row_editor==null) {
+					row_editor = new rowEditor('Editor',tfoot,db);
+				}
+				
+				// Prepare the origin cells
+				originCells = [];
+				for (var i=0; i<numcols; i++) {
+					originCells.push(fila.children[i+3]);
+				}
 
-        fila.onclick = function (e) { controlMode(e.currentTarget); };
-        
-        // Fill in the details
-        var td = document.createElement('td');
-        fila.appendChild(td);
-        addHiddenInfo(td,'id',creat);
-        td.appendChild( document.createTextNode(creat));
-        
-        // Fill in the columns
-        for (var i=0; i<columns.length; i++) {
-        	var td = document.createElement('td');
-        	fila.appendChild(td);
-        	td.onclick = function(e) {
-        		if (e.currentTarget.parentNode.className == EDITING) {
-            		e.stopPropagation();
-        		}
-        	};
-        	td.appendChild( document.createTextNode(columns[i]));
-        }
-        return fila;
+				var rowid = fila.children[0].textContent;
+				row_editor.openEditor(
+						originCells,
+						rowid,
+						nomsCamps,
+						filters,
+						that.saveRow,
+						that.deleteRow,
+						that.closeEditor);					
+			};
+		}
 	}
 	
-
-	function newControlRow () {
-		var row = document.createElement('tr');
-		row.className = CONTROL;
-		var td = document.createElement('td');
-		td.colSpan = numcols + 1;
-		row.appendChild(td);
-		return row;
+	this.saveRow = function(cells,rowid) {
+		// Save the data in the cells of the same row
+		var camps = [];
+		for (i=0; i<cells.length; i++) {
+			camps.push(cells[i].textContent);
+		}
+		db.afegeixRegistreTaula(tablename, camps, rowid);
+		row_editor.putToRow();
+		that.closeEditor();
+		that.fillTable();
 	}
 	
-	function newFooterRow (tbody) {
+	this.deleteRow = function(rowid) {
+		db.eliminaRecordDatabase(tablename,rowid);
+		that.closeEditor();
+		that.fillTable();
+	}
+	
+	this.closeEditor = function() {
+		row_editor.basicwidget.autodestroy();
+		row_editor = null;
+	}
+	
+	function newFooterRow () {
 		var fila = document.createElement('tr');
 		var td = document.createElement('td');
-		td.colSpan = (numcols + 1).toString();
+		td.colSpan = (numcols + 3).toString();
 		fila.appendChild(td);
-		creaBotoOpcions(td, 'Mostra-ho tot', function() { that.fillTable(tbody, 0); });
+		creaBotoOpcions(td, 'Mostra-ho tot', function() { that.fillTable(0); } );
 		return fila;
 	}
 
-	function closeControlRow() {
-		var tancada = true;
-		if (controlRow != null) {
-			// We must check if something must be done...
-			if (hihacanvis) {
-				if (!confirm('Es perdran els canvis. Segur?')) {
-					tancada = false;
-				}
-			}
-			if (tancada) {
-				// Remove the control row
-				controlRow.parentNode.removeChild(controlRow);
-				controlRow = null;
-				hihacanvis = false;
-			}				
-		}
-		return tancada;
-	}
 
-	function controlMode(fila) {
-		// Delete all the control rows
-		var parent = fila.parentNode;
-
-		if (closeControlRow()) {
-			// Create new control row
-			controlRow = newControlRow();
-			parent.insertBefore(controlRow, fila.nextSibling);
-
-			if (fila.className == POSSIBLE) {
-				// This means, the row affected is really a new row. So we must enter the edit mode.
-				editMode(fila);
-			} else {
-				var td = controlRow.children[0];
-				creaBotoOpcions(td, 'Edita', function(e) { editMode(fila); });
-				creaBotoOpcions(td,
-					'Duplica',
-					function(e) {
-						if (closeControlRow()) {
-							for (var i=1; i<numcols; i++) {
-								newRow.children[i].textContent = fila.children[i].textContent;
-							}
-							controlMode(newRow);
-						}
-					});
-				creaBotoOpcions(td,
-					'Cancela',
-					function(e) {
-						closeControlRow();
-					});				
-			}
-		}
-	}
 
 	function changeRowContents(row,contents) {
 		for (var i=1; i<contents.length; i++) {
@@ -153,10 +302,38 @@ function EsquirolTable(database) {
 		return node.getAttribute('data-'+label);
 	};
 
-
+	function advancedEdit(fila) {
+		var rowid = fila.children[0].textContent;
+		if (confirm('Vols editar la fila amb ROWID ' + rowid + '?')) {
+			var text = 0;
+			for (var i=0; i<fila.children.length; i++)
+				text += fila.children[i];
+			var j=prompt('Quin camp vols editar: 1-' + fila.children.length+'? (0 per esborrar)');
+			if (j!=null) {
+				if (j==0) {
+					db.advancedDeleteRecord(tablename,rowid);
+				} else {
+					var camp = getHiddenInfo(fila.children[j-1],'field');
+					var value=prompt('Canvia el camp Ò'+camp+'Ó del registre ' + rowid + '? ', fila.children[j-1].textContent);
+					if (value!=null) {
+						db.advancedActualitzaCampTaula(tablename,rowid,camp,value);
+					}					
+				}
+			}
+		}
+	}
+	
+	function advancedOptions(node) {
+		var nodeList = node.getElementsByTagName('tr');
+		for (var i=0; i<nodeList.length; i++) {
+			nodeList[i].onclick=function(e) { advancedEdit(e.currentTarget); };
+		}
+		alert('Mode avanat');
+	}
+	
 	this.botoInicialitza = function (desti,funcInit) {
 		// Basic buttons
-	    creaBotoOpcions(desti, 'Inicialitza',funcInit);		
+//	    creaBotoOpcions(desti, 'Inicialitza',funcInit);		
 	}
 	
 	this.fillBasicTable = function(desti,tableClass) {
@@ -167,23 +344,31 @@ function EsquirolTable(database) {
 	    var nav = document.createElement('nav');
 	    div.appendChild(nav);
 	    creaBotoOpcions(nav, 'Ordena', function(e) {});
-	    creaBotoOpcions(nav, 'Filtra', function(e) {});
+	    creaBotoOpcions(nav, 'Filtra', opcionsFiltra);
+	    this.basicwidget.creaInputText(nav,'Cerca', function(e) {});
 	
+	    // Show filters
+	    filters = new SearchFilters(desti,db);
+	    filters.addActionFiltersChange(that.fillTable);
+	    filters.addActionLabels(that.filterOptions);
+	    filters.showFilters();
+	    
 		// Basic elements of the table: thead, tbody, tfoot
 		
 		var taulaAnot = document.createElement('table');
 		taulaAnot.className = tableClass;
 
 		desti.appendChild(taulaAnot);
-		var thead = document.createElement('thead');
-		var tbody = document.createElement('tbody');
-		var tfoot = document.createElement('tfoot');
+		thead = document.createElement('thead');
+		tbody = document.createElement('tbody');
+		tfoot = document.createElement('tfoot');
 		taulaAnot.appendChild(thead);	    
 		taulaAnot.appendChild(tbody);	    
 		taulaAnot.appendChild(tfoot);
+	    creaBotoOpcions(nav, 'Avanat', function() { advancedOptions(tbody); });
 
 		db.llistaNomsCamps(tablename, function(tx,results) {
-			var camps = [];
+			nomsCamps = [];
 
 			// Number of columns
 			numcols = results.rows.length;
@@ -194,6 +379,7 @@ function EsquirolTable(database) {
 			var th = document.createElement('th');
 			fila.appendChild(th);
 			th.appendChild( document.createTextNode('Detalls') );
+			th.colSpan = "3";
 			th.onclick = that.columnOptions;
 			addHiddenInfo(th, 'column', 'details');
 
@@ -203,127 +389,68 @@ function EsquirolTable(database) {
 				th.appendChild( document.createTextNode(results.rows.item(i)['desc']));
 				th.onclick = that.columnOptions;
 				addHiddenInfo(th, 'column', results.rows.item(i)['camp']);
-				camps.push(results.rows.item(i)['camp']);
+				nomsCamps.push(results.rows.item(i)['camp']);
 			}
 
-			that.fillTable(tbody,5);
+			that.fillTable();
 			
 			// Build the footer for the table
-			var fila = newFooterRow(tbody);
+			var fila = newFooterRow();
 			tfoot.appendChild(fila);		
 		});
 	}
 
-
-	this.fillTable = function(tbody, limit) {
+	this.fillTable = function(number) {
+		// The default number of rows is 5;
+		var limit = (typeof number == 'undefined'?5:number);
+		
 		// Remove the contents in tbody
 		tbody.innerHTML = '';
-		// Special row for inserting new row
-		newRow = newPossibleRow();
-		tbody.appendChild(newRow);
-
-	    db.llistaRegistresTaula(tablename, 'creat', limit, function(tx,results) {
-	    	var numreg = results.rows.length;
-	    	if (numreg>0) {
-	    		camps = [];
-	    		for (var camp in results.rows.item(0)) {
-	    			camps.push(camp);
-	    		}
-	    		
-		        for (var i=0; i<numreg; i++) {
-		        	var item = results.rows.item(i);
-			        var creat = item['creat'];
-			        var modif = item['modif'];
-			        var ref = item['ref'];
-
-			        var items = [];
-			        for (var j=3; j<numcols+3; j++) {
-			        	items.push(item[camps[j]]);
-			        }
-			        tbody.appendChild( newEditableRow(item['creat'],items) );
-			    }
-	    	}
-		});
+		db.llistaRegistresXML(tablename, limit, filters.toSqlFilter(), tbody, addFeatures);
 	}
 
 	this.columnOptions = function(e) {
 		var node = e.currentTarget;
 		var column = getHiddenInfo(node, 'column');
-	}
-
-	function toggleEditable (basenode,option) {
-		var nodes = basenode.getElementsByTagName('td');
-		for (var i=1; i<nodes.length; i++) {
-			var item = nodes[i];
-			item.setAttribute('contenteditable',option);						
+		if (confirm("Filtra columna '"+column+"'?")) {
+			filters.addFilter(column,'');
 		}
 	}
 
-
-
-	
-	function closeEditRow(fila) {
+	function opcionsFiltra() {
 
 	}
-
 	
-	function editMode(fila) {
-		// Set the edit focus on the previous row
-		var previousClass = fila.className;
-		var td = controlRow.children[0];
-		td.innerHTML = '';
-		hihacanvis = true;
-		
-		creaBotoOpcions(td,
-				(previousClass == POSSIBLE) ? 'Desa': 'Actualitza',
-				function() {
-					// Save the data in the cells of the same row
-					var camps = [];
-					var neighboors = fila.children;
-					for (i=1; i<neighboors.length; i++) {
-						camps.push(neighboors[i].textContent);
-					}
-					if (previousClass == POSSIBLE) {
-						db.afegeixRegistreTaula(tablename, camps, null);						
-					} else {
-						var ref = getHiddenInfo(neighboors[0],'id');
-						alert(ref);
-						db.afegeixRegistreTaula(tablename, camps, ref);
-					}
-					toggleEditable(fila,'false');
-					hihacanvis = false;
-					closeControlRow();
-				});
-		if (previousClass != POSSIBLE) {
-			creaBotoOpcions(td,
-				'Esborra',
-				function(e) {
-					if (closeControlRow()) {
-						removeRow(fila);
-						toggleEditable(fila,'false');
-					}
-				});
-		}
-		creaBotoOpcions(td, 'Cancela', 
-				function() {
-					if (closeControlRow()) {
-						toggleEditable(fila,'false');
-						fila.className = previousClass;
-					}
-				});
-		fila.className = EDITING;
-		toggleEditable(fila,'true');
-	}
+	this.filterOptions = function(node,field,value) {
+		var values = [];
 
-	function insertMode(e) {
-		// We must open a control row
-		var cell = e.currentTarget;
-		var row = cell.parentNode;
-		newrow = true;
-		controlMode(row);
-		
-		// Focus on the cell pressed
-		alert(cell);
+		db.llistaUnCamp(node, tablename, field, function(tx,results) {
+			var ul = document.createElement('ul');
+			node.appendChild(ul);
+			for (var i=0; i<results.rows.length; i++) {
+				var li = document.createElement('li');
+				var newvalue = results.rows.item(i)[field];
+				li.textContent = newvalue;
+				ul.appendChild(li);
+				that.basicwidget.addHiddenInfo(li, 'field', field);
+				that.basicwidget.addHiddenInfo(li, 'value', newvalue);
+				li.onclick = function(e) {
+					var node2 = e.currentTarget;
+					var f = that.basicwidget.getHiddenInfo(node2,'field');
+					var v = that.basicwidget.getHiddenInfo(node2,'value');
+					filters.substituteFilter(f, v);
+					node.removeChild(ul);
+				}
+			}
+			var p = document.createElement('p');
+			p.textContent = 'Esborra';
+			node.appendChild(p);
+			that.basicwidget.addHiddenInfo(p,'field',field);
+			p.onclick = function(e) {
+				var node2 = e.currentTarget;
+				filters.deleteFilter( that.basicwidget.getHiddenInfo(node2,'field') );
+			};
+		});
 	}
 
 }

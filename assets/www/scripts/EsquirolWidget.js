@@ -4,12 +4,22 @@ function EsquirolWidget() {
 	this.basicnode;
 	var that = this;
 	var touch;
+
+	// Support functions
+	this.addHiddenInfo = function (node,label,value) {
+		node.setAttribute('data-'+label,value);
+	};
+	
+	this.getHiddenInfo  = function (node,label) {
+		return node.getAttribute('data-'+label);
+	};
 	
 	// Graphical tools
 	
-	this.createInitWidget = function (parentNode) {
+	this.createInitWidget = function (parentWidget) {
 		this.basicnode = document.createElement('div');
-		parentNode.appendChild(this.basicnode);
+		parentWidget.appendChild(this.basicnode);
+		this.basicnode.onclick = function(e) { e.stopPropagation(); };
 		touch = new EsquirolTouch();
 	}
 
@@ -67,6 +77,13 @@ function EsquirolWidget() {
 		lloc.appendChild(btn);
 	}
 	
+	this.creaInputText = function(lloc,text,func) {
+		var input = document.createElement('input');
+		input.onsubmit = func;
+		input.type = "text";
+		input.className = "search";
+		lloc.appendChild(input);
+	}
 	
 	this.hideContainer = function() {
 //		this.basicnode.style.visibility = 'hidden';
@@ -84,6 +101,10 @@ function EsquirolWidget() {
 		} else {
 			return false;
 		}
+	}
+	
+	this.autodestroy = function() {
+		that.basicnode.parentNode.removeChild(that.basicnode);
 	}
 }
 
