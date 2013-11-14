@@ -51,10 +51,10 @@ function GestorAnotacions(id,parentNode,database,tipus) {
 		node.innerHTML = '';
 
 		if (type==1) {
-			table_valor.botoInicialitza(node,this.inicialitzaTaula);
+//			table_valor.botoInicialitza(node,this.inicialitzaTaula);
 			table_anot.fillBasicTable(node,'resumDades');
 		} else {
-			table_valor.botoInicialitza(node,this.inicialitzaTaula);
+//			table_valor.botoInicialitza(node,this.inicialitzaTaula);
 			table_valor.fillBasicTable(node,'resumDades');
 		}
 	}
