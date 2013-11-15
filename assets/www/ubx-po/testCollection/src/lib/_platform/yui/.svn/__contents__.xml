@@ -1,9 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/_platform/yui/.svn" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:32-08:00" version="1">
-    <resource type="BinaryResource" name="all-wcprops" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="all-wcprops" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="entries" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="entries" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="format" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="format" mimetype="application/octet-stream"/>
-    <subcollection name="text-base" filename="text-base"/>
-    <subcollection name="prop-base" filename="prop-base"/>
-    <subcollection name="props" filename="props"/>
-    <subcollection name="tmp" filename="tmp"/>
-</collection>

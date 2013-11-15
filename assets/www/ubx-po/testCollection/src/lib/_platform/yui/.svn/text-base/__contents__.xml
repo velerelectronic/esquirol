@@ -1,7 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/_platform/yui/.svn/text-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" version="1">
-    <resource type="BinaryResource" name="dropbox-yui.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="dropbox-yui.js.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="message-panel.css.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="message-panel.css.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="message.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="message.js.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="xforms-loader-yui.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="xforms-loader-yui.js.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="xforms-submission-yui.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:33-08:00" modified="2009-12-10T09:18:33-08:00" filename="xforms-submission-yui.js.svn-base" mimetype="application/octet-stream"/>
-</collection>

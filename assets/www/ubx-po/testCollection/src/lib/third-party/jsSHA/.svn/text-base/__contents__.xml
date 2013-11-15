@@ -1,5 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/third-party/jsSHA/.svn/text-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:15-08:00" version="1">
-    <resource type="BinaryResource" name="CHANGELOG.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:15-08:00" modified="2009-12-10T09:18:15-08:00" filename="CHANGELOG.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="LICENSE.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:15-08:00" modified="2009-12-10T09:18:15-08:00" filename="LICENSE.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="README.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:15-08:00" modified="2009-12-10T09:18:15-08:00" filename="README.svn-base" mimetype="application/octet-stream"/>
-</collection>
