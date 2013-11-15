@@ -34,15 +34,19 @@ html, body, div.fullscreen {
 }
 
 .editor {
-	left: 5%;
-	right: 5%;
-	top: 5%;
-	bottom: 5%;
-	border: solid 2pt green;
+	left: 10%;
+	right: 10%;
+	top: 10%;
+	bottom: 10%;
+	height: 80%;
+	position: fixed;
+	border: outset 1ex green;
+	border-style: outset;
 	background-color: white;
-	opacity: 1.0;
+	opacity: 1;
 	display: block;
 	padding: 1em;
+	z-index: 12;
 }
 
 #buttons {

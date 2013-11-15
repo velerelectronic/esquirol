@@ -10,17 +10,24 @@ function TextEditor(content) {
 		}
 	}
 	
+	function openActions(e) {
+		alert('Accions');
+		if (e && e.stopPropagation) {
+			e.stopPropagation();			
+		}
+	}
+	
 	function layers() {
 		div = document.createElement('div');
 		parentNode.appendChild(div);
 		div.className = 'fullscreen';
-		div.addEventListener('click',closeDiv);
+		div.addEventListener('click',closeDiv,false);
 		
 		var editor = document.createElement('div');
 		editor.className = 'editor';
 		editor.setAttribute('contenteditable','true');
+		editor.addEventListener('click',openActions,false);
 		div.appendChild(editor);
-		alert(contents);
 		editor.innerHTML = contents;
 	}
 	
@@ -148,9 +155,11 @@ function VisorDocument(node) {
 	
 	this.carrega = function(text) {
 		var document = iframe.contentWindow.document;
+		document.addEventListener('load',editMode);
 		document.open('text/html','replace');
 		document.write(text);
 		document.close();
+		editMode();
 	}
 	this.getContents = function() {
 		var document = iframe.contentWindow.document;
