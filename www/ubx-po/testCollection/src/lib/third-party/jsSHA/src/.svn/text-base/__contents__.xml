@@ -1,0 +1,7 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/third-party/jsSHA/src/.svn/text-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" version="1">
+    <resource type="BinaryResource" name="sha.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha.js.svn-base" mimetype="application/octet-stream"/>
+    <resource type="BinaryResource" name="sha1.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha1.js.svn-base" mimetype="application/octet-stream"/>
+    <resource type="BinaryResource" name="sha256.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha256.js.svn-base" mimetype="application/octet-stream"/>
+    <resource type="BinaryResource" name="sha512.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha512.js.svn-base" mimetype="application/octet-stream"/>
+    <resource type="BinaryResource" name="wrapper.js.svn-base" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="wrapper.js.svn-base" mimetype="application/octet-stream"/>
+</collection>

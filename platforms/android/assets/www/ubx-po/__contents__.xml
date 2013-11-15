@@ -1,0 +1,8 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db" owner="admin" group="dba" mode="777" created="2010-01-25T17:18:02-08:00" version="1">
+    <subcollection name="twitter" filename="twitter"/>
+    <subcollection name="WebDAV" filename="WebDAV"/>
+    <subcollection name="todo" filename="todo"/>
+    <subcollection name="testAdmin" filename="testAdmin"/>
+    <subcollection name="system" filename="system"/>
+    <subcollection name="testCollection" filename="testCollection"/>
+</collection>

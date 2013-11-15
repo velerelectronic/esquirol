@@ -1,0 +1,113 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ev="http://www.w3.org/2001/xml-events" 
+      xmlns:xforms="http://www.w3.org/2002/xforms" 
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-Instance"
+	  xmlns:javascript="http://www.w3.org/2002/xforms#inline">
+ <head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+    <meta name="AUTHOR" content="Erik A. Johnson" />
+    <title>Purchase Order Application XForm</title>    
+    <script src="../../src/ubiquity-loader.js" type="text/javascript">/**/</script>
+
+    <script src="format.js" type="text/javascript">/**/</script>
+	<link href="./style/mainStyle.css" rel="stylesheet"></link>
+	<link href="./style/gen_default.css" rel="stylesheet"></link>
+	
+  </head>
+  <body class="yui-skin-sam">
+       <xforms:model>
+            <xforms:instance xmlns="">
+                <user>
+                	<login>Guest</login>
+                	<password>XXXXXXXX</login>
+                	<resource>client.html</resource>
+                </user>
+                
+            </xforms:instance>
+        </xforms:model>
+      
+
+<div id="mainContainer">
+
+<div id="headerContainer">
+  
+ 
+ </div> <!-- header div-->
+ 
+ <div id="mainContentArea">
+	 <div id="leftNavigation">
+
+		
+	</div>
+ 
+ <div id="mainForm">
+ <br/>
+ <h3>Office Supplies Purchasing System</h3>
+ <hr class="rule"/>
+ 
+ <br/>
+ 	<div id="loginDiv">
+		<xforms:input class="loginInput" ref="/user/login">
+			<xforms:label class="loginInputLabel" >Login:</xforms:label>
+		</xforms:input>
+		<xforms:secret class="loginInput" ref="/user/password">
+			<xforms:label class="loginInputLabel">Password:</xforms:label>
+		</xforms:secret>
+		
+		<xforms:trigger appearance="xf:image">
+			<img class="buttonImage" src="../pngIcons/Sign In.png" />
+			<xforms:label>Login Guest</xforms:label>
+			<xforms:load ev:event="DOMActivate" resource="client.html"></xforms:load>
+		</xforms:trigger>
+		<xforms:trigger appearance="xf:image">
+			<img class="buttonImage" src="../pngIcons/Sign In.png" />
+			<xforms:label>Login Admin</xforms:label>
+			<xforms:load ev:event="DOMActivate" resource="adminInventory.html"></xforms:load>
+		</xforms:trigger>
+	</div><!-- logindiv-->
+ <br/>
+ <br/>
+ <p>Welcome to the Ubiquity XForms purchasing system demo. This form is designed to 
+ show you some of the benefits of using XForms as a client side forms mark-up over standard HTML.
+ The goal of this demo is to allow you to see how the XForms processor and code written can help to make
+ your life easier.
+ </p>
+ <p>
+ Questions regarding this form or the markup can be directed towards the 
+ <a href="http://groups.google.com/group/ubiquity-xforms/">Ubiquity XForms Developer group</a>.
+ Prioir to posting make sure you have followed the Ubiquity XForms Purchase Order <a href="#">Tutorial</a> 
+ and consulted the <a href="http://www.w3.org/TR/xforms11/">Xforms 1.1 spec</a>.
+ </p>
+ <h3>Quick Start</h3>
+ <p>For the people who want nothing to do with following the <a href="#">Tutorial</a> 
+ here is a breif overview of what needs to happen to properly run this application:</p>
+ <ul>
+ 	<li>1. Dowload eXist database, yes this uses an XML database. You will also need a JDK for eXist.</li>
+ 	<li>2. "Dowload" Ubiquity XForms from <a href="http://code.google.com/p/ubiquity-xforms/wiki/UsingTheLibrary">here</a></li>
+ 	<li>3. Since you already have these files I'm assuming you have installed Ubiquity and eXist.</li>
+ 	<li>
+		4. Check out the 
+		<a href="http://code.google.com/p/ubiquity-xforms/wiki/CrossDomainSubmissionDeployment">
+		cross site scripting</a> discussion if you run into problems
+ 	</li>
+ 	<li>5. usr: admin pw: test</li>
+</ul>
+<p>There you go have some fun and play around with Ubiquity.</p>
+ 
+
+  
+    </div><!-- mainForm-->
+    
+    
+    </div><!-- main content area-->
+<div id="footerContainer">
+</div> <!-- footer div-->
+   
+</div> <!--Main container div-->
+    
+
+    
+   </body>
+</html>

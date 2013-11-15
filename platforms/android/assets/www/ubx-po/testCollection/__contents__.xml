@@ -1,0 +1,14 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection" owner="erikj" group="test" mode="755" created="2009-10-19T10:25:02-07:00" version="1">
+    <resource type="XMLResource" name="counter.xml" owner="admin" group="dba" mode="755" created="2009-10-27T11:00:33-07:00" modified="2009-12-10T14:15:21-08:00" filename="counter.xml" mimetype="text/xml"/>
+    <resource type="BinaryResource" name="insertOrders.xql" owner="admin" group="dba" mode="755" created="2009-10-27T12:07:05-07:00" modified="2009-11-10T09:05:19-08:00" filename="insertOrders.xql" mimetype="application/xquery"/>
+    <resource type="XMLResource" name="orderPrototype.xml" owner="admin" group="dba" mode="755" created="2009-10-21T11:02:25-07:00" modified="2009-10-21T11:50:12-07:00" filename="orderPrototype.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="ordersHistory.xml" owner="admin" group="dba" mode="755" created="2009-10-26T11:35:20-07:00" modified="2009-12-10T15:54:37-08:00" filename="ordersHistory.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="ordersList.xml" owner="admin" group="dba" mode="755" created="2009-10-21T09:56:27-07:00" modified="2009-12-10T14:15:22-08:00" filename="ordersList.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="productList.xml" owner="admin" group="dba" mode="755" created="2009-10-20T11:27:45-07:00" modified="2009-10-20T11:27:45-07:00" filename="productList.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="purchaseOrderTest.xml" owner="admin" group="dba" mode="755" created="2009-10-20T09:23:43-07:00" modified="2009-12-10T14:15:21-08:00" filename="purchaseOrderTest.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="test.xql" owner="admin" group="test" mode="755" created="2009-10-26T10:01:56-07:00" modified="2009-10-26T10:02:58-07:00" filename="test.xql" mimetype="text/xml"/>
+    <resource type="XMLResource" name="testInventorylist.xml" owner="admin" group="dba" mode="755" created="2009-10-20T10:50:53-07:00" modified="2009-12-10T14:15:22-08:00" filename="testInventorylist.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="tester" owner="admin" group="dba" mode="755" created="2009-10-19T10:25:12-07:00" modified="2009-10-19T10:25:12-07:00" filename="tester" mimetype="text/xml"/>
+    <resource type="BinaryResource" name="updateHistory.xql" owner="admin" group="dba" mode="755" created="2009-10-26T13:14:56-07:00" modified="2009-10-26T13:14:56-07:00" filename="updateHistory.xql" mimetype="application/xquery"/>
+    <subcollection name="src" filename="src"/>
+</collection>

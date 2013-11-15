@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/3127/trunk/src/lib/backplane/io
+END
+scheme-file.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2928/trunk/src/lib/backplane/io/scheme-file.js
+END
+file.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/3090/trunk/src/lib/backplane/io/file.js
+END
+submission-json.js
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3127/trunk/src/lib/backplane/io/submission-json.js
+END

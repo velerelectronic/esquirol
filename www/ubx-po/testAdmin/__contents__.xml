@@ -1,0 +1,7 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testAdmin" owner="admin" group="dba" mode="755" created="2009-10-19T10:50:20-07:00" version="1">
+    <resource type="XMLResource" name="productList.xml" owner="admin" group="dba" mode="755" created="2009-10-19T13:53:53-07:00" modified="2009-10-19T13:53:53-07:00" filename="productList.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="purchaseOrderInstance.xml" owner="admin" group="dba" mode="755" created="2009-10-19T10:53:50-07:00" modified="2009-10-19T13:59:11-07:00" filename="purchaseOrderInstance.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="purchaseTest.xml" owner="admin" group="dba" mode="755" created="2009-10-19T10:55:02-07:00" modified="2009-10-19T10:55:02-07:00" filename="purchaseTest.xml" mimetype="text/xml"/>
+    <resource type="XMLResource" name="taxrate.xml" owner="admin" group="dba" mode="755" created="2009-10-19T13:56:19-07:00" modified="2009-10-19T13:56:19-07:00" filename="taxrate.xml" mimetype="text/xml"/>
+    <resource type="BinaryResource" name="test.xql" owner="admin" group="dba" mode="755" created="2009-10-19T10:51:58-07:00" modified="2009-10-19T10:51:58-07:00" filename="test.xql" mimetype="application/xquery"/>
+</collection>

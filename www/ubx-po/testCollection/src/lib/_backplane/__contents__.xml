@@ -1,0 +1,8 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/_backplane" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:31-08:00" version="1">
+    <resource type="BinaryResource" name="case.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:32-08:00" modified="2009-12-10T09:18:32-08:00" filename="case.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="multimap.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:32-08:00" modified="2009-12-10T09:18:32-08:00" filename="multimap.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="notify.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:32-08:00" modified="2009-12-10T09:18:32-08:00" filename="notify.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="select.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:32-08:00" modified="2009-12-10T09:18:32-08:00" filename="select.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="xlink.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:32-08:00" modified="2009-12-10T09:18:32-08:00" filename="xlink.js" mimetype="application/x-javascript"/>
+    <subcollection name=".svn" filename=".svn"/>
+</collection>

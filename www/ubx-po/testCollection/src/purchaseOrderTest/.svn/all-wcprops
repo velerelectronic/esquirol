@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest
+END
+client.xhtml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/client.xhtml
+END
+updateHistory.xql
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/updateHistory.xql
+END
+insertOrders.xql
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/insertOrders.xql
+END
+purchaseOrderMain.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3165/branches/ubiquityPO/src/purchaseOrderTest/purchaseOrderMain.html
+END
+adminOrders.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/adminOrders.html
+END
+testUpdateOrders.xql
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/testUpdateOrders.xql
+END
+uploadTest.html
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/uploadTest.html
+END
+adminProcessed.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/adminProcessed.html
+END
+adminInventory.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/adminInventory.html
+END
+client.html
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/3161/branches/ubiquityPO/src/purchaseOrderTest/client.html
+END
