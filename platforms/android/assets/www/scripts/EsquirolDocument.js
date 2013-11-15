@@ -1,3 +1,32 @@
+function TextEditor(content) {
+	var that = this;
+	var div;
+	var contents = content;
+	var parentNode = document.getElementsByTagName('body')[0];
+	
+	function closeDiv() {
+		if (confirm('Desa canvis?')) {
+			div.parentNode.removeChild(div);			
+		}
+	}
+	
+	function layers() {
+		div = document.createElement('div');
+		parentNode.appendChild(div);
+		div.className = 'fullscreen';
+		div.addEventListener('click',closeDiv);
+		
+		var editor = document.createElement('div');
+		editor.className = 'editor';
+		editor.setAttribute('contenteditable','true');
+		div.appendChild(editor);
+		alert(contents);
+		editor.innerHTML = contents;
+	}
+	
+	layers();
+}
+
 function VisorDocument(node) {
     this.nodeBase = node;
     var that = this;
@@ -8,14 +37,51 @@ function VisorDocument(node) {
     // Main buttons to edit and save the document
     var buttonEdit,buttonSave,buttonCancel;
 
+    function nodeIsFillable(node) {
+    	if (node.getAttribute('type')=='fillcontents') {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    function nodeIsRepeatable(node) {
+    	if (node.getAttribute('repeatable')=='true') {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
     function editMode() {
     	buttonSave.style.visibility = 'visible';
     	var document = iframe.contentWindow.document;
 
-		var fillNodes = document.querySelectorAll('*[type="fillcontents"]');
+		var fillNodes = document.querySelectorAll('*[type="fillcontents"], *[repeatable="true"]');
 		for (var i=0; i<fillNodes.length; i++) {
-			fillNodes[i].setAttribute('contenteditable','true');
+			// fillNodes[i].setAttribute('contenteditable','true');
+			fillNodes[i].addEventListener('click',actionsForElement,false);
 		}
+    }
+
+    function actionsForElement(e) {
+    	var node = e.currentTarget;
+    	var fet = false;
+    	if (nodeIsFillable(node)) {
+        	if (confirm('Editar Ç' + node.nodeName + 'È?')) {
+        		var div = new TextEditor(node.innerHTML);
+        		fet = true;
+        	}
+    	}
+    	if (fet==false) {
+            if (nodeIsRepeatable(node)) {
+        		if (confirm('Duplicar Ç' + node.nodeName + 'È?')) {
+        			var newnode = node.cloneNode(true);
+        			node.parentNode.insertBefore(newnode,node.nextSibling);
+        			fet = true;
+        		}
+        	}
+    	}
     }
     
     function saveMode() {
