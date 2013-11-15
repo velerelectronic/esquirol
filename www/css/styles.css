@@ -20,6 +20,31 @@ footer {
 	background-color: green;
 }
 
+html, body, div.fullscreen {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.fullscreen {
+	background-color: rgb(0,0,0);
+	opacity: 0.5;
+	z-index: 10;
+}
+
+.editor {
+	left: 5%;
+	right: 5%;
+	top: 5%;
+	bottom: 5%;
+	border: solid 2pt green;
+	background-color: white;
+	opacity: 1.0;
+	display: block;
+	padding: 1em;
+}
+
 #buttons {
 	display: inline-block;
 	right: 0;
@@ -520,17 +545,6 @@ tbody tr:nth-child(even) {
 tr.updated {
 	color: grey;
 	background-color: rgb(255,255,255);
-}
-
-.editor {
-	display: block;
-	border: double 2pt green;
-	background-color: white;
-	padding: 1em;
-	position: relative;
-	z-index: 100;
-	left: 1em;
-	top: 1em;
 }
 
 nav button, input {
