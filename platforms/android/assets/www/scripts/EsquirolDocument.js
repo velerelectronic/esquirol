@@ -86,6 +86,11 @@ function VisorDocument(id,parentNode) {
     // Entry file for the document
     var docEntry;
 
+	function stopP(e) {
+		if (e && e.stopPropagation) {
+			e.stopPropagation();
+		}
+	}
 
     function nodeIsFillable(node) {
     	if (node.getAttribute('type')=='fillcontents') {
@@ -132,12 +137,16 @@ function VisorDocument(id,parentNode) {
 	        	}
 	            break;
 			case 1:
+				if (nodeIsRepeatable(node)) {
+					node.parentNode.removeChild(node);
+				}
+				saveMode();
 				break;
 			default:
 				break;
 			}
-			stopP(e);
-		}, 'Accions sobre el node', ['Cancela','Duplicar','Editar']);    	
+		}, 'Accions sobre el node', ['Eliminar','Duplicar','Editar']);    	
+		stopP(e);
     }
     
     function saveMode() {
