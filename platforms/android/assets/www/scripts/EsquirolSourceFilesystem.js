@@ -9,9 +9,9 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	
 	this.name = '';
 	this.doc;
-	var node;
 	var fileSystem;
 	var dirEntry;
+	var actionOpenFile;
 
 	this.setDirectoryName = function (name) {
 		this.name = name;
@@ -45,6 +45,10 @@ function EsquirolSourceFilesystem(id, parentNode) {
 		this.getFileSystem();
 	}	
 
+	this.connectOpenFile = function(actionOpen) {
+		actionOpenFile = actionOpen;
+	}
+	
 	function gotFileEntries (fileEntries) {
 		var node = that.basicwidget.returnBasicNode();
 		node.innerHTML = '';
@@ -81,18 +85,7 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	}
 	
 	this.showFile = function(file) {
-		this.file = file;
-		dirEntry.getFile(
-				file,
-				{create: false, exclusive: false},
-				// Got file
-				function (f) {
-					var node = that.basicwidget.returnBasicNode();
-			        that.doc = new VisorDocument(node);
-			        that.doc.reinicia();
-					that.doc.llegeix(f);
-				},
-				that.fail);
+		actionOpenFile(dirEntry,file);
 	}
 	
 	this.loaded = function(evt) {

@@ -97,11 +97,18 @@ function EsquirolMain() {
     	forms.mostraForm();
     };
     
+    function mostraUnDocument (dirEntry,file) {
+    	var undocument = new VisorDocument('Document',nodedades);
+    	pilatasques.addTask('document', undocument);
+    	undocument.llegeix(dirEntry,file);
+    }
+
 	this.mostraDocuments = function () {
 		that.tancaMenu();
 
         // Build a space to read documents from the local file system
         var docslocalfilesystem = new EsquirolSourceFilesystem('Sistema de fitxers',nodedades);
+        docslocalfilesystem.connectOpenFile(mostraUnDocument);
         pilatasques.addTask('sistemafitxers', docslocalfilesystem);        
 	};
 	

@@ -44,7 +44,13 @@
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/examples/xform_unit_planning v02.xml \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/img/logo.png \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/js/index.js \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.vibration \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/android \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/notification.js \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www/android/notification.js \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file/www \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file/www/DirectoryEntry.js \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file/www/DirectoryReader.js \
@@ -63,6 +69,8 @@
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file/www/ProgressEvent.js \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file/www/requestFileSystem.js \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file/www/resolveLocalFileSystemURI.js \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.vibration/www \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.vibration/www/vibration.js \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/res/icon \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/res/screen \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/res/icon/android \

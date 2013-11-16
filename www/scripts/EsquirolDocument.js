@@ -1,20 +1,52 @@
-function TextEditor(content) {
+function TextEditor(content_node,save_action) {
 	var that = this;
 	var div;
-	var contents = content;
+	var contentNode = content_node;
 	var parentNode = document.getElementsByTagName('body')[0];
-	
-	function closeDiv() {
-		if (confirm('Desa canvis?')) {
-			div.parentNode.removeChild(div);			
+	var editor;
+	var saveAction = save_action;
+
+	function setCursor(el,st,end) {
+		if (el.setSelectionRange) {
+			el.focus();
+			el.setSelectionRange(st,end);
+		} else {
+			if (el.createTextRange) {
+				range=el.createTextRange();
+				range.collapse(true);
+				range.moveEnd('character',end);
+				range.moveStart('character',st);
+				range.select();
+			}
 		}
 	}
+
 	
+	function closeDiv(e) {
+		navigator.notification.confirm('Desa canvis?',function(idxButton) {
+			switch(idxButton) {
+			case 3:
+				contentNode.innerHTML = editor.innerHTML;
+				saveAction();
+			case 2:
+				div.parentNode.removeChild(div);
+			case 1:
+				break;
+			default:
+				break;
+			}
+			stopP(e);
+		}, 'Hi ha hagut canvis', ['Torna','Rebutjar','Desar']);
+	}
+	
+	function stopP(e) {
+		if (e && e.stopPropagation) {
+			e.stopPropagation();
+		}
+	}
 	function openActions(e) {
 		alert('Accions');
-		if (e && e.stopPropagation) {
-			e.stopPropagation();			
-		}
+		stopP(e);
 	}
 	
 	function layers() {
@@ -23,26 +55,37 @@ function TextEditor(content) {
 		div.className = 'fullscreen';
 		div.addEventListener('click',closeDiv,false);
 		
-		var editor = document.createElement('div');
-		editor.className = 'editor';
+		var win = document.createElement('div');
+		win.className = 'window';
+		win.addEventListener('click',stopP,false);
+		div.appendChild(win);
+		
+		editor = document.createElement('div');
 		editor.setAttribute('contenteditable','true');
-		editor.addEventListener('click',openActions,false);
-		div.appendChild(editor);
-		editor.innerHTML = contents;
+		editor.className = 'editor';
+		editor.addEventListener('longclick',openActions,false);
+		win.appendChild(editor);
+		editor.innerHTML = contentNode.innerHTML;
+		var l = contentNode.innerHTML.length;
+		setCursor(editor,l,l);
+		editor.focus();
 	}
-	
+
 	layers();
 }
 
-function VisorDocument(node) {
-    this.nodeBase = node;
+function VisorDocument(id,parentNode) {
+	var titol = id;
+	var that = this;
+	this.basicwidget = new EsquirolWidget();
+	this.basicwidget.createInitWidget(parentNode);
+
     var that = this;
     // The place where the document will be shown
     var iframe;
     // Entry file for the document
     var docEntry;
-    // Main buttons to edit and save the document
-    var buttonEdit,buttonSave,buttonCancel;
+
 
     function nodeIsFillable(node) {
     	if (node.getAttribute('type')=='fillcontents') {
@@ -61,10 +104,9 @@ function VisorDocument(node) {
     }
     
     function editMode() {
-    	buttonSave.style.visibility = 'visible';
-    	var document = iframe.contentWindow.document;
+    	var doc = iframe.contentWindow.document;
 
-		var fillNodes = document.querySelectorAll('*[type="fillcontents"], *[repeatable="true"]');
+		var fillNodes = doc.querySelectorAll('*[type="fillcontents"], *[repeatable="true"]');
 		for (var i=0; i<fillNodes.length; i++) {
 			// fillNodes[i].setAttribute('contenteditable','true');
 			fillNodes[i].addEventListener('click',actionsForElement,false);
@@ -74,70 +116,72 @@ function VisorDocument(node) {
     function actionsForElement(e) {
     	var node = e.currentTarget;
     	var fet = false;
-    	if (nodeIsFillable(node)) {
-        	if (confirm('Editar Ç' + node.nodeName + 'È?')) {
-        		var div = new TextEditor(node.innerHTML);
-        		fet = true;
-        	}
-    	}
-    	if (fet==false) {
-            if (nodeIsRepeatable(node)) {
-        		if (confirm('Duplicar Ç' + node.nodeName + 'È?')) {
+
+		navigator.notification.confirm('Tria el que vols fer al node Ç' + node.nodeName + 'È',function(idxButton) {
+			switch(idxButton) {
+			case 3:
+		    	if (nodeIsFillable(node)) {
+	        		var div = new TextEditor(node,saveMode);
+		    	}
+		    	break;
+			case 2:
+	            if (nodeIsRepeatable(node)) {
         			var newnode = node.cloneNode(true);
         			node.parentNode.insertBefore(newnode,node.nextSibling);
-        			fet = true;
-        		}
-        	}
-    	}
+        			saveMode();
+	        	}
+	            break;
+			case 1:
+				break;
+			default:
+				break;
+			}
+			stopP(e);
+		}, 'Accions sobre el node', ['Cancela','Duplicar','Editar']);    	
     }
     
     function saveMode() {
     	that.guarda();
-    	viewMode();
     }
     
-    function viewMode() {
-    	buttonSave.style.visibility = 'hidden';
-		var fillNodes = document.querySelectorAll('*[type="fillcontents"]');
-		for (var i=0; i<fillNodes.length; i++) {
-			fillNodes[i].removeAttribute('contenteditable');
-		}
+    this.showContents = function() {
+    	reinicia();
     }
     
-	this.reinicia = function() {
-		this.nodeBase.innerHTML = '';
-		buttonEdit = document.createElement('button');
-		buttonEdit.appendChild(document.createTextNode('Edita'));
-		buttonEdit.onclick = editMode;
-		buttonSave = document.createElement('button');
-		buttonSave.appendChild(document.createTextNode('Desa'));
-		buttonSave.onclick = saveMode;
-		buttonSave.style.visibility = 'hidden';
-		this.nodeBase.appendChild(buttonEdit);
-		this.nodeBase.appendChild(buttonSave);
-		
+	function reinicia () {
+		var node = that.basicwidget.returnBasicNode();
+		node.innerHTML = '';
+
 		iframe = document.createElement('iframe');
 //		iframe['width'] = 400;
-		iframe['height'] = 600;
+//		iframe['height'] = 600;
 //		iframe['sandbox'] = '';
-		this.nodeBase.appendChild(iframe);
-		
-//		this.nodeBase.innerHTML = '<p>Carregant...</p>';
+		node.appendChild(iframe);		
 	}
 
-	this.llegeix = function(entry) {
-		docEntry = entry;
-		docEntry.file(
-			function(file) {
-				var reader = new FileReader();
-				reader.onloadend = function(evt) {
-					that.carrega(evt.target.result);
-				};
-				reader.readAsText(file);
-			},
-			function(evt) {
-				alert('Fallada llegint fitxer');
-			});
+	this.llegeix = function(dirEntry,file) {
+		dirEntry.getFile(
+				file,
+				{create: false, exclusive: false},
+				// Got file
+				function (f) {
+					var node = that.basicwidget.returnBasicNode();
+					//iframe.innerHTML = '';
+					docEntry = f;
+					docEntry.file(
+						function(file) {
+							var reader = new FileReader();
+							reader.onloadend = function(evt) {
+								that.carrega(evt.target.result);
+							};
+							reader.readAsText(file);
+						},
+						function(evt) {
+							alert('Fallada llegint fitxer');
+						});
+
+				},
+				that.fail);
 	}
 	
 	this.guarda = function() {
@@ -154,27 +198,27 @@ function VisorDocument(node) {
 	}
 	
 	this.carrega = function(text) {
-		var document = iframe.contentWindow.document;
-		document.addEventListener('load',editMode);
-		document.open('text/html','replace');
-		document.write(text);
-		document.close();
+		var doc = iframe.contentWindow.document;
+		//doc.addEventListener('load',editMode);
+		doc.open('text/html','replace');
+		doc.write(text);
+		doc.close();
 		editMode();
 	}
 	this.getContents = function() {
-		var document = iframe.contentWindow.document;
+		var doc = iframe.contentWindow.document;
 		var text = "";
-		children = document.childNodes;
+		children = doc.childNodes;
 		for (var i=0; i<children.length; i++) {
 			var nodetype = children[i].nodeType;
 			switch(nodetype) {
-			case document.ELEMENT_NODE:
+			case doc.ELEMENT_NODE:
 				text += children[i].outerHTML + "\n";
 				break;
-			case document.COMMENT_NODE:
+			case doc.COMMENT_NODE:
 				text += "<" + children[i].nodeValue + ">\n";
 				break;
-			case document.DOCUMENT_TYPE_NODE:
+			case doc.DOCUMENT_TYPE_NODE:
 				var node = children[i];
 				var dt = "<!DOCTYPE "
 			         + node.name
@@ -190,10 +234,5 @@ function VisorDocument(node) {
 		}
 		return text;
 	}
-
-	this.debug = function(text) {
-		alert('Debug '+text);
-	}
-
 
 }

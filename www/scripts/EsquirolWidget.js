@@ -27,6 +27,10 @@ function EsquirolWidget() {
 		return this.basicnode;
 	}
 
+	this.setFullScreen = function () {
+		this.basicnode.className = 'fullscreen';
+	}
+	
 	this.showContents = function () {
 		// Show the basic contents of the widget.
 		// This must be implemented

@@ -1,24 +1,7 @@
-/* Headings and main sections */
+/* ====================
+	Main screen layout
+	=================== */
 
-header {
-	display: block;
-	background-color: green;
-	margin: 0;
-	left: 0;
-	top: 0;
-	right: 0;
-	position: static;
-}
-#AppBar {
-
-}
-
-footer {
-	position: fixed;
-	display: block;
-	bottom: 0;
-	background-color: green;
-}
 
 html, body, div.fullscreen {
 	height: 100%;
@@ -27,26 +10,71 @@ html, body, div.fullscreen {
 	padding: 0;
 }
 
+header {
+	position: static;
+	display: block;
+	background-color: green;
+	margin: 0;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 7ex;
+}
+
+#AppBar {
+	color: yellow;
+}
+
 .fullscreen {
-	background-color: rgb(0,0,0);
-	opacity: 0.5;
+	position: absolute;
+	display: block;
+	background-color: rgba(0,0,0,0.5);
 	z-index: 10;
 }
 
-.editor {
+
+div#dades {
+	overflow: auto;
+	display: block;
+	position: fixed;
+	top: 7ex;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+
+footer {
+	position: fixed;
+	display: block;
+	bottom: 0;
+	background-color: green;
+}
+
+
+.window {
 	left: 10%;
 	right: 10%;
 	top: 10%;
 	bottom: 10%;
-	height: 80%;
+	
 	position: fixed;
 	border: outset 1ex green;
-	border-style: outset;
-	background-color: white;
-	opacity: 1;
+	background-color: rgba(255,255,255,1);
 	display: block;
 	padding: 1em;
 	z-index: 12;
+}
+
+// End of main screen layout
+
+
+.editor {
+	display: block;
+	font-size: 30px;
+	padding: 3em;
+	border: dotted 2pt green;
+	height: 100%;
 }
 
 #buttons {
@@ -275,14 +303,6 @@ textarea {
 	left: 0; right: 0; height: 200px;
 }
 
-
-div#dades {
-	overflow: auto; height: 80%;
-	display: block;
-	position: absolute;
-	left: 0;
-	right: 0;
-}
 
 div#quadre {
     border: solid 2pt green;
@@ -532,9 +552,9 @@ Clock
    ==================== */
   
 iframe {
-	margin-bottom: 3em;
-	width: 600px;
-	height: 700px;
+	margin: 1%;
+	width: 98%;
+	height: 98%;
 	border: outset 2pt green;
 }
 
