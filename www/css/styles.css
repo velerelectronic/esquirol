@@ -71,10 +71,19 @@ footer {
 
 .editor {
 	display: block;
-	font-size: 30px;
-	padding: 3em;
+	font-size: 150%;
+	padding: 1em;
 	border: dotted 2pt green;
 	height: 100%;
+}
+
+[contenteditable="true"] {
+	display: block;
+	font-size: 150%;
+	padding: 1em;
+	border: dotted 2pt green;
+	width: calc(100% - 1*3em - 2*2pt);
+	height: calc(100% - 1*3em - 2*2pt);
 }
 
 #buttons {

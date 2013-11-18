@@ -4,6 +4,7 @@ function EsquirolWidget() {
 	this.basicnode;
 	var that = this;
 	var touch;
+	var timer = null;
 
 	// Support functions
 	this.addHiddenInfo = function (node,label,value) {
@@ -109,6 +110,59 @@ function EsquirolWidget() {
 	
 	this.autodestroy = function() {
 		that.basicnode.parentNode.removeChild(that.basicnode);
+	}
+
+    function absorbEvent_(event) {
+        var e = event || window.event;
+        e.preventDefault && e.preventDefault();
+        e.stopPropagation && e.stopPropagation();
+        e.cancelBubble = true;
+        e.returnValue = false;
+        return false;
+      }
+
+    function preventLongPressMenu(node) {
+        node.ontouchstart = absorbEvent_;
+        node.ontouchmove = absorbEvent_;
+        node.ontouchend = absorbEvent_;
+        node.ontouchcancel = absorbEvent_;
+      }
+
+	this.addLongPressListener = function(element,action_short_click,action_long_click) {
+//		preventLongPressMenu(element);
+		element.addEventListener('click',action_short_click);
+		element.addEventListener('touchstart',function(e) {
+//				e.preventDefault();
+				timer = window.setTimeout( function() {
+						action_long_click(element);
+					},
+					1000 );
+				
+				e.cancelBubble = true;
+				if (e && e.stopPropagation) {
+					e.stopPropagation();
+				}
+				return false;
+			},false);
+		element.addEventListener('touchend',function(e) {
+//				e.preventDefault();
+				window.clearTimeout( timer );
+
+				if (e && e.stopPropagation) {
+					e.stopPropagation();
+				}
+				e.cancelBubble = true;
+				return false;
+			},false);
+		element.addEventListener('touchmove',function(e) {
+			window.clearTimeout( timer );
+
+			if (e && e.stopPropagation) {
+				e.stopPropagation();
+			}
+			e.cancelBubble = true;
+			return false;			
+		},false);
 	}
 }
 
