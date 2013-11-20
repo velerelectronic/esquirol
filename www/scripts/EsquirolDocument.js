@@ -1,8 +1,10 @@
 function TextEditor(content_node,save_action) {
 	var that = this;
+	var parentNode = document.getElementsByTagName('body')[0];
+//	this.basicwidget = new EsquirolWidget();
+//	this.basicwidget.createInitWidget(parentNode);
 	var div;
 	var contentNode = content_node;
-	var parentNode = document.getElementsByTagName('body')[0];
 	var editor;
 	var saveAction = save_action;
 	var contentsChanged = false;
@@ -22,16 +24,23 @@ function TextEditor(content_node,save_action) {
 		}
 	}
 
+	function saveDocument() {
+		contentNode.innerHTML = editor.innerHTML;
+		saveAction();
+	}
+	
+	function closeEditor() {
+		div.parentNode.removeChild(div);
+	}
 	
 	function closeDiv(e) {
 		if (contentsChanged) {
 			navigator.notification.confirm('Desa canvis?',function(idxButton) {
 				switch(idxButton) {
 				case 3:
-					contentNode.innerHTML = editor.innerHTML;
-					saveAction();
+					saveDocument();
 				case 2:
-					div.parentNode.removeChild(div);
+					closeEditor();
 				case 1:
 					break;
 				default:
@@ -69,6 +78,17 @@ function TextEditor(content_node,save_action) {
 		win.className = 'window';
 		win.addEventListener('click',stopP,false);
 		div.appendChild(win);
+
+		var nav = document.createElement('nav');
+		win.appendChild(nav);
+		tempwidget = new EsquirolWidget();
+		tempwidget.createInitWidget(win);
+		tempwidget.creaBotoOpcions(nav,'Desa i tanca',function() {
+				if (contentsChanged) {
+					saveDocument();
+				}
+				closeEditor();
+			});
 		
 		editor = document.createElement('div');
 		editor.setAttribute('contenteditable','true');
@@ -88,11 +108,12 @@ function TextEditor(content_node,save_action) {
 	layers();
 }
 
-function VisorDocument(id,parentNode) {
+function VisorDocument(id,statusAction,parentNode) {
 	var titol = id;
 	var that = this;
 	this.basicwidget = new EsquirolWidget();
 	this.basicwidget.createInitWidget(parentNode);
+	var status = statusAction;
 
     var that = this;
     // The place where the document will be shown
@@ -191,6 +212,7 @@ function VisorDocument(id,parentNode) {
 		node.innerHTML = '';
 
 		iframe = document.createElement('iframe');
+		iframe['seamless'] = 'seamless';
 //		iframe['width'] = 400;
 //		iframe['height'] = 600;
 //		iframe['sandbox'] = '';
@@ -215,7 +237,7 @@ function VisorDocument(id,parentNode) {
 							reader.readAsText(file);
 						},
 						function(evt) {
-							alert('Fallada llegint fitxer');
+							status('Fallada llegint fitxer');
 						});
 
 				},
@@ -226,12 +248,12 @@ function VisorDocument(id,parentNode) {
 		docEntry.createWriter(
 			function(writer) {
 				writer.onwrite = function(evt) {
-					alert('Desat!');
+					status('Desat!');
 				};
 				writer.write(that.getContents());
 			},
 			function(evt) {
-				alert('Ha fallat el desat');
+				status('Ha fallat el desat');
 			});
 	}
 	

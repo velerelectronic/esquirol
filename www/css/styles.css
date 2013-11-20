@@ -40,7 +40,7 @@ div#dades {
 	top: 7ex;
 	left: 0;
 	right: 0;
-	bottom: 0;
+	bottom: 3ex;
 }
 
 
@@ -48,7 +48,11 @@ footer {
 	position: fixed;
 	display: block;
 	bottom: 0;
-	background-color: green;
+	z-index: 200;
+/*	top: calc(100%-3ex); */
+	height: 3ex;
+	width: 100%;
+	text-align: center;
 }
 
 
@@ -84,6 +88,7 @@ footer {
 	border: dotted 2pt green;
 	width: calc(100% - 1*3em - 2*2pt);
 	height: calc(100% - 1*3em - 2*2pt);
+	overflow: scroll;
 }
 
 #buttons {
@@ -170,16 +175,8 @@ form li {
 
 br { margin-bottom: 2em; }
 
-#status {
-    display: none;
-    position: fixed;
-    top: 5%;
-    left: 0;
-    right: 0;
+div#status {
     text-align: center;
-}
-
-#status div {
     background-color: yellow;
     color: blue;
     display: inline-block;

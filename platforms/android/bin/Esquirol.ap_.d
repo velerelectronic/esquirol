@@ -38,6 +38,7 @@
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/xsltforms_funciona \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/css/index.css \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/css/styles.css \
+/Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/css/xforms_styles.css \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/examples/form_unit_planning.html \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/examples/proves.xml \
 /Users/jmpayeras/Documents/workspace2/EsquirolPhoneGap/platforms/android/assets/www/examples/xform_unit_planning v01.xml \

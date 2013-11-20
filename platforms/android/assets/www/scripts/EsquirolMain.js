@@ -98,7 +98,7 @@ function EsquirolMain() {
     };
     
     function mostraUnDocument (dirEntry,file) {
-    	var undocument = new VisorDocument('Document',nodedades);
+    	var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
     	pilatasques.addTask('document', undocument);
     	undocument.llegeix(dirEntry,file);
     }
@@ -176,17 +176,14 @@ function EsquirolMain() {
 //		mainmenu.closeMenu();
         pilatasques.returnCurrentTask().basicwidget.saveAsHTML();
 	}
-	
-    this.actualitzaStatus = function(nouestat) {
-        nodestatus.innerHTML = '';
-        var div = document.createElement('div');
-        nodestatus.appendChild(div);
-        div.appendChild( document.createTextNode(nouestat));
+
+    function actualitzaStatus (nouestat) {
+        nodestatus.appendChild( document.createTextNode(nouestat));
         window.clearTimeout(timeout);
-        timeout = window.setTimeout(that.esborraStatus,3000);
+        timeout = window.setTimeout(esborraStatus,10000);
     }
     
-    this.esborraStatus = function() {
-
+    function esborraStatus() {
+    		nodestatus.innerHTML = '';
     }
 }
