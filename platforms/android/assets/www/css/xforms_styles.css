@@ -1,0 +1,341 @@
+/* ================
+   Main sections
+   ================ */
+
+planning > * {
+    display: block;
+    border: groove 2pt blue;
+    margin: 1em;
+    padding: 1em;
+}
+
+planning:before {
+	content: attr(title);
+	display: block;
+	font-weight: bold;
+	text-align: center;
+	font-size: 150%;
+}
+
+/* ================
+   Generate content
+   ================ */
+
+planning > *:before {
+	content: attr(title);
+	font-size: 120%;
+	font-weight: bold;
+    margin-bottom: 1em;
+	display: block;
+}
+
+/* =================
+	Basic data
+	================ */
+
+basicdata > * {
+	display: table-row;
+	margin: 1em;
+	padding: 1em;
+}
+
+basicdata > *:before {
+	content: attr(title) ": ";
+	display: table-cell;
+	font-weight: bold;
+	padding: 1ex;
+}
+
+/* ================
+ Objectives
+ ================== */
+
+objectives {
+    list-style-type: decimal;
+}
+
+objectives > * {
+    display: list-item;
+    margin-left: 2em;
+}
+
+/* =============
+   Competences
+   ============= */
+
+competences > * {
+    display: inline-block;
+    margin: 1ex;
+    border: solid 1pt black;
+    vertical-align: top;
+    padding: 1ex;
+    width: 15em;
+}
+
+competences > *:before {
+    content: attr(title);
+    vertical-align: top;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 1ex;
+}
+/* ================
+   Assessment
+ ================== */
+
+assessment > * {
+    list-style-type: decimal;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+assessment > *:before {
+    display: block;
+    content: attr(title);
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+assessment > * > * {
+    display: list-item;
+    margin-left: 2em;
+}
+
+/* =========
+   Contents
+   ============= */
+
+contents > * {
+    list-style-type: disc;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+contents > *:before {
+    display: block;
+    content: attr(title);
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+contents > * > * {
+    display: list-item;
+    margin-left: 2em;
+}
+
+/* =========
+ Resources
+ ============= */
+
+resources {
+    list-style-type: disc;
+}
+
+resources:before {
+    display: block;
+    content: attr(title);
+    font-weight: bold;
+}
+
+resources > * {
+    display: list-item;
+    margin-left: 2em;
+}
+
+
+
+/* =================
+   Sessions
+   ======== */
+
+sessions {
+    counter-reset: session;
+}
+
+sessions:before, diary:before {
+	content: attr(title);
+	font-size: 120%;
+	font-weight: bold;
+    margin-bottom: 1em;
+	display: block;
+}
+
+session {
+	display: block;
+	border: solid 1px black;
+    margin: 1ex;
+    left: 0;
+    right: 0;
+    counter-increment: session;
+    box-shadow: 0px 5px 5px #888888;
+}
+
+session:before {
+	font-size: 120%;
+	content: "Sessió " attr(num);
+	font-weight: bold;
+	display: block;
+}
+
+session task {
+      display: inline-block;
+      border-style: outset;
+      border-width: 0.5ex;
+      border-color: green;
+      padding: 1ex;
+      width: 20%;
+      margin: 1ex;
+      vertical-align: top;
+      float: left;
+}
+
+activities, activity-list {
+    margin: 1ex;
+    display: inline-table;
+	border-collapse: collapse;
+	border: solid 1pt black;
+    counter-reset: activity;
+    vertical-align: top;
+    width: calc(100% - 20% - 2*1ex - 2*0.5ex - 2*1ex - 2*1ex - 2*1pt);
+}
+
+activity {
+      display: table-row;
+      counter-increment: activity;
+}
+
+activity:before {
+    display: table-cell;
+    background-color: rgb(200,255,200);
+    content: counter(session) "." counter(activity);
+    padding: 1ex;
+    text-align: right;
+    width: 2em;
+    max-width: 2em;
+}
+
+desc, time, hab, interact, activity tic, assess {
+	display: table-cell;
+	border: solid 1pt black;
+	padding: 1ex;
+}
+      
+
+
+/* ===========
+   Diary
+   =========== */
+
+diary {
+	display: table;
+	border: solid 1pt orange;
+	width: 100%;
+	margin-top: 3em;
+	margin-bottom: 1em;
+}
+
+diary:before {
+	display: block;
+	font-size: 120%;
+	content: attr(title);
+	font-weight: bold;
+}
+
+date {
+      display:table-row;
+}
+
+date:first-child day, date:first-child planned, date:first-child done{
+      font-weight: bold;
+      text-size: 150%;
+      text-align: center;
+      background-color: orange;
+}
+      
+day,planned,done {
+      display:table-cell;
+      border: dashed 1px orange;
+      padding: 1ex;
+      font-size: 80%;
+}
+
+day {
+      font-weight: bold;
+      text-size: 150%;
+}
+
+*[class=noclass] {
+      background-color: rgb(200,200,200);
+}
+
+date[class=weekend] {
+      background-color: rgb(240,240,200);
+}
+
+/* ========================
+   Insertions and deletions
+   ======================== */
+   
+deleted {
+	color: gray;
+	text-decoration: line-through;
+}
+
+inserted {
+	color: black;
+	text-decoration: underline;
+}
+
+td {
+	background-color: red;
+	border: solid 4pt red;
+	content: "!!!";
+}
+
+td:before {
+	content: "!!!";
+}
+
+/* ==========
+   Grid
+   ==========
+*/
+
+grid title {
+	font-size: 140%;
+	font-weight: bold;
+	text-align: center;
+}
+grid {
+	display: table;
+	border: solid 1pt black;
+	border-collapse: collapse;
+}
+
+heading-list, content-list {
+	display: table-row;
+}
+
+heading-list > *, content-list > * {
+	display: table-cell;
+	border: solid 1pt green;
+}
+
+heading-list > heading {
+	transform: rotate(-90deg);
+	font-weight: bold;
+	text-align: center;
+}
+
+content-list heading {
+	font-weight: bold;
+}
+
+/*
+*[type=fillcontents] {
+	background-color: red;
+}
+*/
+
