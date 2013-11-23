@@ -1,0 +1,149 @@
+//body {text-align: center;   font-size:0.9em;}
+#mainContainer{margin-top:-10px;width:1024px;}
+#headerContainer{
+	height:180px;
+	width: 980px; margin: 0 auto;
+	background-image:url('../../images/testHeaderPurchaseOrder.gif');
+}
+#mainForm{
+	min-height:600px;
+	width: 720px; margin: 0 auto;
+	text-align: left;
+	padding:20px;
+	margin-top:10px;
+}
+h4,h3,h2,h1{Color:#333;font-family: Arial;}
+.iventImage{height:40px;}
+#mainContentArea{	}
+#shippingInfo, #paymentInfo{
+	background-color:#D0F8C5;
+	width:330px;
+	padding:10px;
+	float:left;
+	margin-right:10px;
+	color:#333;
+	font-size:0.8em;
+}
+.totals{
+	width: 97%;
+	background-color:#D0F8C5;
+	padding:10px;
+	min-height:88px;
+	color:#333;
+	font-size:0.9em;
+	font-weight:bold;
+}
+.addOrderEntry{ margin-left:8px;}
+#loginDiv{
+	background-color:#D0F8C5;
+	width:270px;
+	padding:10px;
+}
+#leftNavigation{
+	padding-top:30px;
+	height:500px;
+	width:130px;
+	float:left;
+	margin-right:5px;
+}
+
+.loginInput{margin-top:0px;}
+.loginInputLabel {display:inline-block;margin-top:5px;width:140px;}
+#leftNavigation ul{list-style:none;}
+img.buttonImage{width:20px;}
+
+xforms\:input ,
+xforms|input{
+	display:block;
+	width:30px;
+	margin-left:30px;
+}
+
+xforms\:submit,
+xf\:submit,
+xforms\:trigger,
+xf\:trigger {
+  color:#333;
+  font-size:0.8em;
+}
+
+xforms|submit,
+xf|submit,
+xforms|trigger,
+xf|trigger {
+  color:#333;
+}
+
+xforms\:submit:hover,
+xf\:submit:hover,
+xforms\:trigger:hover,
+xf\:trigger:hover {
+   opacity:0.8;
+   cursor:pointer;cursor:hand;
+}
+
+xforms|submit:hover,
+xf|submit:hover,
+xforms|trigger:hover,
+xf|trigger:hover {
+   opacity:0.8;
+   cursor:pointer;cursor:hand;
+}
+
+xforms\:submit:focus xforms\:label,
+xf\:submit:focus xf\:label,
+xforms\:trigger:focus xforms\:label,
+xf\:trigger:focus xf\:label  {  	
+    
+}
+
+xforms|submit:focus > xforms|label,
+xf|submit:focus > xf|label,
+xforms|trigger:focus > xforms|label,
+xf|trigger:focus > xf|label {  	
+    
+}
+
+xforms\:submit:active  xforms\:label,
+xf\:submit:active  xf\:label,
+xforms\:trigger:active  xforms\:label,
+xf\:trigger:active  xf\:label {   	
+   
+}
+
+xforms|submit:active > xforms|label,
+xf|submit:active > xf|label,
+xforms|trigger:active > xforms|label,
+xf|trigger:active > xf|label {   	
+   
+}
+
+xforms\:submit:active,
+xf\:submit:active,
+xforms\:trigger:active,
+xf\:trigger:active {
+    
+}
+
+xforms|submit:active,
+xf|submit:active,
+xforms|trigger:active,
+xf|trigger:active {
+   
+}
+
+xforms\:submit  xforms\:label,
+xf\:submit xf\:label,
+xforms\:trigger xforms\:label,
+xf\:trigger xf\:label {
+      
+}
+
+xforms|submit  xforms|label,
+xf|submit xf|label,
+xforms|trigger xforms|label,
+xf|trigger xf|label {
+}
+
+
+

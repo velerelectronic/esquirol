@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="xsltforms/xsltforms.xsl" type="text/xsl"?>
+<?xsltforms-options debug="yes"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:xf="http://www.w3.org/2002/xforms"
+		xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<head>
+		<title>Planning template</title>
+		<style type="text/css">
+		    body {
+		    	padding: 1em;
+		    }
+		    h1, h1 + p {
+		    	text-align: center;
+		    }
+		    h1 + p {
+		    	margin-bottom: 2em;
+		    }
+			h2 {
+				margin-top: 1em;
+				background: blue;
+				color: white;
+				padding: 1ex;
+				margin-bottom: 0;
+			}
+			h2 + div {
+				border: solid 2pt blue;
+				padding: 1ex;
+			}
+			textarea {
+				width: 80%;
+			}
+			
+			table, td { border: solid 1pt black; }
+			table label {
+				display: none;
+			}
+		</style>
+		<script type="text/javascript">
+		    //<![CDATA[
+		    function loadFile(file) {
+				var model = document.getElementById("model-planning-template");
+				var instance = model.getInstanceDocument("planning_templates");
+				model.rebuild();
+				model.recalculate();
+				model.refresh();		    	
+		    }
+		    
+		    var ReadInstance=function () {
+				var model = document.getElementById("model-planning-template");
+				var instance = model.getInstanceDocument("planning_templates");
+				var childs = instance.getElementsByTagName('planning_template');
+				for (var i=0; i<childs.length; i++) {
+					alert(childs[i].innerHTML);
+				}
+		    }
+		    //]]>
+		</script>
+</head>
+<xf:model id="model-planning-template">
+    <xf:instance id="planning_templates" xmlns="">
+        <planning_template xmlns="">
+            <general_data>
+	            <unit_title>Untitled</unit_title>
+	            <authors>Joan Miquel Payeras Cresp?</authors>
+	          	<support_of/>
+          		<group/>
+          		<subject_areas/>
+          		<number_of_lessons/>
+          		<cefr_level/>
+			</general_data>
+          	<keywords>
+            	<keyword/>
+          	</keywords>
+          	<introduction/>
+          	<objectives>
+            	<objective/>
+          	</objectives>
+          	<key_competences>
+          		<ling/>
+				<math/>
+				<sci/>
+				<digital/>
+				<social/>
+				<cultural/>
+				<learn/>
+				<init/>
+          	</key_competences>
+			<tasks>
+				<task/>
+			</tasks>
+			<criteria_and_instruments>
+				<criterium_or_instrument/>
+			</criteria_and_instruments>
+			<knowledges>
+				<knowledge/>
+			</knowledges>
+			<skills>
+			    <skill/>
+			</skills>
+			<content_language/>
+			<social_cultural_values_personal_emotional_development/>
+			<materials_and_resources>
+				<material_or_resource/>
+			</materials_and_resources>
+			<references>
+				<reference/>
+			</references>
+			<comments/>
+          	<acknowledgements/>
+          	<sessions>
+          		<session>
+					<order/>
+					<activities>
+						<activity>
+						    <description/>
+						    <timing/>
+						    <skills/>
+						    <interaction/>
+						    <ict/>
+						    <assessment/>
+						</activity>
+					</activities>
+          		</session>
+          	</sessions>
+        </planning_template>
+    </xf:instance>
+    <xf:bind id="unittitle" nodeset="general_data/unit_title"/>
+    <xf:bind id="intro" nodeset="introduction"/>
+    <xf:submission id="carrega_canvis" action="http://localhost/~jmpayeras/provatures.xml" method="get" replace="instance" instance="planning_templates"/>
+	<xf:submission id="read-instance-from-client" method="get" action="FilePath" replace="instance" instance="planning_templates"/>
+	<xf:submission id="desa_canvis" action="file:///Users/jmpayeras/infounitats.xml" method="put" replace="document">
+	    <xf:message level="modeless" ev:event="xforms-submit-error">Error en desar canvis.</xf:message>
+	</xf:submission>
+
+<xf:submission id="s1" method="get" replace="instance" instance="planning_templates" serialization="none" mode="synchronous">
+<xf:resource value="http://localhost/jmpayeras/provatures.xml"/>
+</xf:submission>
+
+	
+</xf:model>
+
+<body>
+<h1>Planning template</h1>
+<p>for CLIL and Content-Rich Environments</p>
+
+ <xf:trigger appearance="minimal">
+    <xf:label>One</xf:label>
+    <xf:action ev:event="DOMActivate">
+      <xf:setvalue ref="instance('planning_templates')"
+                   value="file:///Users/jmpayeras/Sites/provatures.xml"/>
+      <xf:load ref="instance('planning_templates')"/>
+    </xf:action>
+  </xf:trigger> 
+  
+<p>
+<xf:select1 ref="instance('planning_templates')">
+	<xf:itemset nodeset="instance('planning_templates')">
+	    <xf:label ref="general_data/unit_title"/>
+	    <xf:value ref="general_data/unit_title"/>
+	</xf:itemset>
+</xf:select1>
+</p>
+
+<xf:submit submission="carrega_canvis"><xf:label>Carrega fitxers</xf:label></xf:submit>
+
+<h2>General data</h2>
+<div>
+    <ul>
+        <li><xf:input bind="unittitle"><xf:label>Unit title: </xf:label></xf:input></li>
+        <li><xf:input ref="general_data/authors"><xf:label>Authors: </xf:label></xf:input></li>
+        <li><xf:input ref="general_data/support_of"><xf:label>With the support of: </xf:label></xf:input></li>
+        <li>
+            <xf:select1 ref="general_data/group"><xf:label>Class / age group: </xf:label>
+                <xf:item>
+                    <xf:label>Mathematics 1st ESO</xf:label>
+                    <xf:value>Mathematics 1st ESO</xf:value>
+                </xf:item>
+                <xf:item>
+                    <xf:label>Matemàtiques 1r ESO</xf:label>
+                    <xf:value>Matemàtiques 1r ESO</xf:value>
+                </xf:item>
+                <xf:item>
+                    <xf:label>Matemàtiques 2n ESO</xf:label>
+                    <xf:value>Matemàtiques 2n ESO</xf:value>
+                </xf:item>
+				<xf:item>
+                    <xf:label>Matemàtiques 3r ESO</xf:label>
+                    <xf:value>Matemàtiques 3r ESO</xf:value>
+                </xf:item>
+                <xf:item>
+                    <xf:label>Matemàtiques 4t ESO opció A</xf:label>
+                    <xf:value>Matemàtiques 4t ESO opció A</xf:value>
+                </xf:item>
+                <xf:item>
+                    <xf:label>Matemàtiques 4t ESO opció B</xf:label>
+                    <xf:value>Matemàtiques 4t ESO opció B</xf:value>
+                </xf:item>
+			</xf:select1>
+		</li>
+		<li>Subjects, languages and/or subject areas</li>
+		<li>Number of lessons</li>
+		<li><xf:select1 ref="general_data/cefr_level"><xf:label>CEFR Level: </xf:label>
+		    <xf:item>
+		        <xf:label>A1</xf:label>
+		        <xf:value>A1</xf:value>
+		    </xf:item>
+		    <xf:item>
+		        <xf:label>A2</xf:label>
+		        <xf:value>A2</xf:value>
+		    </xf:item>
+		    <xf:item>
+		        <xf:label>B1</xf:label>
+		        <xf:value>B1</xf:value>
+		    </xf:item>
+		    <xf:item>
+		        <xf:label>B2</xf:label>
+		        <xf:value>B2</xf:value>
+		    </xf:item>
+		    <xf:item>
+		        <xf:label>C1</xf:label>
+		        <xf:value>C1</xf:value>
+		    </xf:item>
+		    <xf:item>
+		        <xf:label>C2</xf:label>
+		        <xf:value>C2</xf:value>
+		    </xf:item>
+		    </xf:select1>
+		</li>
+		<li>Keywords</li>
+    </ul>
+</div>
+
+<h2>Introduction to the unit</h2>
+<div>
+    <xf:textarea ref="introduction"><xf:label>-</xf:label></xf:textarea>
+</div>
+
+<h2>Objectives / goals</h2>
+<div>
+    <p>By the end of the unit / lesson /task, the students will be able to...</p>
+    <ol>
+        <xf:repeat nodeset="instance('planning_templates')/objectives/objective" id="repeat_objectives">
+        <li>
+    		<xf:input ref="."><xf:label>Objective: </xf:label></xf:input>
+        </li>
+    	</xf:repeat>
+    </ol>
+	<xf:group>
+		<xf:trigger>
+			<xf:label>Insert Objective</xf:label>
+			<xf:insert nodeset="instance('planning_templates')/objectives/objective" at="index('repeat_objectives')" position="after" ev:event="DOMActivate" />
+		</xf:trigger>
+		<xf:trigger>
+			<xf:label>Delete Objective</xf:label>
+			<xf:delete nodeset="instance('planning_templates')/objectives/objective" at="index('repeat_objectives')" ev:event="DOMActivate" />
+		</xf:trigger>
+	</xf:group>
+</div>
+
+<h2>Key competences</h2>
+
+<div>
+<h3>1. Linguistic communication</h3>
+<h3>2. Mathematical</h3>
+<h3>3. Science and technology</h3>
+<h3>4. Digital competence</h3>
+<h3>5. Social and civic competence</h3>
+<h3>6. Cultural awareness and expression</h3>
+<h3>7. Learning to learn</h3>
+<h3>8. Sense of initiative and entrepeneurship</h3>
+</div>
+
+<h2>Session by session</h2>
+<div>
+    <table>
+        <tr>
+            <th>Session</th>
+            <th>Activities</th>
+            <th>Timing</th>
+            <th>Skills</th>
+            <th>Interaction</th>
+            <th>ICT</th>
+            <th>Assessment</th>
+        </tr>
+        <tbody>
+            <xf:repeat nodeset="instance('planning_templates')/sessions" id="repeat_sessions">
+        	<tr>
+        	    <td rowspan="4"><xf:input ref="session/order"><xf:label>Session number: </xf:label></xf:input></td>
+       	        <xf:repeat nodeset="session/activities" id="repeat_activities">
+       	            <td>
+		        	    <td><xf:input ref="activity/description"><xf:label>Activities: </xf:label></xf:input></td>
+		        	    <td><xf:input ref="activity/timing"><xf:label>Timing</xf:label></xf:input></td>
+       	            </td>
+       	        </xf:repeat>
+        	</tr>
+        	</xf:repeat>
+        </tbody>
+    </table>
+		<xf:group>
+			<xf:trigger>
+				<xf:label>Insert Session</xf:label>
+				<xf:insert nodeset="sessions" at="index('repeat_sessions')" position="after" ev:event="DOMActivate" />
+			</xf:trigger>
+			<xf:trigger>
+				<xf:label>Delete Session</xf:label>
+				<xf:delete nodeset="sessions" at="index('repeat_sessions')" ev:event="DOMActivate" />
+			</xf:trigger>
+		</xf:group>
+</div>
+
+<xf:submit submission="desa_canvis"><xf:label>Desa canvis</xf:label></xf:submit>
+<xf:trigger>
+    <xf:label>Run Javascript</xf:label>
+    <xf:action ev:event="DOMActivate">
+        <xf:load resource="javascript:ReadInstance()"/>
+    </xf:action>
+</xf:trigger>
+</body>
+</html>

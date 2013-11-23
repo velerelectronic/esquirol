@@ -1,0 +1,613 @@
+/* ====================
+	Main screen layout
+	=================== */
+
+
+html, body, div.fullscreen {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	position: static;
+	display: block;
+	background-color: green;
+	margin: 0;
+	left: 0;
+	top: 0;
+	right: 0;
+	height: 7ex;
+}
+
+#AppBar {
+	color: yellow;
+}
+
+.fullscreen {
+	position: absolute;
+	display: block;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 10;
+}
+
+
+div#dades {
+	overflow: auto;
+	display: block;
+	position: fixed;
+	top: 7ex;
+	left: 0;
+	right: 0;
+	bottom: 3ex;
+}
+
+
+footer {
+	position: fixed;
+	display: block;
+	bottom: 0;
+	z-index: 200;
+/*	top: calc(100%-3ex); */
+	height: 3ex;
+	width: 100%;
+	text-align: center;
+}
+
+
+.window {
+	left: 10%;
+	right: 10%;
+	top: 10%;
+	bottom: 10%;
+	
+	position: fixed;
+	border: outset 1ex green;
+	background-color: rgba(255,255,255,1);
+	display: block;
+	padding: 1em;
+	z-index: 12;
+}
+
+// End of main screen layout
+
+
+.editor {
+	display: block;
+	font-size: 150%;
+	padding: 1em;
+	border: dotted 2pt green;
+	height: 100%;
+}
+
+[contenteditable="true"] {
+	display: block;
+	font-size: 150%;
+	padding: 1em;
+	border: dotted 2pt green;
+	width: calc(100% - 1*3em - 2*2pt);
+	height: calc(100% - 1*3em - 2*2pt);
+	overflow: scroll;
+}
+
+#buttons {
+	display: inline-block;
+	right: 0;
+}
+
+#buttons button {
+    padding: 0.5ex;
+    margin: 1ex;
+    background-color: rgb(150,255,150); color: dark green;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+
+#buttons p {
+	display: inline;
+	color: light green;
+	padding: 1ex;
+}
+
+#menu {
+	z-index: 100;
+	position: fixed;
+}
+
+#menu li {
+	padding: 1ex;
+	background-color: transparent;
+	background-image: none;
+}
+
+#menu li + li {
+	border-top: dashed 1pt;
+}
+
+
+
+h1 {
+	margin: 0;
+    display: inline-block;
+    color: white;
+    padding: 0.5ex;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div#menu {
+    position: fixed;
+    left: 3em;
+    top: 3em;
+//    bottom: 0px;
+    right: 3em;
+    background-color: rgba(200,255,200,0.7);
+    display: none;
+    border: solid 2pt green;
+    border-radius: 2ex;
+    z-index: 50;
+    padding: 1em;
+}
+
+div#menu p {
+    text-align: left;
+    padding: 1ex;
+}
+
+div#menu a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+
+form li {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+
+
+br { margin-bottom: 2em; }
+
+div#status {
+    text-align: center;
+    background-color: yellow;
+    color: blue;
+    display: inline-block;
+}
+
+/*
+--------------
+General tables
+--------------
+ */
+
+table {
+	border: solid 1px green;
+	left: 0; right: 0;
+}
+
+td {
+	writing-mode: lr-tb;
+}
+
+td.cap {
+	color: green darker;
+}
+
+
+/*
+-------------
+Canvas
+-------------
+*/
+
+canvas {
+	border: solid 2pt;
+	border-color: green;
+/*	width: 400px;
+	height: 100px; */
+}
+
+/*
+-------------
+ Valoracions
+-------------
+*/
+
+#selectgrup, .selectcategory {
+	left: 0;
+	right: 0;
+	width: auto;
+    margin: 1ex;
+    padding: 1ex;
+    border: solid 1pt green;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#alumnes {
+    margin: 1em;
+}
+
+table#valoracions {
+    table-layout: fixed;
+}
+
+table#valoracions p {
+    font-size: 80%;
+    margin: 0ex;
+}
+
+#editgrup, #editcategory {
+    display: none;
+    height: 20%;
+    max-height: 20%;
+}
+
+.assignacions dl {
+    padding: 0;
+    margin: 0;
+    font-size: 75%;
+}
+
+.assignacions dt {
+    border: solid 1pt outset;
+    border-color: rgb(0,0,128);
+    background-color: rgb(220,220,255);
+}
+
+.assignacions dl {
+    margin: 0;
+    padding: 0 0 0.5em 0.5em;
+}
+
+#valors {
+    width: 75%;
+}
+
+.quadre2 {
+ margin: 1em;
+ border: outset blue;
+}
+
+.historic {
+	text-overflow: scroll; height: 200px;
+}
+
+select {
+	border: solid 1pt gray; display: inline;
+}
+
+.selected, .noselected, .done {
+	border: solid 1pt orange;
+}
+
+.noselected {
+	background-color: white;
+}
+
+.selected {
+	background-color: yellow;
+}
+
+.done {
+	color: LightGrey;
+}
+
+input {
+	display: inline-block;
+}
+
+textarea {
+	left: 0; right: 0; height: 200px;
+}
+
+
+div#quadre {
+    border: solid 2pt green;
+    display: block;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 1em;
+    background: white;
+    visibility: hidden; position: fixed;
+    z-index: 10;
+    overflow:scroll;
+}
+
+ol {
+	width: 30%;
+	max-height: 400px;
+	display: table-cell;
+//	background-color: rgb(0,255,200);
+	list-style-type: decimal-leading-zero;
+	vertical-align: top;
+	overflow-y: auto;
+}
+
+li.selected {
+	background-color: rgba(100,100,100,0.8);
+	opacity: 0.8;
+}
+
+li.notselected {
+	background-color: rgba(0,0,0,0);
+}
+
+
+div#listValoracions {
+	display: table-cell;
+	right: 0;
+	width: inherit;
+	margin: 1ex;
+	vertical-align: top;
+}
+
+/*
+------------
+Files
+------------
+*/
+
+#filelist {
+	margin: 1ex;
+	white-space: nowrap;
+	border-collapse: collapse;
+}
+
+#filelist td {
+	padding: 1ex;
+}
+
+#filelist tr:nth-child(even) {
+	background-color: rgb(220,220,255);
+}
+	
+#filelist tr:nth-child(odd) {
+	background-color: rgb(240,240,255);
+}
+
+/*
+-------------
+Document area
+-------------
+*/
+
+div#documentarea {
+	left: 0;
+	margin: 1ex;
+	padding: 0;
+	right: 0;
+}
+
+/*
+--------------
+ Resums dades
+--------------
+*/
+
+table.resumDades {
+	border-collapse: collapse;
+	border: solid 1pt green;
+}
+
+.resumDades tr {
+	border-bottom: solid 1pt green;
+}
+
+.resumDades th {
+	padding: 1ex;
+	border: dotted 1px green;	
+	background-color: yellow;
+}
+
+.resumDades td {
+	padding: 1ex;
+	border: dotted 1px green;	
+}
+
+.resumDades td[contenteditable=true] {
+	border-color: blue;
+	background-color: rgb(200,200,200);
+}
+
+tr#control td {
+    padding: 1em;
+    border-color: green;
+    border-style: inset;
+    border-width: medium;
+    margin: 1em;
+}
+
+.editcontrols {
+    padding: 1em;
+    border-color: green;
+    border-style: inset;
+    border-width: medium;
+    margin: 1em;
+}
+
+#editcontrols input {
+    margin-left: 1ex;
+    margin-right: 1ex;
+}
+
+td.temps {
+    background-color: rgb(200,255,200);
+/*    width: 20%; */
+    vertical-align: top;
+    font-size: 80%;
+}
+
+td.anotacio {
+	background-color: rgb(255,255,200); vertical-align: top; padding: 1ex;
+}
+
+p.titol {
+    font-weight: bold;
+    padding: 1ex;
+    margin: 0ex;
+    text-align: left;
+}
+
+
+/*
+-----------------------------------
+Info grups, individus i valoracions
+-----------------------------------
+*/
+
+#infogrups, #infoindividus, #infovaloracions {
+	border-collapse: collapse;
+}
+
+#infogrups td, #infoindividus td, #infovaloracions td {
+	padding: 1em;
+	border-bottom: dotted 1px green;
+}
+
+#infogrups .codi {
+	background-color: rgb(255,100,100); 
+}
+
+#infoindividus .codi {
+	background-color: rgb(100,255,100);
+}
+
+#infovaloracions .codi {
+	background: none;
+}
+
+/*
+----------
+Criteris
+----------
+*/
+
+.criteri, .criteriselected {
+	border: solid 1pt green;
+	background-color: none;
+	display: inline-block;
+	margin: 0.5ex;
+}
+
+.criteriselected {
+	background-color: yellow;
+}
+
+.criteridesat {
+	background-color: grey;
+}
+
+
+/*
+-----
+Clock
+-----
+*/
+
+#superclock {
+	text-align: center;
+}
+
+#clock {
+	border: solid 0.5ex green;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	font-size: 400%;
+	padding: 1ex;
+	text-align: center;
+	display: inline;
+}
+
+*[contenteditable=true] {
+	border: solid 1pt black;
+}
+
+
+/* =============
+   Types of rows
+   =============
+   */
+
+.controlRow td {
+	border-style: inset;
+	border-width: 1ex;
+	border-color: green;	
+}
+
+.possibleRow td {
+	color: gray;
+	background-color: rgb(200,255,200);
+}
+
+.possibleRow td:before {
+	content: "[...]";
+}
+
+/* ====================
+   Iframe for documents
+   ==================== */
+  
+iframe {
+	margin: 1%;
+	width: 98%;
+	height: 98%;
+	border: outset 2pt green;
+}
+
+tbody tr:nth-child(odd) {
+	background-color: rgb(200,255,200);		
+}
+
+tbody tr:nth-child(even) {
+	background-color: rgb(240,255,240);		
+}
+
+tr.updated {
+	color: grey;
+	background-color: rgb(255,255,255);
+}
+
+nav button, input {
+	margin: 1ex;
+}
+
+nav input {
+    border: 1pt solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+input.search:before {
+	content: "Cerca";
+}
+
+input.search:active:before {
+	content: "";
+}
+
+div.filter {
+    border: 1pt solid #ccc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+	background-color: green;
+	color: white;
+	padding: 1ex;
+	margin: 1ex;
+	display: inline-block;
+}
+
+div.filter li {
+	margin-top: 1ex;
+}

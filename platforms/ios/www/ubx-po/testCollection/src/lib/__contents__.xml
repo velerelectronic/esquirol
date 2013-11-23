@@ -1,0 +1,17 @@
+<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib" owner="admin" group="dba" mode="755" created="2009-12-10T09:17:56-08:00" version="1">
+    <resource type="BinaryResource" name="UXUtils.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:17-08:00" modified="2009-12-10T09:18:17-08:00" filename="UXUtils.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="decorate.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:11-08:00" modified="2009-12-10T09:18:11-08:00" filename="decorate.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="namespaceManager.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:14-08:00" modified="2009-12-10T09:18:14-08:00" filename="namespaceManager.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="readme.txt" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:14-08:00" modified="2009-12-10T09:18:14-08:00" filename="readme.txt" mimetype="text/plain"/>
+    <resource type="BinaryResource" name="second-onload.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:14-08:00" modified="2009-12-10T09:18:14-08:00" filename="second-onload.js" mimetype="application/x-javascript"/>
+    <resource type="BinaryResource" name="sniffer.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:14-08:00" modified="2009-12-10T09:18:14-08:00" filename="sniffer.js" mimetype="application/x-javascript"/>
+    <subcollection name="ajaxslt" filename="ajaxslt"/>
+    <subcollection name="extensions" filename="extensions"/>
+    <subcollection name="functions" filename="functions"/>
+    <subcollection name="backplane" filename="backplane"/>
+    <subcollection name="third-party" filename="third-party"/>
+    <subcollection name="xforms" filename="xforms"/>
+    <subcollection name="_backplane" filename="_backplane"/>
+    <subcollection name="_platform" filename="_platform"/>
+    <subcollection name=".svn" filename=".svn"/>
+</collection>
