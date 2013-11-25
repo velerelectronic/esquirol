@@ -85,7 +85,6 @@ function EsquirolPilaTasques() {
 			
 			var max = this.lengthOfPile();
 			selectedtask = ((selectedtask-2) % max + max) % max + 1;
-			alert(selectedtask);
 			
 			showTask(selectedtask);			
 		}

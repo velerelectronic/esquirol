@@ -26,7 +26,9 @@ function EsquirolOptions(parentNode) {
 		basicwidget.creaBotoOpcions(botons, 'Act', func_act);
 		basicwidget.creaBotoOpcions(botons, 'Sha', func_comp);
 		basicwidget.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
-		
+
+		basicwidget.addActionSwipe(node,prev,next,null,null);
+
 //		node.addEventListener('touchstart',function() { basicwidget.touch.touchStart(event,"AppBar"); }, false);
 //		node.addEventListener('touchend', function() { basicwidget.touch.touchEnd(event); }, false);
 //		node.addEventListener('touchmove', function() { basicwidget.touch.touchMove(event); }, false);
@@ -34,4 +36,5 @@ function EsquirolOptions(parentNode) {
 		
 //		basicwidget.touch.connect(null, null, prev, next);
 	}
+	
 }

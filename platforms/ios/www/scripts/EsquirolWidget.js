@@ -164,6 +164,57 @@ function EsquirolWidget() {
 			return false;			
 		},false);
 	}
+	
+	this.addActionSwipe = function(element,actionSwipeLeft,actionSwipeRight,actionSwipeTop,actionSwipeBottom) {
+		var pos = null;
+		element.addEventListener('touchstart',function(e) {
+			var touches = e.changedTouches;
+			if (touches.length==1) {
+				pos = [];
+				var onetouch = touches[0];
+				pos[0] = onetouch.pageX;
+				pos[1] = onetouch.pageY;
+			}
+		});
+		element.addEventListener('touchmove',function(e) {
+			var touches = e.changedTouches;
+			if ((pos != null) && (touches.length==1)) {
+				var onetouch = touches[0];
+				var newpos = [];
+				newpos[0] = onetouch.pageX;
+				newpos[1] = onetouch.pageY;
+				
+				// Detect swipe horizontal left
+				if (Math.abs(newpos[1]-pos[1])<10) {
+					// Detect swipe left
+					if (newpos[0]-pos[0]<-50) {
+						actionSwipeLeft();
+						pos = null;
+					} else {
+						// Detect swipe right
+						if (newpos[0]-pos[0]>50) {
+							actionSwipeRight();
+							pos = null;
+						}
+					}
+				} else {
+					if (Math.abs(newpos[0]-pos[0])<10) {
+						// Detect swipe top
+						if (newpos[1]-pos[1]<-50) {
+							actionSwipeTop();
+							pos = null;
+						} else {
+							// Detect swipe bottom
+							if (newpos[1]-pos[1]>50) {
+								actionSwipeBottom();
+								pos = null;
+							}
+						}
+					}
+				}
+			}
+		});
+	}
 }
 
 

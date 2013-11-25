@@ -34,11 +34,11 @@ function EsquirolMain() {
     
     // Methods
     
-    this.inicia = function(dades,bar,menu,status) {
-    	// The tasks pile contains the views of several tasks
-    	pilatasques = new EsquirolPilaTasques();
-    	
-    	// Set up a main bar at the top of the main window
+	this.inicia = function(dades,bar,menu,status) {
+		// The tasks pile contains the views of several tasks
+		pilatasques = new EsquirolPilaTasques();
+		
+		// Set up a main bar at the top of the main window
 		var mainbar = new EsquirolOptions( document.getElementById(bar) );
 		mainbar.createMainBar(this.AppName(),
 				that.mostraMenuOpcions,
@@ -48,25 +48,25 @@ function EsquirolMain() {
 				function() { pilatasques.changeToNextTask(); },
 				function() { pilatasques.changeToPreviousTask(); }
 		);
-
+	
 		// Init database
-        database.init();
+	    database.init();
 	    
-        // Init menus
-        mainmenu = new EsquirolMenu( document.getElementById(menu) );
+	    // Init menus
+	    mainmenu = new EsquirolMenu( document.getElementById(menu) );
 		mainmenu.closeMenu();
-        
-        // Init node for data
-        nodedades = document.getElementById(dades);
+	    
+	    // Init node for data
+	    nodedades = document.getElementById(dades);
+	
+	    // Create a status bar
+	    nodestatus = document.getElementById(status);
+	}
 
-        // Create a status bar
-        nodestatus = document.getElementById(status);
-    }
-
-    this.mostraInicial = function() {
-    	var inicial = new PaginaInicial('Pˆgina inicial',nodedades,database);
-    	pilatasques.addTask('inicial',inicial);
-    };
+	this.mostraInicial = function() {
+		var inicial = new PaginaInicial('Pˆgina inicial',nodedades,database);
+		pilatasques.addTask('inicial',inicial);
+	};
     
     
     // Show annotations
@@ -84,23 +84,23 @@ function EsquirolMain() {
         pilatasques.addTask('anotacions',diagvaloracio);
     };
 
-    this.mostraRellotge = function () {
-    	that.tancaMenu();
-    	var rell = new EsquirolClock('Rellotge',nodedades);
-    	pilatasques.addTask('rellotge',rell);
-    };
+	this.mostraRellotge = function () {
+		that.tancaMenu();
+		var rell = new EsquirolClock('Rellotge',nodedades);
+		pilatasques.addTask('rellotge',rell);
+	};
     
-    this.mostraForms = function () {
-    	that.tancaMenu();
-    	var forms = new EsquirolForms('Formularis',nodedades);
-    	pilatasques.addTask('formularis',forms);
-    	forms.mostraForm();
-    };
+	this.mostraForms = function () {
+		that.tancaMenu();
+		var forms = new EsquirolForms('Formularis',nodedades);
+		pilatasques.addTask('formularis',forms);
+		forms.mostraForm();
+	};
     
     function mostraUnDocument (dirEntry,file) {
-    	var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
-    	pilatasques.addTask('document', undocument);
-    	undocument.llegeix(dirEntry,file);
+    		var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
+    		pilatasques.addTask('document', undocument);
+    		undocument.llegeix(dirEntry,file);
     }
 
 	this.mostraDocuments = function () {
@@ -122,13 +122,13 @@ function EsquirolMain() {
                      [that.mostraInicial, 'Inicial'],
                      [that.mostraAnotacions, 'Anotacions'],
                      [that.mostraValoracions, 'Valoracions'],
-                     [that.mostraValoracions2, 'Valoracions'],
+                     [that.mostraDocuments, 'Documents'],
+                     /*  [that.mostraValoracions2, 'Valoracions'], */
                      [that.mostraRellotge,'Rellotge'],
                      [that.mostraForms,'Formularis'],
                      ['exportaHTML()', 'Exporta'],
                      [function () { document.location='canvas.html'; }, 'Canvas'],
                      [function() { document.location='database.html'; }, 'Base de dades'],
-                     [that.mostraDocuments, 'Documents'],
                      [function() { document.location='opendocumentviewer.html'; }, 'Visor ODF']
                     ]);
     }
@@ -177,13 +177,15 @@ function EsquirolMain() {
         pilatasques.returnCurrentTask().basicwidget.saveAsHTML();
 	}
 
+    function esborraStatus() {
+		nodestatus.innerHTML = '';
+    }
+
     function actualitzaStatus (nouestat) {
         nodestatus.appendChild( document.createTextNode(nouestat));
         window.clearTimeout(timeout);
-        timeout = window.setTimeout(esborraStatus,10000);
+        timeout = window.setTimeout(function() { esborraStatus(); },5000);
+        alert('Time');
     }
     
-    function esborraStatus() {
-    		nodestatus.innerHTML = '';
-    }
 }
