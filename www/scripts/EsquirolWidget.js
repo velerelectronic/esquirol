@@ -5,6 +5,8 @@ function EsquirolWidget() {
 	var that = this;
 	var touch;
 	var timer = null;
+	var titol = '';
+	var actionStatus;
 
 	// Support functions
 	this.addHiddenInfo = function (node,label,value) {
@@ -16,7 +18,6 @@ function EsquirolWidget() {
 	};
 	
 	// Graphical tools
-	
 	this.createInitWidget = function (parentWidget) {
 		this.basicnode = document.createElement('div');
 		parentWidget.appendChild(this.basicnode);
@@ -30,6 +31,10 @@ function EsquirolWidget() {
 
 	this.setFullScreen = function () {
 		this.basicnode.className = 'fullscreen';
+	}
+	
+	this.returnTitle = function() {
+		return titol;
 	}
 	
 	this.showContents = function () {
@@ -214,6 +219,14 @@ function EsquirolWidget() {
 				}
 			}
 		});
+	}
+	
+	this.addActionStatus = function(actionStatus) {
+		
+	}
+	
+	this.publishStatus = function (status) {
+		
 	}
 }
 

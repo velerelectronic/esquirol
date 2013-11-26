@@ -114,7 +114,12 @@ function VisorDocument(id,statusAction,parentNode) {
 	this.basicwidget = new EsquirolWidget();
 	this.basicwidget.createInitWidget(parentNode);
 	var status = statusAction;
+	var actionReadFile = null;
 
+	this.returnText = function() {
+		return titol;
+	}
+	
     var that = this;
     // The place where the document will be shown
     var iframe;
@@ -219,12 +224,23 @@ function VisorDocument(id,statusAction,parentNode) {
 		node.appendChild(iframe);		
 	}
 
+	this.connectSignalReadFile = function(action) {
+		actionReadFile = action;
+	}
+	
+	function callSignalReadFile() {
+		if (actionReadFile != null) {
+			actionReadFile();			
+		}
+	}
+
 	this.llegeix = function(dirEntry,file) {
 		dirEntry.getFile(
 				file,
 				{create: false, exclusive: false},
 				// Got file
 				function (f) {
+					titol += ' ' + file;
 					var node = that.basicwidget.returnBasicNode();
 					//iframe.innerHTML = '';
 					docEntry = f;
@@ -242,6 +258,7 @@ function VisorDocument(id,statusAction,parentNode) {
 
 				},
 				that.fail);
+		callSignalReadFile();
 	}
 	
 	this.guarda = function() {

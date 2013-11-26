@@ -45,10 +45,17 @@ function EsquirolMain() {
 				that.mostraMenuTasques,
 				that.mostraMenuActivitat,
 				that.mostraMenuCompartir,
-				function() { pilatasques.changeToNextTask(); },
-				function() { pilatasques.changeToPreviousTask(); }
+				pilatasques.changeToPreviousTask,
+				pilatasques.changeToNextTask
 		);
-	
+
+		var nodetask = document.getElementById('taskname');
+
+		pilatasques.connectSignalChangeTask(function(newtask) {
+			nodetask.innerHTML = '';
+			nodetask.appendChild( document.createTextNode(newtask.returnText()));
+		});
+
 		// Init database
 	    database.init();
 	    
@@ -99,6 +106,11 @@ function EsquirolMain() {
     
     function mostraUnDocument (dirEntry,file) {
     		var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
+    		undocument.connectSignalReadFile(function() {
+    			var nodetask = document.getElementById('taskname');
+    			nodetask.innerHTML = '';
+    			nodetask.appendChild( document.createTextNode(undocument.returnText()));
+    		});
     		pilatasques.addTask('document', undocument);
     		undocument.llegeix(dirEntry,file);
     }

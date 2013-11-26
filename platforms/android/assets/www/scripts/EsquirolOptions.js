@@ -18,8 +18,12 @@ function EsquirolOptions(parentNode) {
         
 		var botons = document.createElement('div');
 		botons.id = 'buttons';
-		node.appendChild(botons);
+		node.appendChild( botons );
 
+		var tasknode = document.createElement('div');
+		tasknode.id = 'taskname';
+		node.appendChild( tasknode );
+		
 		//var tmp = EsquirolWidget();
 		basicwidget.creaBotoOpcions(botons, 'Menu', func_opcions);
 		basicwidget.creaBotoOpcions(botons, 'Tsk', func_tasques);
@@ -27,7 +31,7 @@ function EsquirolOptions(parentNode) {
 		basicwidget.creaBotoOpcions(botons, 'Sha', func_comp);
 		basicwidget.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
 
-		basicwidget.addActionSwipe(node,prev,next,null,null);
+		basicwidget.addActionSwipe(node,next,prev,null,null);
 
 //		node.addEventListener('touchstart',function() { basicwidget.touch.touchStart(event,"AppBar"); }, false);
 //		node.addEventListener('touchend', function() { basicwidget.touch.touchEnd(event); }, false);
