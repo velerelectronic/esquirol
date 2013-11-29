@@ -2,10 +2,11 @@
 // Funcions per crear una font de sistema de fitxers. Local file system
 
 function EsquirolSourceFilesystem(id, parentNode) {
-	var titol = id;
+	EsquirolWidget.call(this,id);
+
+//	this.titol = id;
 	var that = this;
-	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentNode);
+	this.createInitWidget(parentNode);
 	
 	this.name = '';
 	this.doc;
@@ -15,10 +16,6 @@ function EsquirolSourceFilesystem(id, parentNode) {
 
 	this.setDirectoryName = function (name) {
 		this.name = name;
-	}
-
-	this.returnText = function() {
-		return titol;
 	}
 
 	this.getFileSystem = function() {
@@ -50,7 +47,7 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	}
 	
 	function gotFileEntries (fileEntries) {
-		var node = that.basicwidget.returnBasicNode();
+		var node = that.returnBasicNode();
 		node.innerHTML = '';
 		var table = document.createElement('table');
 		table['id'] = 'filelist';
@@ -98,3 +95,5 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	}
 	
 }
+
+EsquirolSourceFilesystem.prototype = new EsquirolWidget;

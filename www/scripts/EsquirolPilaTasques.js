@@ -25,7 +25,8 @@ function EsquirolPilaTasques() {
 	}
 	
 	this.addTask = function(id, object) {
-		var div = object.basicwidget.returnBasicNode();
+//		var div = object.basicwidget.returnBasicNode();
+		var div = object.returnBasicNode();
 		pila.push([object,div]);
 		if (selectedtask>0) {
 			hideTask(selectedtask);

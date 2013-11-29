@@ -109,17 +109,12 @@ function TextEditor(content_node,save_action) {
 }
 
 function VisorDocument(id,statusAction,parentNode) {
-	var titol = id;
-	var that = this;
-	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentNode);
+	EsquirolWidget.call(this,id);
+	this.createInitWidget(parentNode);
+
 	var status = statusAction;
 	var actionReadFile = null;
 
-	this.returnText = function() {
-		return titol;
-	}
-	
     var that = this;
     // The place where the document will be shown
     var iframe;
@@ -200,7 +195,8 @@ function VisorDocument(id,statusAction,parentNode) {
     }
 
 	function addActionToElement(element) {
-		that.basicwidget.addLongPressListener(element,editElement,actionsForElement);
+//		that.basicwidget.addLongPressListener(element,editElement,actionsForElement);
+		that.addLongPressListener(element,editElement,actionsForElement);
 	}
 	
 	
@@ -213,7 +209,8 @@ function VisorDocument(id,statusAction,parentNode) {
     }
     
 	function reinicia () {
-		var node = that.basicwidget.returnBasicNode();
+//		var node = that.basicwidget.returnBasicNode();
+		var node = that.returnBasicNode();
 		node.innerHTML = '';
 
 		iframe = document.createElement('iframe');
@@ -241,7 +238,8 @@ function VisorDocument(id,statusAction,parentNode) {
 				// Got file
 				function (f) {
 					titol += ' ' + file;
-					var node = that.basicwidget.returnBasicNode();
+//					var node = that.basicwidget.returnBasicNode();
+					var node = that.returnBasicNode();
 					//iframe.innerHTML = '';
 					docEntry = f;
 					docEntry.file(
@@ -313,3 +311,5 @@ function VisorDocument(id,statusAction,parentNode) {
 	}
 
 }
+
+VisorDocument.prototype = new EsquirolWidget;

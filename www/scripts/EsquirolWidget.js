@@ -1,11 +1,11 @@
 // The basic common class for all the objects with a visual representation
 
-function EsquirolWidget() {
+function EsquirolWidget(name) {
 	this.basicnode;
 	var that = this;
 	var touch;
 	var timer = null;
-	var titol = '';
+	this.titol = (typeof name === 'undefined') ? this.name : name;
 	var actionStatus;
 
 	// Support functions
@@ -17,13 +17,6 @@ function EsquirolWidget() {
 		return node.getAttribute('data-'+label);
 	};
 	
-	// Graphical tools
-	this.createInitWidget = function (parentWidget) {
-		this.basicnode = document.createElement('div');
-		parentWidget.appendChild(this.basicnode);
-		this.basicnode.onclick = function(e) { e.stopPropagation(); };
-		touch = new EsquirolTouch();
-	}
 
 	this.returnBasicNode = function () {
 		return this.basicnode;
@@ -36,7 +29,7 @@ function EsquirolWidget() {
 	this.returnTitle = function() {
 		return titol;
 	}
-	
+
 	this.showContents = function () {
 		// Show the basic contents of the widget.
 		// This must be implemented
@@ -230,43 +223,23 @@ function EsquirolWidget() {
 	}
 }
 
+// Graphical tools
 
-function commutaSeleccio(e) {
-    node = e.currentTarget;
-    if (node.getAttribute('class')=='selected') {
-        node.setAttribute('class','noselected');
-    } else {
-        node.setAttribute('class','selected');
-    }
+EsquirolWidget.prototype.createInitWidget = function (parentWidget) {
+	this.basicnode = document.createElement('div');
+	parentWidget.appendChild(this.basicnode);
+	this.basicnode.onclick = function(e) { e.stopPropagation(); };
+	touch = new EsquirolTouch();
 }
 
-// Quadre superposat
-
-function emptyQuadre(node) {
-    node.innerHTML = '';
+EsquirolWidget.prototype.returnBasicNode = function () {
+	return this.basicnode;
 }
 
-
-function closeControl(nodeName) {
-    var control = document.getElementById(nodeName);
-    control.parentNode.removeChild(control);
+EsquirolWidget.prototype.returnText = function() {
+	return this.titol;
 }
 
-    function creaSelect(vector1,vector2) {
-        select = document.createElement('select');
-        for (i=0;i<vector1.length;i++) {
-            opt = document.createElement('option')
-            opt.setAttribute('value',vector1[i]);
-            text = document.createTextNode(vector2[i]);
-            opt.appendChild(text);
-            select.appendChild(opt)
-        }
-        return select;
-    }
-
-function listProperties(node) {
-    for (var prop in node) {
-        alert("Propietat '"+prop+"', valor '"+node[prop]+"'");
-    }
+EsquirolWidget.prototype.returnState = function() {
+	return '';
 }
-
