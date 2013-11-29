@@ -1,14 +1,14 @@
 function GestorAnotacions(id,parentNode,database,tipus) {
+	EsquirolWidget.call(this,id);
+	this.createInitWidget(parentNode,database);
+
 	var anotador;
 	var that = this;
 	var taulaAnot;
-	var titol = id;
-	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentNode,database);
 	var TABLEANOT = 'anotacions';
 	var TABLEVALOR = 'graellaavaluacio';
 	var db = database;
-	var node = this.basicwidget.returnBasicNode();
+	var node = this.returnBasicNode();
 	var table_anot = new EsquirolTable(node, database);
 	var table_valor = new EsquirolTable(node, database);
 	var type = tipus;
@@ -16,14 +16,6 @@ function GestorAnotacions(id,parentNode,database,tipus) {
 	table_anot.setTableName(TABLEANOT);
 	table_valor.setTableName(TABLEVALOR);
 
-	this.returnText = function() {
-		return titol;
-	}
-	
-	this.returnState = function() {
-		return '';
-	}
-	
 	this.showContents = function() {
 		this.generaQuadreAnotacions();
 	}
@@ -46,7 +38,7 @@ function GestorAnotacions(id,parentNode,database,tipus) {
 	
 
 	this.generaQuadreAnotacions = function() {
-		var node = this.basicwidget.returnBasicNode();
+		var node = this.returnBasicNode();
 
 		node.innerHTML = '';
 
@@ -60,3 +52,4 @@ function GestorAnotacions(id,parentNode,database,tipus) {
 	}
 }
 
+GestorAnotacions.prototype = new EsquirolWidget;

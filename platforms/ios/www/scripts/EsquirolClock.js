@@ -1,32 +1,23 @@
 function EsquirolClock(id,parentNode) {
-	var titol = id;
-	var that = this;
-	this.mainClock;
-	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentNode);
+	EsquirolWidget.call(this,id);
+	this.createInitWidget(parentNode);
 
-	this.returnText = function() {
-		return titol;
-	}
-	
-	this.returnState = function() {
-		return '';
-	}
-	
+	var mainClock;
+
 	this.showContents = function() {
 		this.mostraTauler();
 	}
-	
+
 	this.mostraTauler = function() {
-		var node = this.basicwidget.returnBasicNode();
+		var node = this.returnBasicNode();
 		var div = document.createElement('div');
 		div.id = 'superclock';
 		node.appendChild(div);
 		
-		this.mainClock = document.createElement('div');
-		this.mainClock.id = 'clock';
-		div.appendChild(this.mainClock);
-		this.mainClock.appendChild(document.createTextNode('Rellotge'));
+		mainClock = document.createElement('div');
+		mainClock.id = 'clock';
+		div.appendChild(mainClock);
+		mainClock.appendChild(document.createTextNode('Rellotge'));
 		updateClock();
 		window.setInterval(updateClock,1000);
 	}
@@ -55,8 +46,8 @@ function EsquirolClock(id,parentNode) {
 		var cadenaTemps = hores + ":" + minuts + ":" + segons + " " + timeOfDay;
 		
 		// Update the time display
-		that.mainClock.firstChild.nodeValue = cadenaTemps;
+		mainClock.firstChild.nodeValue = cadenaTemps;
 	}
-
-
 }
+
+EsquirolClock.prototype = new EsquirolWidget;

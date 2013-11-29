@@ -6,37 +6,19 @@ function EsquirolMain() {
     var pilatasques;
     var mainmenu; // The main menu (for options, tasks, activity...)
     var database = new EsquirolDatabase();
+    database.connectSlot(this,actualitzaStatus);
     var nodedades;
     var nodestatus;
 
-    
     this.AppName = function() { return 'Esquirol 0.5'; };
-    
-    function PaginaInicial(id,parentNode,db) {
-    	var titol = id;
-    	this.basicwidget = new EsquirolWidget();
-    	this.basicwidget.createInitWidget(parentNode,db);
-
-    	this.returnText = function() {
-    		return titol;
-    	}
-    	
-    	this.returnState = function() {
-    		return '';
-    	}
-    	
-    	this.showContents = function() {
-    		var node = this.basicwidget.returnBasicNode();
-    		node.innerHTML = "<p>Benvingut a Esquirol, el programa gestor d'anotacions!</p><p>Tria una de les opcions que hi ha la capçalera d'aquesta p&agrave;gina per comen&ccedil;ar a treballar.</p>";
-    	}
-    	
-    };
     
     // Methods
     
 	this.inicia = function(dades,bar,menu,status) {
 		// The tasks pile contains the views of several tasks
 		pilatasques = new EsquirolPilaTasques();
+		
+		var p = new EsquirolWidget();
 		
 		// Set up a main bar at the top of the main window
 		var mainbar = new EsquirolOptions( document.getElementById(bar) );
@@ -61,7 +43,7 @@ function EsquirolMain() {
 	    
 	    // Init menus
 	    mainmenu = new EsquirolMenu( document.getElementById(menu) );
-		mainmenu.closeMenu();
+		mainmenu.hideContainer();
 	    
 	    // Init node for data
 	    nodedades = document.getElementById(dades);
@@ -71,6 +53,16 @@ function EsquirolMain() {
 	}
 
 	this.mostraInicial = function() {
+	    function PaginaInicial(id,parentNode,db) {
+	    	this.createInitWidget(parentNode,db);
+
+	    	this.showContents = function() {
+	    		var node = this.returnBasicNode();
+	    		node.innerHTML = "<p>Benvingut a Esquirol, el programa gestor d'anotacions!</p><p>Tria una de les opcions que hi ha la capçalera d'aquesta p&agrave;gina per comen&ccedil;ar a treballar.</p>";
+	    	}
+	    };
+	    PaginaInicial.prototype = new EsquirolWidget('Pàgina inicial');
+
 		var inicial = new PaginaInicial('Pàgina inicial',nodedades,database);
 		pilatasques.addTask('inicial',inicial);
 	};

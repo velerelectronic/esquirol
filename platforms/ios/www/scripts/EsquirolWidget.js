@@ -1,11 +1,15 @@
 // The basic common class for all the objects with a visual representation
 
-function EsquirolWidget() {
+function EsquirolObject() {
+	
+}
+
+function EsquirolWidget(name) {
 	this.basicnode;
 	var that = this;
 	var touch;
 	var timer = null;
-	var titol = '';
+	this.titol = (typeof name === 'undefined') ? this.name : name;
 	var actionStatus;
 
 	// Support functions
@@ -16,32 +20,6 @@ function EsquirolWidget() {
 	this.getHiddenInfo  = function (node,label) {
 		return node.getAttribute('data-'+label);
 	};
-	
-	// Graphical tools
-	this.createInitWidget = function (parentWidget) {
-		this.basicnode = document.createElement('div');
-		parentWidget.appendChild(this.basicnode);
-		this.basicnode.onclick = function(e) { e.stopPropagation(); };
-		touch = new EsquirolTouch();
-	}
-
-	this.returnBasicNode = function () {
-		return this.basicnode;
-	}
-
-	this.setFullScreen = function () {
-		this.basicnode.className = 'fullscreen';
-	}
-	
-	this.returnTitle = function() {
-		return titol;
-	}
-	
-	this.showContents = function () {
-		// Show the basic contents of the widget.
-		// This must be implemented
-		return null;
-	}
 	
 	this.saveAsHTML = function () {
 		var file = prompt('Nom de fitxer: ');
@@ -93,24 +71,6 @@ function EsquirolWidget() {
 		input.type = "text";
 		input.className = "search";
 		lloc.appendChild(input);
-	}
-	
-	this.hideContainer = function() {
-//		this.basicnode.style.visibility = 'hidden';
-		this.basicnode.parentNode.style.display = 'none';
-	}
-	
-	this.showContainer = function() {
-//		this.basicnode.style.visibility = 'visible';
-    	this.basicnode.parentNode.style.display = 'block';		
-	}
-	
-	this.isVisible = function() {
-		if (this.basicnode.parentNode.style.display=='block') {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 	this.autodestroy = function() {
@@ -169,7 +129,7 @@ function EsquirolWidget() {
 			return false;			
 		},false);
 	}
-	
+
 	this.addActionSwipe = function(element,actionSwipeLeft,actionSwipeRight,actionSwipeTop,actionSwipeBottom) {
 		var pos = null;
 		element.addEventListener('touchstart',function(e) {
@@ -230,43 +190,55 @@ function EsquirolWidget() {
 	}
 }
 
+// Graphical tools
 
-function commutaSeleccio(e) {
-    node = e.currentTarget;
-    if (node.getAttribute('class')=='selected') {
-        node.setAttribute('class','noselected');
-    } else {
-        node.setAttribute('class','selected');
-    }
+EsquirolWidget.prototype.createInitWidget = function (parentWidget) {
+	this.basicnode = document.createElement('div');
+	var parent;
+	if (typeof parentWidget === 'undefined') {
+		parent = document.getElementById('body')[0];
+		this.basicnode.className = 'fullscreen';
+		this.basicnode.onclick = function(e) { e.stopPropagation(); };
+	} else {
+		parent = parentWidget;
+		this.basicnode.className = 'widget';
+	}
+	parent.appendChild(this.basicnode);
+	touch = new EsquirolTouch();
 }
 
-// Quadre superposat
-
-function emptyQuadre(node) {
-    node.innerHTML = '';
+EsquirolWidget.prototype.returnBasicNode = function () {
+	return this.basicnode;
 }
 
-
-function closeControl(nodeName) {
-    var control = document.getElementById(nodeName);
-    control.parentNode.removeChild(control);
+EsquirolWidget.prototype.returnText = function() {
+	return this.titol;
 }
 
-    function creaSelect(vector1,vector2) {
-        select = document.createElement('select');
-        for (i=0;i<vector1.length;i++) {
-            opt = document.createElement('option')
-            opt.setAttribute('value',vector1[i]);
-            text = document.createTextNode(vector2[i]);
-            opt.appendChild(text);
-            select.appendChild(opt)
-        }
-        return select;
-    }
-
-function listProperties(node) {
-    for (var prop in node) {
-        alert("Propietat '"+prop+"', valor '"+node[prop]+"'");
-    }
+EsquirolWidget.prototype.returnState = function() {
+	return '';
 }
 
+EsquirolWidget.prototype.showContents = function () {
+	// Show the basic contents of the widget.
+	// This must be implemented
+	return null;
+}
+
+EsquirolWidget.prototype.hideContainer = function() {
+//	this.basicnode.style.visibility = 'hidden';
+	this.basicnode.parentNode.style.display = 'none';
+}
+
+EsquirolWidget.prototype.showContainer = function() {
+//	this.basicnode.style.visibility = 'visible';
+	this.basicnode.parentNode.style.display = 'block';		
+}
+
+EsquirolWidget.prototype.isVisible = function() {
+	if (this.basicnode.parentNode.style.display=='block') {
+		return true;
+	} else {
+		return false;
+	}
+}
