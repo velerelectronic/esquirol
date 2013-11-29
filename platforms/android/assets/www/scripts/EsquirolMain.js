@@ -6,6 +6,7 @@ function EsquirolMain() {
     var pilatasques;
     var mainmenu; // The main menu (for options, tasks, activity...)
     var database = new EsquirolDatabase();
+    database.connectSlot(this,actualitzaStatus);
     var nodedades;
     var nodestatus;
 
@@ -42,7 +43,7 @@ function EsquirolMain() {
 	    
 	    // Init menus
 	    mainmenu = new EsquirolMenu( document.getElementById(menu) );
-		mainmenu.closeMenu();
+		mainmenu.hideContainer();
 	    
 	    // Init node for data
 	    nodedades = document.getElementById(dades);

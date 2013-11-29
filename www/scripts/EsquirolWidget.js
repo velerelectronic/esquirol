@@ -1,5 +1,9 @@
 // The basic common class for all the objects with a visual representation
 
+function EsquirolObject() {
+	
+}
+
 function EsquirolWidget(name) {
 	this.basicnode;
 	var that = this;
@@ -16,25 +20,6 @@ function EsquirolWidget(name) {
 	this.getHiddenInfo  = function (node,label) {
 		return node.getAttribute('data-'+label);
 	};
-	
-
-	this.returnBasicNode = function () {
-		return this.basicnode;
-	}
-
-	this.setFullScreen = function () {
-		this.basicnode.className = 'fullscreen';
-	}
-	
-	this.returnTitle = function() {
-		return titol;
-	}
-
-	this.showContents = function () {
-		// Show the basic contents of the widget.
-		// This must be implemented
-		return null;
-	}
 	
 	this.saveAsHTML = function () {
 		var file = prompt('Nom de fitxer: ');
@@ -86,24 +71,6 @@ function EsquirolWidget(name) {
 		input.type = "text";
 		input.className = "search";
 		lloc.appendChild(input);
-	}
-	
-	this.hideContainer = function() {
-//		this.basicnode.style.visibility = 'hidden';
-		this.basicnode.parentNode.style.display = 'none';
-	}
-	
-	this.showContainer = function() {
-//		this.basicnode.style.visibility = 'visible';
-    	this.basicnode.parentNode.style.display = 'block';		
-	}
-	
-	this.isVisible = function() {
-		if (this.basicnode.parentNode.style.display=='block') {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 	this.autodestroy = function() {
@@ -162,7 +129,7 @@ function EsquirolWidget(name) {
 			return false;			
 		},false);
 	}
-	
+
 	this.addActionSwipe = function(element,actionSwipeLeft,actionSwipeRight,actionSwipeTop,actionSwipeBottom) {
 		var pos = null;
 		element.addEventListener('touchstart',function(e) {
@@ -227,9 +194,16 @@ function EsquirolWidget(name) {
 
 EsquirolWidget.prototype.createInitWidget = function (parentWidget) {
 	this.basicnode = document.createElement('div');
-	parentWidget.appendChild(this.basicnode);
-	this.basicnode.className = 'widget';
-	this.basicnode.onclick = function(e) { e.stopPropagation(); };
+	var parent;
+	if (typeof parentWidget === 'undefined') {
+		parent = document.getElementById('body')[0];
+		this.basicnode.className = 'fullscreen';
+		this.basicnode.onclick = function(e) { e.stopPropagation(); };
+	} else {
+		parent = parentWidget;
+		this.basicnode.className = 'widget';
+	}
+	parent.appendChild(this.basicnode);
 	touch = new EsquirolTouch();
 }
 
@@ -243,4 +217,28 @@ EsquirolWidget.prototype.returnText = function() {
 
 EsquirolWidget.prototype.returnState = function() {
 	return '';
+}
+
+EsquirolWidget.prototype.showContents = function () {
+	// Show the basic contents of the widget.
+	// This must be implemented
+	return null;
+}
+
+EsquirolWidget.prototype.hideContainer = function() {
+//	this.basicnode.style.visibility = 'hidden';
+	this.basicnode.parentNode.style.display = 'none';
+}
+
+EsquirolWidget.prototype.showContainer = function() {
+//	this.basicnode.style.visibility = 'visible';
+	this.basicnode.parentNode.style.display = 'block';		
+}
+
+EsquirolWidget.prototype.isVisible = function() {
+	if (this.basicnode.parentNode.style.display=='block') {
+		return true;
+	} else {
+		return false;
+	}
 }

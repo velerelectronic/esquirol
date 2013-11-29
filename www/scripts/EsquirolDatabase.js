@@ -3,11 +3,26 @@ var coditemporal;
 function EsquirolDatabase() {
 	var dbShell;
 	var that = this;
+	var slotObject = null;
+	var slotAction = null;
 	
 	this.init = function() {
 	    dbShell = window.openDatabase("esquirol","1.0","Base de dades Esquirol",1000000);		
 	}
 
+	this.connectSlot = function(object,func) {
+		if (object == null) {
+			slotObject = window;
+		}
+		slotAction = func;
+	}
+	
+	function emitSignalActualitzaStatus(cadena) {
+		if (slotAction != null) {
+			slotAction.call(slotObject,cadena);
+		}
+	}
+	
 	function instantActual() {
 	    var now = new Date();
 	    var format = now.toISOString();
@@ -15,11 +30,11 @@ function EsquirolDatabase() {
 	}
 
 	function errorCB(err) {
-	    esquirol.actualitzaStatus('Error general en la base de dades: ' + err.code);
+	    emitSignalActualitzaStatus('Error general en la base de dades: ' + err.code);
 	}
 
 	function errorUpdateCB(err) {
-	    esquirol.actualitzaStatus('Error en canviar la base de dades: ' + err.code);
+	    emitSignalActualitzaStatus('Error en canviar la base de dades: ' + err.code);
 	}
 
 	function successCB() {
@@ -27,7 +42,7 @@ function EsquirolDatabase() {
 	}
 
 	function successUpdateCB() {
-	    esquirol.actualitzaStatus('Base de dades actualitzada');
+	    emitSignalActualitzaStatus('Base de dades actualitzada');
 	}
 
 	function addMessageWait (node) {
