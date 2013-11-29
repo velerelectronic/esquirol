@@ -2,15 +2,13 @@
 
 function EsquirolOptions(parentNode) {
 	// EsquirolWidget
-	var basicwidget = new EsquirolWidget();
-	basicwidget.createInitWidget(parentNode,null);
+	this.createInitWidget(parentNode,null);
 	// Menus
 	var mainmenu,taskmenu,actmenu;
-	// Variable helpers
-	var that = this;
 
 	this.createMainBar = function(name,func_opcions,func_tasques,func_act,func_comp,prev,next) {
-        var node = document.getElementById('AppBar');
+//		EsquirolWidget.call(this);
+		var node = document.getElementById('AppBar');
         node.innerHTML = '';
         var heading = document.createElement('h1');
         heading.appendChild( document.createTextNode(name) );
@@ -25,13 +23,13 @@ function EsquirolOptions(parentNode) {
 		node.appendChild( tasknode );
 		
 		//var tmp = EsquirolWidget();
-		basicwidget.creaBotoOpcions(botons, 'Menu', func_opcions);
-		basicwidget.creaBotoOpcions(botons, 'Tsk', func_tasques);
-		basicwidget.creaBotoOpcions(botons, 'Act', func_act);
-		basicwidget.creaBotoOpcions(botons, 'Sha', func_comp);
-		basicwidget.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
+		this.creaBotoOpcions(botons, 'Menu', func_opcions);
+		this.creaBotoOpcions(botons, 'Tsk', func_tasques);
+		this.creaBotoOpcions(botons, 'Act', func_act);
+		this.creaBotoOpcions(botons, 'Sha', func_comp);
+		this.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
 
-		basicwidget.addActionSwipe(node,next,prev,null,null);
+		this.addActionSwipe(node,next,prev,null,null);
 
 //		node.addEventListener('touchstart',function() { basicwidget.touch.touchStart(event,"AppBar"); }, false);
 //		node.addEventListener('touchend', function() { basicwidget.touch.touchEnd(event); }, false);
@@ -42,3 +40,5 @@ function EsquirolOptions(parentNode) {
 	}
 	
 }
+
+EsquirolOptions.prototype = new EsquirolWidget('Menu');

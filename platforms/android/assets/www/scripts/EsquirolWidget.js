@@ -228,6 +228,7 @@ function EsquirolWidget(name) {
 EsquirolWidget.prototype.createInitWidget = function (parentWidget) {
 	this.basicnode = document.createElement('div');
 	parentWidget.appendChild(this.basicnode);
+	this.basicnode.className = 'widget';
 	this.basicnode.onclick = function(e) { e.stopPropagation(); };
 	touch = new EsquirolTouch();
 }

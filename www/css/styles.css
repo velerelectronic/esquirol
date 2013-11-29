@@ -43,6 +43,10 @@ div#dades {
 	bottom: 3ex;
 }
 
+.widget {
+	width: 100%;
+	height: 100%;
+}
 
 footer {
 	position: fixed;

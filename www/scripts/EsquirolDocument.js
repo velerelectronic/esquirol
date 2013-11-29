@@ -237,7 +237,7 @@ function VisorDocument(id,statusAction,parentNode) {
 				{create: false, exclusive: false},
 				// Got file
 				function (f) {
-					titol += ' ' + file;
+					this.titol += ' ' + file;
 //					var node = that.basicwidget.returnBasicNode();
 					var node = that.returnBasicNode();
 					//iframe.innerHTML = '';
