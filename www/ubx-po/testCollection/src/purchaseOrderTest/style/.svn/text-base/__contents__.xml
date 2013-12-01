@@ -1,4 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/purchaseOrderTest/style/.svn/text-base" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:16-08:00" version="1">
-    <resource type="BinaryResource" name="gen_default.css.svn-base" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:16-08:00" modified="2009-11-12T09:49:16-08:00" filename="gen_default.css.svn-base" mimetype="application/octet-stream"/>
-    <resource type="BinaryResource" name="mainStyle.css.svn-base" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:16-08:00" modified="2009-11-12T09:49:16-08:00" filename="mainStyle.css.svn-base" mimetype="application/octet-stream"/>
-</collection>

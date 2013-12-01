@@ -1,6 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/ajaxslt/test" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:01-08:00" version="1">
-    <resource type="XMLResource" name="xpath.html" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:02-08:00" modified="2009-12-10T09:18:02-08:00" filename="xpath.html" mimetype="text/html"/>
-    <resource type="BinaryResource" name="xpath_script.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:02-08:00" modified="2009-12-10T09:18:02-08:00" filename="xpath_script.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="xslt_script.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:02-08:00" modified="2009-12-10T09:18:02-08:00" filename="xslt_script.js" mimetype="application/x-javascript"/>
-    <subcollection name=".svn" filename=".svn"/>
-</collection>

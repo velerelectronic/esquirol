@@ -1,5 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/functions" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:13-08:00" version="1">
-    <subcollection name="xforms" filename="xforms"/>
-    <subcollection name=".svn" filename=".svn"/>
-    <subcollection name="xslt20" filename="xslt20"/>
-</collection>

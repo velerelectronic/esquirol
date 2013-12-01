@@ -1,4 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/todo" owner="guest" group="guest" mode="755" created="2009-10-20T08:35:39-07:00" version="1">
-    <resource type="XMLResource" name="3d5ce5a0-2420-4eb9-a94f-fcbe05589f99.xml" owner="guest" group="guest" mode="755" created="2009-10-20T08:35:39-07:00" modified="2009-10-20T08:35:39-07:00" filename="3d5ce5a0-2420-4eb9-a94f-fcbe05589f99.xml" mimetype="text/xml"/>
-    <resource type="XMLResource" name="todo-projects.xml" owner="guest" group="guest" mode="755" created="2009-10-20T08:35:39-07:00" modified="2009-10-20T08:35:39-07:00" filename="todo-projects.xml" mimetype="text/xml"/>
-</collection>

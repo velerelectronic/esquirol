@@ -1,8 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/third-party/jsSHA/src" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" version="1">
-    <resource type="BinaryResource" name="sha.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="sha1.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha1.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="sha256.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:16-08:00" modified="2009-12-10T09:18:16-08:00" filename="sha256.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="sha512.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:17-08:00" modified="2009-12-10T09:18:17-08:00" filename="sha512.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="wrapper.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:17-08:00" modified="2009-12-10T09:18:17-08:00" filename="wrapper.js" mimetype="application/x-javascript"/>
-    <subcollection name=".svn" filename=".svn"/>
-</collection>

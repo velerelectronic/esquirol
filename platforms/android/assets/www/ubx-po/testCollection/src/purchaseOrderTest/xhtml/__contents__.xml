@@ -1,6 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/purchaseOrderTest/xhtml" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:19-08:00" version="1">
-    <resource type="XMLResource" name="adminInventory.xhtml" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:19-08:00" modified="2009-11-12T09:49:19-08:00" filename="adminInventory.xhtml" mimetype="application/xhtml+xml"/>
-    <resource type="BinaryResource" name="adminInventory.xhtml%7E" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:19-08:00" modified="2009-11-12T09:49:19-08:00" filename="adminInventory.xhtml~" mimetype="application/octet-stream"/>
-    <resource type="XMLResource" name="purchaseOrderMain.xhtml" owner="admin" group="dba" mode="755" created="2009-11-12T09:49:19-08:00" modified="2009-11-12T09:49:19-08:00" filename="purchaseOrderMain.xhtml" mimetype="application/xhtml+xml"/>
-    <subcollection name=".svn" filename=".svn"/>
-</collection>

@@ -1,8 +1,0 @@
-<collection xmlns="http://exist.sourceforge.net/NS/exist" name="/db/testCollection/src/lib/backplane/dom" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:05-08:00" version="1">
-    <resource type="BinaryResource" name="dom2.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:06-08:00" modified="2009-12-10T09:18:06-08:00" filename="dom2.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="dom2events.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:06-08:00" modified="2009-12-10T09:18:06-08:00" filename="dom2events.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="dom3ls.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:06-08:00" modified="2009-12-10T09:18:06-08:00" filename="dom3ls.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="eventTargetProxy.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:06-08:00" modified="2009-12-10T09:18:06-08:00" filename="eventTargetProxy.js" mimetype="application/x-javascript"/>
-    <resource type="BinaryResource" name="listener.js" owner="admin" group="dba" mode="755" created="2009-12-10T09:18:06-08:00" modified="2009-12-10T09:18:06-08:00" filename="listener.js" mimetype="application/x-javascript"/>
-    <subcollection name=".svn" filename=".svn"/>
-</collection>
