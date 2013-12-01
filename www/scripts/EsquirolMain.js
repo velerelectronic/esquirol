@@ -196,7 +196,6 @@ function EsquirolMain() {
         nodestatus.appendChild( document.createTextNode(nouestat));
         window.clearTimeout(timeout);
         timeout = window.setTimeout(function() { esborraStatus(); },5000);
-        alert('Time');
     }
     
 }

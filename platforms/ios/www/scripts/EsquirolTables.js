@@ -172,8 +172,7 @@ function rowEditor(id,parentWidget) {
 function EsquirolTable(parentWidget,database) {
 	// Class for handling several tables simultaneously
 	var that = this;
-	this.basicwidget = new EsquirolWidget();
-	this.basicwidget.createInitWidget(parentWidget);
+	this.createInitWidget(parentWidget);
 
 	var db = database;
 	var tablename;
@@ -345,7 +344,7 @@ function EsquirolTable(parentWidget,database) {
 	    div.appendChild(nav);
 	    creaBotoOpcions(nav, 'Ordena', function(e) {});
 	    creaBotoOpcions(nav, 'Filtra', opcionsFiltra);
-	    this.basicwidget.creaInputText(nav,'Cerca', function(e) {});
+	    this.creaInputText(nav,'Cerca', function(e) {});
 	
 	    // Show filters
 	    filters = new SearchFilters(desti,db);
@@ -432,12 +431,12 @@ function EsquirolTable(parentWidget,database) {
 				var newvalue = results.rows.item(i)[field];
 				li.textContent = newvalue;
 				ul.appendChild(li);
-				that.basicwidget.addHiddenInfo(li, 'field', field);
-				that.basicwidget.addHiddenInfo(li, 'value', newvalue);
+				that.addHiddenInfo(li, 'field', field);
+				that.addHiddenInfo(li, 'value', newvalue);
 				li.onclick = function(e) {
 					var node2 = e.currentTarget;
-					var f = that.basicwidget.getHiddenInfo(node2,'field');
-					var v = that.basicwidget.getHiddenInfo(node2,'value');
+					var f = that.getHiddenInfo(node2,'field');
+					var v = that.getHiddenInfo(node2,'value');
 					filters.substituteFilter(f, v);
 					node.removeChild(ul);
 				}
@@ -445,12 +444,14 @@ function EsquirolTable(parentWidget,database) {
 			var p = document.createElement('p');
 			p.textContent = 'Esborra';
 			node.appendChild(p);
-			that.basicwidget.addHiddenInfo(p,'field',field);
+			that.addHiddenInfo(p,'field',field);
 			p.onclick = function(e) {
 				var node2 = e.currentTarget;
-				filters.deleteFilter( that.basicwidget.getHiddenInfo(node2,'field') );
+				filters.deleteFilter( that.getHiddenInfo(node2,'field') );
 			};
 		});
 	}
 
 }
+EsquirolTable.prototype = new EsquirolWidget;
+

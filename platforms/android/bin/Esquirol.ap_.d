@@ -43,7 +43,9 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/examples/xform_unit_planning v01.xml \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/examples/xform_unit_planning v02.xml \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/img/logo.png \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/evernote-sdk-minified.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/index.js \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/jsOAuth-1.3.6.min.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.file \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.vibration \
@@ -145,6 +147,7 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolDatabase.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolDocument.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolEditorData.js \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolEvernote.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolForms.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolMain.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolMenu.js \

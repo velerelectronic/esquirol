@@ -66,7 +66,7 @@ footer {
 	top: 10%;
 	bottom: 10%;
 	
-	position: fixed;
+/*	position: fixed; */
 	border: outset 1ex green;
 	background-color: rgba(255,255,255,1);
 	display: block;
@@ -74,24 +74,28 @@ footer {
 	z-index: 12;
 }
 
-// End of main screen layout
-
 
 .editor {
-	display: block;
+	/* display: block; */
 	font-size: 150%;
 	padding: 1em;
 	border: dotted 2pt green;
-	height: 100%;
+/*
+	height: 50%;
+*/
 }
 
-[contenteditable="true"] {
-	display: block;
+*[contenteditable=true] {
 	font-size: 150%;
 	padding: 1em;
 	border: dotted 2pt green;
+	background-color: yellow;
+
+/*
 	width: calc(100% - 1*3em - 2*2pt);
 	height: calc(100% - 1*3em - 2*2pt);
+*/
+
 	overflow: scroll;
 }
 
@@ -534,10 +538,6 @@ Clock
 	padding: 1ex;
 	text-align: center;
 	display: inline;
-}
-
-*[contenteditable=true] {
-	border: solid 1pt black;
 }
 
 
