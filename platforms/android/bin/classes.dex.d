@@ -58,4 +58,4 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/bin/classes/org/apache/cordova/file/NoModificationAllowedException.class \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/bin/classes/org/apache/cordova/file/TypeMismatchException.class \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/bin/classes/org/apache/cordova/vibration/Vibration.class \
-/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/bin/dexedLibs/cordova-3.1.0-50a1a0ca52de778e27937e3348f32bfe.jar \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/bin/dexedLibs/cordova-3.2.0-9602fa4c2c6b9931c371dc6261b5b30c.jar \
