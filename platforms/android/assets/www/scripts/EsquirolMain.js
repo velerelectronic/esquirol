@@ -10,6 +10,7 @@ function EsquirolMain() {
     var nodedades;
     var nodestatus;
 
+
     this.AppName = function() { return 'Esquirol 0.5'; };
     
     // Methods
@@ -51,6 +52,9 @@ function EsquirolMain() {
 	    // Create a status bar
 	    nodestatus = document.getElementById(status);
 	}
+
+	this.algun = function() { alert('Tot be'); };
+	Signal.connect(this,'inicia',this,'algun');
 
 	this.mostraInicial = function() {
 	    function PaginaInicial(id,parentNode,db) {

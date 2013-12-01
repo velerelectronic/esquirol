@@ -155,6 +155,7 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolTouch.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolValoracions.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolWidget.js \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/prototype.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/signal.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/webodf.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/spec/helper.js \
