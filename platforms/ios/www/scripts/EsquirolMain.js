@@ -1,14 +1,17 @@
 function EsquirolMain() {
 	var that = this;
-    var timeout;
-    var docslocalfilesystem;
+	var timeout;
+	var docslocalfilesystem;
 
-    var pilatasques;
-    var mainmenu; // The main menu (for options, tasks, activity...)
-    var database = new EsquirolDatabase();
-    database.connectSlot(this,actualitzaStatus);
-    var nodedades;
-    var nodestatus;
+	var pilatasques;
+	var mainmenu; // The main menu (for options, tasks, activity...)
+	var database = new EsquirolDatabase();
+	Signal.connect(database,'emitSignalUpdate',this,'actualitzaStatus');
+
+    // database.connectSlot(this,actualitzaStatus);
+
+	var nodedades;
+	var nodestatus;
 
 
     this.AppName = function() { return 'Esquirol 0.5'; };
@@ -21,16 +24,16 @@ function EsquirolMain() {
 		
 		var p = new EsquirolWidget();
 		
-		// Set up a main bar at the top of the main window
-		var mainbar = new EsquirolOptions( document.getElementById(bar) );
-		mainbar.createMainBar(this.AppName(),
-				that.mostraMenuOpcions,
-				that.mostraMenuTasques,
-				that.mostraMenuActivitat,
-				that.mostraMenuCompartir,
-				pilatasques.changeToPreviousTask,
-				pilatasques.changeToNextTask
-		);
+                // Set up a main bar at the top of the main window
+                mainbar = new EsquirolOptions( document.getElementById(bar) );
+                Signal.connect(mainbar,'signalOpenMain',this,'mostraMenuOpcions');
+                //Signal.connect(mainbar,'signalOpenTask',this,'mostraMenuTasques');
+                //Signal.connect(mainbar,'signalOpenActivity',this,'mostraMenuActivitat');
+                //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
+                //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
+                //Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
+                //Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
+                mainbar.createMainBar(this.AppName());
 
 		var nodetask = document.getElementById('taskname');
 
@@ -52,9 +55,6 @@ function EsquirolMain() {
 	    // Create a status bar
 	    nodestatus = document.getElementById(status);
 	}
-
-	this.algun = function() { alert('Tot be'); };
-	Signal.connect(this,'inicia',this,'algun');
 
 	this.mostraInicial = function() {
 	    function PaginaInicial(id,parentNode,db) {
@@ -100,27 +100,28 @@ function EsquirolMain() {
 		forms.mostraForm();
 	};
     
-    function mostraUnDocument (dirEntry,file) {
-    		var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
-    		undocument.connectSignalReadFile(function() {
-    			var nodetask = document.getElementById('taskname');
-    			nodetask.innerHTML = '';
-    			nodetask.appendChild( document.createTextNode(undocument.returnText()));
-    		});
-    		pilatasques.addTask('document', undocument);
-    		undocument.llegeix(dirEntry,file);
-    }
+	this.mostraUnDocument = function (dirEntry,file) {
+		var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
+		undocument.connectSignalReadFile(function() {
+			var nodetask = document.getElementById('taskname');
+			nodetask.innerHTML = '';
+			nodetask.appendChild( document.createTextNode(undocument.returnText()));
+			});
+		pilatasques.addTask('document', undocument);
+		undocument.llegeix(dirEntry,file);
+	}
 
 	this.mostraDocuments = function () {
 		that.tancaMenu();
 
-        // Build a space to read documents from the local file system
-        var docslocalfilesystem = new EsquirolSourceFilesystem('Sistema de fitxers',nodedades);
-        docslocalfilesystem.connectOpenFile(mostraUnDocument);
-        pilatasques.addTask('sistemafitxers', docslocalfilesystem);        
+		// Build a space to read documents from the local file system
+		var docslocalfilesystem = new EsquirolSourceFilesystem('Sistema de fitxers',nodedades);
+		//docslocalfilesystem.connectOpenFile(mostraUnDocument);
+		Signal.connect(docslocalfilesystem,'signalOpenFile',that,'mostraUnDocument');
+		Signal.connect(docslocalfilesystem,'signalFail',that,'actualitzaStatus');
+		pilatasques.addTask('sistemafitxers', docslocalfilesystem);
 	};
-	
-	
+
     this.tancaMenu = function() {
 //        mainmenu.closeMenu(nodemenu);
     }
@@ -132,12 +133,14 @@ function EsquirolMain() {
                      [that.mostraValoracions, 'Valoracions'],
                      [that.mostraDocuments, 'Documents'],
                      /*  [that.mostraValoracions2, 'Valoracions'], */
-                     [that.mostraRellotge,'Rellotge'],
+                     [that.mostraRellotge,'Rellotge']
+/*
                      [that.mostraForms,'Formularis'],
                      ['exportaHTML()', 'Exporta'],
                      [function () { document.location='canvas.html'; }, 'Canvas'],
                      [function() { document.location='database.html'; }, 'Base de dades'],
                      [function() { document.location='opendocumentviewer.html'; }, 'Visor ODF']
+*/
                     ]);
     }
 

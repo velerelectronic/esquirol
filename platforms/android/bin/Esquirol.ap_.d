@@ -147,17 +147,14 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolEditorData.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolForms.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolMain.js \
-/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolMain2.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolMenu.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolOptions.js \
-/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolOptions2.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolPilaTasques.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolSourceFilesystem.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolTables.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolTouch.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolValoracions.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolWidget.js \
-/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/EsquirolWidget2.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/prototype.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/signal.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/scripts/webodf.js \

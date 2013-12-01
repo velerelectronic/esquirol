@@ -4,7 +4,6 @@
 function EsquirolSourceFilesystem(id, parentNode) {
 	EsquirolWidget.call(this,id);
 
-//	this.titol = id;
 	var that = this;
 	this.createInitWidget(parentNode);
 	
@@ -12,7 +11,6 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	this.doc;
 	var fileSystem;
 	var dirEntry;
-	var actionOpenFile;
 
 	this.setDirectoryName = function (name) {
 		this.name = name;
@@ -42,10 +40,6 @@ function EsquirolSourceFilesystem(id, parentNode) {
 		this.getFileSystem();
 	}	
 
-	this.connectOpenFile = function(actionOpen) {
-		actionOpenFile = actionOpen;
-	}
-	
 	function gotFileEntries (fileEntries) {
 		var node = that.returnBasicNode();
 		node.innerHTML = '';
@@ -81,19 +75,21 @@ function EsquirolSourceFilesystem(id, parentNode) {
 		}
 	}
 	
+
 	this.showFile = function(file) {
-		actionOpenFile(dirEntry,file);
-	}
-	
-	this.loaded = function(evt) {
-		
+		that.signalOpenFile(dirEntry,file);
 	}
 	
 	this.fail = function(evt) {
-		alert('Fail reading file system');
-		alert(evt.target.error.code);
+		that.signalFail('Fail reading file system ' + evt.target.error.code);
 	}
 	
 }
 
+// Inheritance
 EsquirolSourceFilesystem.prototype = new EsquirolWidget;
+
+// Signals
+EsquirolSourceFilesystem.prototype.signalOpenFile = function(dirEntry,filename) { };
+EsquirolSourceFilesystem.prototype.signalFail = function(info) { };
+

@@ -50,4 +50,4 @@ EsquirolMenu.prototype.creaList = function (titol, vectoritems) {
 			return ul;
 		});
 }
-	
+

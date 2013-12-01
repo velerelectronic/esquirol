@@ -4,10 +4,6 @@ function EsquirolClock(id,parentNode) {
 
 	var mainClock;
 
-	this.showContents = function() {
-		this.mostraTauler();
-	}
-
 	this.mostraTauler = function() {
 		var node = this.returnBasicNode();
 		var div = document.createElement('div');
@@ -51,3 +47,7 @@ function EsquirolClock(id,parentNode) {
 }
 
 EsquirolClock.prototype = new EsquirolWidget;
+EsquirolClock.prototype.showContents = function() {
+	this.mostraTauler();
+}
+

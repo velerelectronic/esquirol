@@ -4,6 +4,10 @@ function EsquirolDatabase() {
         var slotObject = null;
         var slotAction = null;
         
+	// Signals
+	this.signalUpdate = function (info) {};
+
+
         this.init = function() {
             dbShell = window.openDatabase("esquirol","1.0","Base de dades Esquirol",1000000);                
         }
@@ -23,11 +27,11 @@ function EsquirolDatabase() {
         }
 
         function errorCB(err) {
-            this.signalUpdate('Error general en la base de dades: ' + err.code);
+            that.signalUpdate('Error general en la base de dades: ' + err.code);
         }
 
         function errorUpdateCB(err) {
-            this.signalUpdate('Error en canviar la base de dades: ' + err.code);
+            that.signalUpdate('Error en canviar la base de dades: ' + err.code);
         }
 
         function successCB() {
@@ -35,7 +39,7 @@ function EsquirolDatabase() {
         }
 
         function successUpdateCB() {
-            this.signalUpdate('Base de dades actualitzada');
+            that.signalUpdate('Base de dades actualitzada');
         }
 
         function addMessageWait (node) {
@@ -426,5 +430,4 @@ function EsquirolDatabase() {
 
 }
 
-EsquirolDatabase.prototype.signalUpdate = function (info) {};
 
