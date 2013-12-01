@@ -1,14 +1,17 @@
 function EsquirolMain() {
 	var that = this;
-    var timeout;
-    var docslocalfilesystem;
+	var timeout;
+	var docslocalfilesystem;
 
-    var pilatasques;
-    var mainmenu; // The main menu (for options, tasks, activity...)
-    var database = new EsquirolDatabase();
-    database.connectSlot(this,actualitzaStatus);
-    var nodedades;
-    var nodestatus;
+	var pilatasques;
+	var mainmenu; // The main menu (for options, tasks, activity...)
+	var database = new EsquirolDatabase();
+	Signal.connect(database,'emitSignalUpdate',this,'actualitzaStatus');
+
+    // database.connectSlot(this,actualitzaStatus);
+
+	var nodedades;
+	var nodestatus;
 
 
     this.AppName = function() { return 'Esquirol 0.5'; };
@@ -21,16 +24,16 @@ function EsquirolMain() {
 		
 		var p = new EsquirolWidget();
 		
-		// Set up a main bar at the top of the main window
-		var mainbar = new EsquirolOptions( document.getElementById(bar) );
-		mainbar.createMainBar(this.AppName(),
-				that.mostraMenuOpcions,
-				that.mostraMenuTasques,
-				that.mostraMenuActivitat,
-				that.mostraMenuCompartir,
-				pilatasques.changeToPreviousTask,
-				pilatasques.changeToNextTask
-		);
+                // Set up a main bar at the top of the main window
+                mainbar = new EsquirolOptions( document.getElementById(bar) );
+                Signal.connect(mainbar,'signalOpenMain',this,'mostraMenuOpcions');
+                Signal.connect(mainbar,'signalOpenTask',this,'mostraMenuTasques');
+                Signal.connect(mainbar,'signalOpenActivity',this,'mostraMenuActivitat');
+                Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
+                Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
+                Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
+                Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
+                mainbar.createMainBar(this.AppName());
 
 		var nodetask = document.getElementById('taskname');
 
