@@ -44,6 +44,7 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/examples/xform_unit_planning v02.xml \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/img/logo.png \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/evernote-sdk-minified.js \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/hammer.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/index.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/js/jsOAuth-1.3.6.min.js \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \

@@ -131,55 +131,10 @@ function EsquirolWidget(name) {
         }
 
         this.enableSwipeGestures = function(element) {
-                var pos = null;
-                element.addEventListener('touchstart',function(e) {
-                        var touches = e.changedTouches;
-                        if (touches.length==1) {
-                                pos = [];
-                                var onetouch = touches[0];
-                                pos[0] = onetouch.pageX;
-                                pos[1] = onetouch.pageY;
-                        }
-                });
-                element.addEventListener('touchmove',function(e) {
-                        var touches = e.changedTouches;
-                        if ((pos != null) && (touches.length==1)) {
-                                var onetouch = touches[0];
-                                var newpos = [];
-                                newpos[0] = onetouch.pageX;
-                                newpos[1] = onetouch.pageY;
-                                
-                                // Detect swipe horizontal left
-                                if (Math.abs(newpos[1]-pos[1])<10) {
-                                        // Detect swipe left
-                                        if (newpos[0]-pos[0]<-50) {
-                                                signalSwipeLeft();
-                                                pos = null;
-                                        } else {
-                                                // Detect swipe right
-                                                if (newpos[0]-pos[0]>50) {
-                                                        signalSwipeRight();
-                                                        pos = null;
-                                                }
-                                        }
-                                } else {
-                                        if (Math.abs(newpos[0]-pos[0])<10) {
-                                                // Detect swipe top
-                                                if (newpos[1]-pos[1]<-50) {
-                                                        signalSwipeTop();
-                                                        pos = null;
-                                                } else {
-                                                        // Detect swipe bottom
-                                                        if (newpos[1]-pos[1]>50) {
-                                                                signalSwipeBottom();
-                                                                pos = null;
-                                                        }
-                                                }
-                                        }
-                                }
-                        }
-                });
-        }
+		this.hammer = Hammer(element,{drag: true, prevent_default: true});
+		this.hammer.on("swipeleft", this.signalSwipeLeft);
+		this.hammer.on("swiperight", this.signalSwipeRight);
+	}
         
         this.addActionStatus = function(actionStatus) {
                 

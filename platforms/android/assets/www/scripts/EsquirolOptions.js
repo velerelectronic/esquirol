@@ -22,6 +22,8 @@ EsquirolOptions.prototype.createMainBar = function(name) {
         node.innerHTML = '';
         var heading = document.createElement('h1');
         heading.appendChild( document.createTextNode(name) );
+	var hammer = Hammer(heading);
+	hammer.on("tap",this.signalOpenMain);
         node.appendChild( heading );
  
         var botons = document.createElement('div');
@@ -32,11 +34,11 @@ EsquirolOptions.prototype.createMainBar = function(name) {
         tasknode.id = 'taskname';
         node.appendChild( tasknode );
 
-        this.creaBotoOpcions(botons, 'Menu', this.signalOpenMain);
         this.creaBotoOpcions(botons, 'Tsk', this.signalOpenTask);
         this.creaBotoOpcions(botons, 'Act', this.signalOpenActivity);
         this.creaBotoOpcions(botons, 'Sha', this.signalOpenShare);
         this.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
 
-        // this.enableSwipeGestures();
+	this.enableSwipeGestures(node);
 }
+

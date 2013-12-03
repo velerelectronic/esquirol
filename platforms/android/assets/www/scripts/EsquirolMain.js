@@ -14,7 +14,7 @@ function EsquirolMain() {
 	var nodestatus;
 
 
-    this.AppName = function() { return 'Esquirol 0.5'; };
+    this.AppName = function() { return 'Esquirol 1.0'; };
     
     // Methods
     
@@ -31,8 +31,8 @@ function EsquirolMain() {
                 //Signal.connect(mainbar,'signalOpenActivity',this,'mostraMenuActivitat');
                 //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
                 //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
-                //Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
-                //Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
+                Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
+                Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
                 mainbar.createMainBar(this.AppName());
 
 		var nodetask = document.getElementById('taskname');
