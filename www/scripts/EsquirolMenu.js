@@ -1,5 +1,5 @@
 function EsquirolMenu(parentNode) {
-	if (typeof parentNode === 'undefined') {
+	if (typeof(parentNode) === 'undefined') {
 		this.createInitWidget();
 	} else {
 		this.createInitWidget(parentNode);		
@@ -11,18 +11,18 @@ EsquirolMenu.prototype = new EsquirolWidget('Menu');
 // Builds the options for the menu
 EsquirolMenu.prototype.creaMenu = function (titol, genCont) {
 	if (this.isVisible()) {
-    	this.hideContainer();
-    } else {
-    	this.showContainer();
+		this.hideContainer();
+	} else {
+		this.showContainer();
 		var nodemenu = this.returnBasicNode();
 		
-        nodemenu.innerHTML = '';
-    	var heading = document.createElement('h2');
-		
-        heading.appendChild( document.createTextNode(titol) );
-        nodemenu.appendChild( heading );
-        nodemenu.appendChild ( genCont() );
-    }
+		nodemenu.innerHTML = '';
+		var heading = document.createElement('h2');
+
+		heading.appendChild( document.createTextNode(titol) );
+		nodemenu.appendChild( heading );
+		nodemenu.appendChild ( genCont() );
+	}
 }
 
 

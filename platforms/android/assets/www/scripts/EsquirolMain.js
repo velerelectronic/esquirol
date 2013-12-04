@@ -26,7 +26,7 @@ function EsquirolMain() {
 		
                 // Set up a main bar at the top of the main window
                 mainbar = new EsquirolOptions( document.getElementById(bar) );
-                Signal.connect(mainbar,'signalOpenMain',this,'mostraMenuOpcions');
+                Signal.connect(mainbar,'signalOpenMain',that,'mostraMenuOpcions');
                 //Signal.connect(mainbar,'signalOpenTask',this,'mostraMenuTasques');
                 //Signal.connect(mainbar,'signalOpenActivity',this,'mostraMenuActivitat');
                 //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
@@ -43,17 +43,18 @@ function EsquirolMain() {
 		});
 
 		// Init database
-	    database.init();
+		database.init();
 	    
-	    // Init menus
-	    mainmenu = new EsquirolMenu( document.getElementById(menu) );
+		// Init menus
+//		mainmenu = new EsquirolMenu( document.getElementById(menu) );
+		mainmenu = new EsquirolMenu( );
 		mainmenu.hideContainer();
 	    
-	    // Init node for data
-	    nodedades = document.getElementById(dades);
-	
-	    // Create a status bar
-	    nodestatus = document.getElementById(status);
+		// Init node for data
+		nodedades = document.getElementById(dades);
+
+		// Create a status bar
+		nodestatus = document.getElementById(status);
 	}
 
 	this.mostraInicial = function() {

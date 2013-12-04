@@ -5,12 +5,15 @@ function EsquirolObject() {
 }
 
 function EsquirolWidget(name) {
+	EsquirolWidget.idGen++;
         this.basicnode;
         var that = this;
         var touch;
         var timer = null;
         this.titol = (typeof name === 'undefined') ? this.name : name;
         var actionStatus;
+	var identity = EsquirolWidget.idGen;
+	alert(identity);
 
         // Support functions
         this.addHiddenInfo = function (node,label,value) {
@@ -145,6 +148,8 @@ function EsquirolWidget(name) {
         }
 }
 
+EsquirolWidget.idGen = 0;
+
 // Signals
 
 EsquirolWidget.prototype.signalSwipeLeft = function() {};
@@ -155,18 +160,25 @@ EsquirolWidget.prototype.signalSwipeBottom = function() {};
 // Graphical tools
 
 EsquirolWidget.prototype.createInitWidget = function (parentWidget) {
+	var that = this;
         this.basicnode = document.createElement('div');
-        var parent;
-        if (typeof parentWidget === 'undefined') {
-                parent = document.getElementById('body')[0];
-                this.basicnode.className = 'fullscreen';
-                this.basicnode.onclick = function(e) { e.stopPropagation(); };
+        var parentW;
+        if (typeof(parentWidget) === 'undefined') {
+		parentW = document.createElement('div');
+		parentW.className = 'fullscreen';
+                var body = document.getElementsByTagName('body')[0];
+		body.appendChild(parentW);
+                parentW.onclick = function(e) {
+			that.hideContainer();
+			e.stopPropagation();
+		};
+		this.basicnode.className = 'fullwidget';
         } else {
-                parent = parentWidget;
-                this.basicnode.className = 'widget';
+                parentW = parentWidget;
+		this.basicnode.className = 'widget';
         }
-        parent.appendChild(this.basicnode);
-        touch = new EsquirolTouch();
+
+        parentW.appendChild(this.basicnode);
 }
 
 EsquirolWidget.prototype.returnBasicNode = function () {

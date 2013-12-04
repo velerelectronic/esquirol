@@ -48,6 +48,23 @@ div#dades {
 	height: 100%;
 }
 
+div.fullwidget {
+	display: block;
+	border: outset 1ex green;
+	z-index: 100;
+	position: fixed;
+	left: 3em;
+	top: 3em;
+//    bottom: 0px;
+	right: 3em;
+	background-color: rgba(200,255,200,0.7);
+	border: solid 2pt green;
+	border-radius: 2ex;
+	z-index: 50;
+	padding: 1em;
+	color: black;
+}
+
 footer {
 	position: fixed;
 	display: block;
@@ -124,18 +141,15 @@ footer {
 	font-size: 120%;
 	font-weight: bold;
 }
-#menu {
-	z-index: 100;
-	position: fixed;
-}
 
-#menu li {
+
+.fullwidget li {
 	padding: 1ex;
 	background-color: transparent;
 	background-image: none;
 }
 
-#menu li + li {
+.fullwidget li + li {
 	border-top: dashed 1pt;
 }
 
@@ -153,26 +167,15 @@ body {
     padding: 0;
 }
 
-div#menu {
-    position: fixed;
-    left: 3em;
-    top: 3em;
-//    bottom: 0px;
-    right: 3em;
-    background-color: rgba(200,255,200,0.7);
-    display: none;
-    border: solid 2pt green;
-    border-radius: 2ex;
-    z-index: 50;
-    padding: 1em;
+div.fullwidget {
 }
 
-div#menu p {
+div.fullwidget p {
     text-align: left;
     padding: 1ex;
 }
 
-div#menu a {
+div.fullwidget a {
     display: block;
     text-decoration: none;
     color: black;
