@@ -13,7 +13,7 @@ function EsquirolWidget(name) {
         this.titol = (typeof name === 'undefined') ? this.name : name;
         var actionStatus;
 	var identity = EsquirolWidget.idGen;
-	alert(identity);
+	//alert(identity);
 
         // Support functions
         this.addHiddenInfo = function (node,label,value) {
