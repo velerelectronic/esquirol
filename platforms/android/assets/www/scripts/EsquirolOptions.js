@@ -11,34 +11,83 @@ EsquirolOptions.prototype = new EsquirolWidget('Menu');
 
 EsquirolOptions.prototype.signalOpenMain = function() { };
 EsquirolOptions.prototype.signalOpenTask = function() {};
-EsquirolOptions.prototype.signalOpenActivity = function() {};
+EsquirolOptions.prototype.signalSelectedTask = function(index) {};
 EsquirolOptions.prototype.signalOpenShare = function() {};
+EsquirolOptions.prototype.signalOpenTaskList = function() { };
 
 // Functions
 
 EsquirolOptions.prototype.createMainBar = function(name) {
-        //this.signalOpenMain();
+	var that = this;
         var node = document.getElementById('AppBar');
         node.innerHTML = '';
+
+	// Write the name of the application
         var heading = document.createElement('h1');
         heading.appendChild( document.createTextNode(name) );
-	var hammer = Hammer(heading);
-	hammer.on("tap",this.signalOpenMain);
         node.appendChild( heading );
+
+	// When we tap on the application name, the main menu must be opened
+	var hammerHeading = Hammer(heading);
+	hammerHeading.on("tap",this.signalOpenMain);
  
-        var botons = document.createElement('div');
-        botons.id = 'buttons';
-        node.appendChild( botons );
+        this.creaBotoOpcions(node, 'TOT', function() { alert(document.documentElement.innerHTML); });
 
-        var tasknode = document.createElement('div');
-        tasknode.id = 'taskname';
-        node.appendChild( tasknode );
+	// Create an area for the tasks being executed
+	var tasks = document.createElement('div');
+	tasks.className = 'tasks';
+        node.appendChild( tasks );
 
-        this.creaBotoOpcions(botons, 'Tsk', this.signalOpenTask);
-        this.creaBotoOpcions(botons, 'Act', this.signalOpenActivity);
-        this.creaBotoOpcions(botons, 'Sha', this.signalOpenShare);
-        this.creaBotoOpcions(botons, 'TOT', function() { alert(document.documentElement.innerHTML); });
+	this.taskname = document.createElement('div');
+	this.taskname.className = 'taskname';
+	tasks.appendChild(this.taskname);
 
-	this.enableSwipeGestures(node);
+	this.tasklist = document.createElement('div');
+	this.tasklist.className = 'tasklist';
+	tasks.appendChild(this.tasklist);
+
+	// Menu to select the task that has to be shown
+	this.taskmenu = new EsquirolMenu(this.tasklist);
+	this.taskmenu.createHorizontalMenu(this.taskname);
+	this.taskmenu.hideContainer();
+
+	Signal.connect(this.taskmenu,'signalSelectedItem',this,'getSelectedIndex');
+
+	// When we tap on the main task, the list of tasks opens
+	// Swiping to the left or rigt is associated with a change of the task
+	var hammerTaskname = Hammer(this.taskname,{drag: true, prevent_default: true});
+	hammerTaskname.on("tap", function() { that.toggleTaskList(); });
+	hammerTaskname.on("swipeleft", this.signalSwipeLeft);
+	hammerTaskname.on("swiperight", this.signalSwipeRight);
+
+	//this.enableSwipeGestures(node);
 }
+
+EsquirolOptions.prototype.addTask = function(task,index) {
+	this.taskmenu.addElement(task.returnText(),index);
+	//this.taskmenu.hide();
+}
+
+EsquirolOptions.prototype.toggleTaskList = function() {
+	alert('Toggle' + this.taskmenu);
+	if (this.taskmenu.isVisible()) {
+		this.taskmenu.hideContainer();
+	} else {
+		this.taskmenu.showContainer();
+	}
+}
+
+EsquirolOptions.prototype.showSelectedItem = function(text,index) {
+	this.taskname.innerHTML = text;
+}
+
+EsquirolOptions.prototype.changeMainTask = function(widget,index) {
+	this.showSelectedItem(widget.returnText(),index);
+	this.toggleTaskList();
+}
+
+EsquirolOptions.prototype.getSelectedIndex = function(text,index) {
+	this.signalSelectedTask(index);
+}
+
 

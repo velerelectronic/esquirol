@@ -20,27 +20,19 @@ function EsquirolMain() {
     
 	this.inicia = function(dades,bar,menu,status) {
 		// The tasks pile contains the views of several tasks
-		pilatasques = new EsquirolPilaTasques();
+		pilatasques = new EsquirolWidgetStack();
 		
 		var p = new EsquirolWidget();
 		
                 // Set up a main bar at the top of the main window
                 mainbar = new EsquirolOptions( document.getElementById(bar) );
                 Signal.connect(mainbar,'signalOpenMain',that,'mostraMenuOpcions');
-                //Signal.connect(mainbar,'signalOpenTask',this,'mostraMenuTasques');
-                //Signal.connect(mainbar,'signalOpenActivity',this,'mostraMenuActivitat');
-                //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
-                //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
+		Signal.connect(mainbar,'signalSelectedTask',pilatasques,'changeToIndexedTask');
+		Signal.connect(pilatasques,'signalAddedWidget',mainbar,'addTask');
+		Signal.connect(pilatasques,'signalShowWidget',mainbar,'changeMainTask');
                 Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
                 Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
                 mainbar.createMainBar(this.AppName());
-
-		var nodetask = document.getElementById('taskname');
-
-		pilatasques.connectSignalChangeTask(function(newtask) {
-			nodetask.innerHTML = '';
-			nodetask.appendChild( document.createTextNode(newtask.returnText()));
-		});
 
 		// Init database
 		database.init();
@@ -128,6 +120,7 @@ function EsquirolMain() {
     }
     
     this.mostraMenuOpcions = function() {
+	mainmenu.showContainer();
     	mainmenu.creaList('Opcions',[
                      [that.mostraInicial, 'Inicial'],
                      [that.mostraAnotacions, 'Anotacions'],

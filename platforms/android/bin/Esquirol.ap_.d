@@ -35,6 +35,7 @@
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/unitplanning.xml \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/xsltforms \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/xsltforms_funciona \
+/Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/css/hideandshow.css \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/css/index.css \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/css/styles.css \
 /Users/jmpayeras/Documents/workspace/EsquirolPhoneGap/platforms/android/assets/www/css/xforms_styles.css \

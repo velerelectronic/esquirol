@@ -134,9 +134,6 @@ function EsquirolWidget(name) {
         }
 
         this.enableSwipeGestures = function(element) {
-		this.hammer = Hammer(element,{drag: true, prevent_default: true});
-		this.hammer.on("swipeleft", this.signalSwipeLeft);
-		this.hammer.on("swiperight", this.signalSwipeRight);
 	}
         
         this.addActionStatus = function(actionStatus) {
@@ -200,19 +197,54 @@ EsquirolWidget.prototype.showContents = function () {
 }
 
 EsquirolWidget.prototype.hideContainer = function() {
-//        this.basicnode.style.visibility = 'hidden';
-        this.basicnode.parentNode.style.display = 'none';
+	this.hideElement(this.basicnode.parentNode);
 }
 
 EsquirolWidget.prototype.showContainer = function() {
-//        this.basicnode.style.visibility = 'visible';
-        this.basicnode.parentNode.style.display = 'block';                
+	this.showElement(this.basicnode.parentNode);
 }
 
 EsquirolWidget.prototype.isVisible = function() {
-        if (this.basicnode.parentNode.style.display=='block') {
-                return true;
-        } else {
-                return false;
-        }
+	return this.isElementVisible(this.basicnode.parentNode);
 }
+
+EsquirolWidget.prototype.hideBasicNode = function () {
+	this.hideElement(this.basicnode);
+}
+
+EsquirolWidget.prototype.showBasicNode = function (display) {
+	this.showElement(this.basicnode);
+}
+
+EsquirolWidget.prototype.isBasicNodeVisible = function () {
+	return this.isElementVisible(this.basicnode);
+}
+
+EsquirolWidget.prototype.hideElement = function (element) {
+	element.className += ' hide';
+}
+
+EsquirolWidget.prototype.showElement = function (element) {
+	element.className = element.className.replace(/(^|\W)hide($|\W)/,' ').trim();
+}
+
+EsquirolWidget.prototype.isElementVisible = function (element) {
+	if (element.className.search(/(^|\W)hide($|\W)/)!==-1) {
+		alert('Trrrue');
+		return true;
+	} else {
+		alert('Faaalse');
+		return false;
+	}
+}
+
+
+EsquirolWidget.prototype.hideWithDelay = function (delay) {
+/*
+	var timeout;
+        window.clearTimeout(timeout);
+        timeout = window.setTimeout(function() { esborraStatus(); },5000);
+*/
+}
+
+
