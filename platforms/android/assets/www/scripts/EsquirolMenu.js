@@ -11,7 +11,7 @@ function EsquirolMenu(parentNode) {
 EsquirolMenu.prototype = new EsquirolWidget('Menu');
 
 // Signals
-EsquirolMenu.prototype.signalSelectedItem = function (text,index) { }
+EsquirolMenu.prototype.signalSelectedItem = function (index) { };
 
 // Builds the options for the menu
 EsquirolMenu.prototype.creaMenu = function (titol, genCont) {
@@ -54,31 +54,31 @@ EsquirolMenu.prototype.creaList = function (titol, vectoritems) {
 		});
 }
 
-EsquirolMenu.prototype.createHorizontalMenu = function(showElement) {
+EsquirolMenu.prototype.createHorizontalMenuFromStack = function(stack,showElement) {
 	// Prepare a menu:
-	// - Create a list with the elements to be shown
-	// - Create a node where to display the list
+	// - Build a list
 	// - Get an area to display the main item
-	this.elements = [];
-	var node = this.returnBasicNode();
-
-	this.listnode = document.createElement('ul');
-	node.appendChild(this.listnode);
-	this.showArea = showElement;
-}
-
-EsquirolMenu.prototype.addElement = function(element,index) {
 	var that = this;
-	this.showArea.innerHTML = element;
-	this.elements.push(element);
-	var newnode = document.createElement('li');
-	Hammer(newnode).on("tap",function() { that.signalSelectedItem(element,index); });
-	this.listnode.appendChild(newnode);
-	newnode.appendChild( document.createTextNode(element) );
+	var node = this.returnBasicNode();
+	node.innerHTML = '';
+
+	var listnode = document.createElement('ul');
+	node.appendChild(listnode);
+
+	for (var i=1; i<=stack.lengthOfPile(); i++) {
+		var object = stack.returnTask(i);
+		var newnode = document.createElement('li');
+		this.addHiddenInfo(newnode,'index',i);
+		Hammer(newnode).on("tap",function(ev) {
+			that.signalSelectedItem(that.getHiddenInfo(ev.target,'index'));
+			});
+		listnode.appendChild(newnode);
+		newnode.appendChild( document.createTextNode(object.returnText()) );
+	}
+	this.showArea = showElement;
 }
 
 EsquirolMenu.prototype.openList = function() {
 }
-
 
 

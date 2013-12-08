@@ -5,11 +5,9 @@ function EsquirolWidgetStack() {
 	
 	/*
 	A collection of EsquirolWidget.
-	Each element is a tuple with two components:
-	- First component: the object of one class
-	- Second component: the DIV with HTML
-	Each object in the stack must have these methods:
+	Each element must have these methods:
 	- returnBasicNode: to get the main HTML area
+	- showContents: to regenerate the contents of the widget
 	- returnText: to convert the widget into a string
 	*/
 
@@ -22,7 +20,7 @@ function EsquirolWidgetStack() {
 	}
 
 	this.returnTask = function(index) {
-		return pila[index][0];
+		return pila[convertIndex(index) -1];
 	}
 	
 	this.existTask = function(id) {
@@ -31,14 +29,14 @@ function EsquirolWidgetStack() {
 	
 	this.addTask = function(id, object) {
 //		var div = object.basicwidget.returnBasicNode();
-		var div = object.returnBasicNode();
-		pila.push([object,div]);
+		pila.push(object);
 		if (selectedtask>0) {
 			hideTask(selectedtask);
 		}
 		selectedtask = that.lengthOfPile();
 		object.showContents();
 		that.signalAddedWidget(object,selectedtask);
+		that.signalShowWidget(object);
 	}
 
 	var convertIndex = function(index) {
@@ -59,11 +57,13 @@ function EsquirolWidgetStack() {
 	}
 
 	var removeTask = function(index) {
+/*
 		var idx = convertIndex(index);
 		if (idx>0) {
 			delete pila[idx-1];
 			selectedtask = convertIndex(selectedtask);
 		}
+*/
 	}
 
 	var showTask = function(index) {
@@ -82,7 +82,7 @@ function EsquirolWidgetStack() {
 
 	this.returnCurrentTask = function() {
 		if (selectedtask>0) {
-			return pila[selectedtask-1][0];
+			return pila[selectedtask-1];
 		} else {
 			return null;
 		}
@@ -98,7 +98,7 @@ function EsquirolWidgetStack() {
 	}
 	
 	var returnTaskNode = function(taskIndex) {
-		return pila[taskIndex-1][1];
+		return pila[taskIndex-1].returnBasicNode();
 	}
 	
 	this.changeTask = function(e) {
@@ -106,11 +106,10 @@ function EsquirolWidgetStack() {
 		that.changeTaskToIndex(newIndex);
 	}
 
-	this.changeToIndexedTask = function(index) {
+	this.changeToIndexedWidget = function(index) {
 		if (selectedtask>0) {
 			hideTask(selectedtask);
-			var newIndex = (index - 1) % that.lengthOfPile() + 1;
-			showTask(newIndex);
+			showTask(convertIndex(index));
 		}
 	}
 
@@ -156,5 +155,5 @@ function Generator(funcio1, funcio2) {
 // Signals
 
 EsquirolWidgetStack.prototype.signalAddedWidget = function(widget,index) { };
-EsquirolWidgetStack.prototype.signalShowWidget = function(widget,index) { };
+EsquirolWidgetStack.prototype.signalShowWidget = function(widget) { };
 

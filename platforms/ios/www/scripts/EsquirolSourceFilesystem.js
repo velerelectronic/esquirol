@@ -38,7 +38,7 @@ function EsquirolSourceFilesystem(id, parentNode) {
 	this.showContents = function() {
 		this.setDirectoryName('/storage/emulated/legacy/documents/Esquirol');
 		this.getFileSystem();
-	}	
+	}
 
 	function gotFileEntries (fileEntries) {
 		var node = that.returnBasicNode();

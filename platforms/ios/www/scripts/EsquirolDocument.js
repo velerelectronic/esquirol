@@ -47,7 +47,7 @@ function TextEditor(content_node,save_action) {
 					break;
 				}
 				stopP(e);
-			}, 'Hi ha hagut canvis', ['Torna','Rebutjar','Desar']);			
+			}, 'Hi ha hagut canvis', ['Enrere','Rebutjar','Desar']);			
 		} else {
 			div.parentNode.removeChild(div);			
 		}
@@ -120,6 +120,8 @@ function VisorDocument(id,statusAction,parentNode) {
 	var iframe;
 	// Entry file for the document
 	var docEntry;
+	this.de = null;
+	this.filename = null;
 
 	function stopP(e) {
 		if (e && e.stopPropagation) {
@@ -206,6 +208,9 @@ function VisorDocument(id,statusAction,parentNode) {
     
     this.showContents = function() {
     	reinicia();
+	if (this.de != null) {
+		this.llegeix(this.de,this.filename);
+	}
     }
     
 	function reinicia () {
@@ -232,6 +237,8 @@ function VisorDocument(id,statusAction,parentNode) {
 	}
 
 	this.llegeix = function(dirEntry,file) {
+		this.de = dirEntry;
+		this.filename = file;
 		dirEntry.getFile(
 				file,
 				{create: false, exclusive: false},

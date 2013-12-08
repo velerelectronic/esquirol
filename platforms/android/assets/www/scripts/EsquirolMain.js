@@ -25,15 +25,10 @@ function EsquirolMain() {
 		var p = new EsquirolWidget();
 		
                 // Set up a main bar at the top of the main window
-                mainbar = new EsquirolOptions( document.getElementById(bar) );
+                mainbar = new EsquirolOptions( document.getElementById(bar));
                 Signal.connect(mainbar,'signalOpenMain',that,'mostraMenuOpcions');
-		Signal.connect(mainbar,'signalSelectedTask',pilatasques,'changeToIndexedTask');
-		Signal.connect(pilatasques,'signalAddedWidget',mainbar,'addTask');
-		Signal.connect(pilatasques,'signalShowWidget',mainbar,'changeMainTask');
-                Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
-                Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
 		Signal.connect(mainbar,'signalCloseTask',pilatasques,'removeTask');
-                mainbar.createMainBar(this.AppName());
+                mainbar.createMainBar(this.AppName(),pilatasques);
 
 		// Init database
 		database.init();
@@ -110,11 +105,6 @@ function EsquirolMain() {
     
 	this.mostraUnDocument = function (dirEntry,file) {
 		var undocument = new VisorDocument('Document',actualitzaStatus,nodedades);
-		undocument.connectSignalReadFile(function() {
-			var nodetask = document.getElementById('taskname');
-			nodetask.innerHTML = '';
-			nodetask.appendChild( document.createTextNode(undocument.returnText()));
-			});
 		pilatasques.addTask('document', undocument);
 		undocument.llegeix(dirEntry,file);
 	}
