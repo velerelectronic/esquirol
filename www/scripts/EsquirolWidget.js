@@ -229,11 +229,9 @@ EsquirolWidget.prototype.showElement = function (element) {
 }
 
 EsquirolWidget.prototype.isElementVisible = function (element) {
-	if (element.className.search(/(^|\W)hide($|\W)/)!==-1) {
-		alert('Trrrue');
+	if (element.className.search(/(^|\W)hide($|\W)/)==-1) {
 		return true;
 	} else {
-		alert('Faaalse');
 		return false;
 	}
 }

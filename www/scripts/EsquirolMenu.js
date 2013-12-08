@@ -15,10 +15,6 @@ EsquirolMenu.prototype.signalSelectedItem = function (text,index) { }
 
 // Builds the options for the menu
 EsquirolMenu.prototype.creaMenu = function (titol, genCont) {
-	if (this.isVisible()) {
-		this.hideContainer();
-	} else {
-		this.showContainer();
 		var nodemenu = this.returnBasicNode();
 		
 		nodemenu.innerHTML = '';
