@@ -168,7 +168,7 @@ function EsquirolMain() {
 	}
 
 	this.exportaHTML = function() {
-		alert(document.documentElement.outerHTML());
+		alert(document.documentElement.outerHTML);
 	}
 
 	this.mostraMenuCompartir = function() {

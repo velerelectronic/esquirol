@@ -36,10 +36,13 @@ EsquirolMenu.prototype.creaList = function (titol, vectoritems) {
 	var creaMenuOpcions = function (lloc, classe, func, text) {
 		var li = document.createElement('li');
 		li.setAttribute('class',classe);
-		li.onclick = func;
+		li.onclick = function(e) {
+			that.hideContainer();
+			func(e);
+		}
 		li.appendChild( document.createTextNode(text) );
 		lloc.appendChild(li);
-		lloc.onclick = function(e) { that.hideContainer(); };
+		//lloc.onclick = function(e) { that.hideContainer(); };
 	}
 
 	this.creaMenu (titol,
