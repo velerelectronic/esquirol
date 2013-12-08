@@ -26,7 +26,6 @@ EsquirolMenu.prototype.creaMenu = function (titol, genCont) {
 		heading.appendChild( document.createTextNode(titol) );
 		nodemenu.appendChild( heading );
 		nodemenu.appendChild ( genCont() );
-	}
 }
 
 

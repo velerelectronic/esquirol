@@ -41,8 +41,29 @@ function EsquirolWidgetStack() {
 		that.signalAddedWidget(object,selectedtask);
 	}
 
-	this.removeTask = function(pos) {
-		delete pila[pos];
+	var convertIndex = function(index) {
+		var newIndex;
+		var max = that.lengthOfPile();
+		if (selectedtask>0) {
+			newIndex = ((index-1) % max + max) % max + 1;
+		} else {
+			newIndex = 0;
+		}
+		return newIndex;
+	}
+
+	this.removeCurrentTask = function() {
+		removeTask(selectedtask);
+		selectedtask = convertIndex(selectedtask);
+		showTask(selectedtask);
+	}
+
+	var removeTask = function(index) {
+		var idx = convertIndex(index);
+		if (idx>0) {
+			delete pila[idx-1];
+			selectedtask = convertIndex(selectedtask);
+		}
 	}
 
 	var showTask = function(index) {
@@ -96,21 +117,14 @@ function EsquirolWidgetStack() {
 	this.changeToNextTask = function () {
 		if (selectedtask>0) {			
 			hideTask(selectedtask);
-			
-			var newIndex = (selectedtask) % that.lengthOfPile() + 1;
-			
-			showTask(newIndex);
+			showTask(convertIndex(selectedtask+1));
 		}
 	}
 	
 	this.changeToPreviousTask = function () {
 		if (selectedtask>0) {
 			hideTask(selectedtask);
-			
-			var max = that.lengthOfPile();
-			var newIndex = ((selectedtask-2) % max + max) % max + 1;
-			
-			showTask(newIndex);			
+			showTask(convertIndex(selectedtask-1));
 		}
 	}
 	

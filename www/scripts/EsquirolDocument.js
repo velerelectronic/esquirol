@@ -115,11 +115,11 @@ function VisorDocument(id,statusAction,parentNode) {
 	var status = statusAction;
 	var actionReadFile = null;
 
-    var that = this;
-    // The place where the document will be shown
-    var iframe;
-    // Entry file for the document
-    var docEntry;
+	var that = this;
+	// The place where the document will be shown
+	var iframe;
+	// Entry file for the document
+	var docEntry;
 
 	function stopP(e) {
 		if (e && e.stopPropagation) {
@@ -237,7 +237,7 @@ function VisorDocument(id,statusAction,parentNode) {
 				{create: false, exclusive: false},
 				// Got file
 				function (f) {
-					this.titol += ' ' + file;
+					that.titol = file;
 //					var node = that.basicwidget.returnBasicNode();
 					var node = that.returnBasicNode();
 					//iframe.innerHTML = '';

@@ -20,40 +20,48 @@ function EsquirolMain() {
     
 	this.inicia = function(dades,bar,menu,status) {
 		// The tasks pile contains the views of several tasks
-		pilatasques = new EsquirolPilaTasques();
+		pilatasques = new EsquirolWidgetStack();
 		
 		var p = new EsquirolWidget();
 		
                 // Set up a main bar at the top of the main window
                 mainbar = new EsquirolOptions( document.getElementById(bar) );
-                Signal.connect(mainbar,'signalOpenMain',this,'mostraMenuOpcions');
-                //Signal.connect(mainbar,'signalOpenTask',this,'mostraMenuTasques');
-                //Signal.connect(mainbar,'signalOpenActivity',this,'mostraMenuActivitat');
-                //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
-                //Signal.connect(mainbar,'signalOpenShare',this,'mostraMenuCompartir');
+                Signal.connect(mainbar,'signalOpenMain',that,'mostraMenuOpcions');
+		Signal.connect(mainbar,'signalSelectedTask',pilatasques,'changeToIndexedTask');
+		Signal.connect(pilatasques,'signalAddedWidget',mainbar,'addTask');
+		Signal.connect(pilatasques,'signalShowWidget',mainbar,'changeMainTask');
                 Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
                 Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
+		Signal.connect(mainbar,'signalCloseTask',pilatasques,'removeTask');
                 mainbar.createMainBar(this.AppName());
 
-		var nodetask = document.getElementById('taskname');
-
-		pilatasques.connectSignalChangeTask(function(newtask) {
-			nodetask.innerHTML = '';
-			nodetask.appendChild( document.createTextNode(newtask.returnText()));
-		});
-
 		// Init database
-	    database.init();
+		database.init();
 	    
-	    // Init menus
-	    mainmenu = new EsquirolMenu( document.getElementById(menu) );
+		// Init menus
+//		mainmenu = new EsquirolMenu( document.getElementById(menu) );
+		mainmenu = new EsquirolMenu();
 		mainmenu.hideContainer();
+		mainmenu.creaList('Opcions',[
+			[that.mostraInicial, 'Inicial'],
+			[that.mostraAnotacions, 'Anotacions'],
+			[that.mostraValoracions, 'Valoracions'],
+			[that.mostraDocuments, 'Documents'],
+			/*  [that.mostraValoracions2, 'Valoracions'], */
+			[that.mostraRellotge,'Rellotge'],
+			[that.exportaHTML, 'Exporta a HTML']
+/*
+			[that.mostraForms,'Formularis'],
+			[function () { document.location='canvas.html'; }, 'Canvas'],
+			[function() { document.location='database.html'; }, 'Base de dades'],
+			[function() { document.location='opendocumentviewer.html'; }, 'Visor ODF']
+*/		]);
 	    
-	    // Init node for data
-	    nodedades = document.getElementById(dades);
-	
-	    // Create a status bar
-	    nodestatus = document.getElementById(status);
+		// Init node for data
+		nodedades = document.getElementById(dades);
+
+		// Create a status bar
+		nodestatus = document.getElementById(status);
 	}
 
 	this.mostraInicial = function() {
@@ -127,21 +135,7 @@ function EsquirolMain() {
     }
     
     this.mostraMenuOpcions = function() {
-    	mainmenu.creaList('Opcions',[
-                     [that.mostraInicial, 'Inicial'],
-                     [that.mostraAnotacions, 'Anotacions'],
-                     [that.mostraValoracions, 'Valoracions'],
-                     [that.mostraDocuments, 'Documents'],
-                     /*  [that.mostraValoracions2, 'Valoracions'], */
-                     [that.mostraRellotge,'Rellotge']
-/*
-                     [that.mostraForms,'Formularis'],
-                     ['exportaHTML()', 'Exporta'],
-                     [function () { document.location='canvas.html'; }, 'Canvas'],
-                     [function() { document.location='database.html'; }, 'Base de dades'],
-                     [function() { document.location='opendocumentviewer.html'; }, 'Visor ODF']
-*/
-                    ]);
+	mainmenu.showContainer();
     }
 
 	this.canviaTasca = function(e) {
@@ -181,6 +175,10 @@ function EsquirolMain() {
         	}
     	);
     	// mainmenu.creaMenuFromIterator('Tasques',that.canviaTasca,new pilatasques.generateList());
+	}
+
+	this.exportaHTML = function() {
+		alert(document.documentElement.outerHTML());
 	}
 
 	this.mostraMenuCompartir = function() {

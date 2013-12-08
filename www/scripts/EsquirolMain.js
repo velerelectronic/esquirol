@@ -32,6 +32,7 @@ function EsquirolMain() {
 		Signal.connect(pilatasques,'signalShowWidget',mainbar,'changeMainTask');
                 Signal.connect(mainbar,'signalSwipeRight',pilatasques,'changeToPreviousTask');
                 Signal.connect(mainbar,'signalSwipeLeft',pilatasques,'changeToNextTask');
+		Signal.connect(mainbar,'signalCloseTask',pilatasques,'removeTask');
                 mainbar.createMainBar(this.AppName());
 
 		// Init database
@@ -39,8 +40,22 @@ function EsquirolMain() {
 	    
 		// Init menus
 //		mainmenu = new EsquirolMenu( document.getElementById(menu) );
-		mainmenu = new EsquirolMenu( );
+		mainmenu = new EsquirolMenu();
 		mainmenu.hideContainer();
+		mainmenu.creaList('Opcions',[
+			[that.mostraInicial, 'Inicial'],
+			[that.mostraAnotacions, 'Anotacions'],
+			[that.mostraValoracions, 'Valoracions'],
+			[that.mostraDocuments, 'Documents'],
+			/*  [that.mostraValoracions2, 'Valoracions'], */
+			[that.mostraRellotge,'Rellotge'],
+			[that.exportaHTML, 'Exporta a HTML']
+/*
+			[that.mostraForms,'Formularis'],
+			[function () { document.location='canvas.html'; }, 'Canvas'],
+			[function() { document.location='database.html'; }, 'Base de dades'],
+			[function() { document.location='opendocumentviewer.html'; }, 'Visor ODF']
+*/		]);
 	    
 		// Init node for data
 		nodedades = document.getElementById(dades);
@@ -121,21 +136,6 @@ function EsquirolMain() {
     
     this.mostraMenuOpcions = function() {
 	mainmenu.showContainer();
-    	mainmenu.creaList('Opcions',[
-                     [that.mostraInicial, 'Inicial'],
-                     [that.mostraAnotacions, 'Anotacions'],
-                     [that.mostraValoracions, 'Valoracions'],
-                     [that.mostraDocuments, 'Documents'],
-                     /*  [that.mostraValoracions2, 'Valoracions'], */
-                     [that.mostraRellotge,'Rellotge']
-/*
-                     [that.mostraForms,'Formularis'],
-                     ['exportaHTML()', 'Exporta'],
-                     [function () { document.location='canvas.html'; }, 'Canvas'],
-                     [function() { document.location='database.html'; }, 'Base de dades'],
-                     [function() { document.location='opendocumentviewer.html'; }, 'Visor ODF']
-*/
-                    ]);
     }
 
 	this.canviaTasca = function(e) {
@@ -175,6 +175,10 @@ function EsquirolMain() {
         	}
     	);
     	// mainmenu.creaMenuFromIterator('Tasques',that.canviaTasca,new pilatasques.generateList());
+	}
+
+	this.exportaHTML = function() {
+		alert(document.documentElement.outerHTML());
 	}
 
 	this.mostraMenuCompartir = function() {

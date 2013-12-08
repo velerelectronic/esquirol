@@ -14,6 +14,7 @@ EsquirolOptions.prototype.signalOpenTask = function() {};
 EsquirolOptions.prototype.signalSelectedTask = function(index) {};
 EsquirolOptions.prototype.signalOpenShare = function() {};
 EsquirolOptions.prototype.signalOpenTaskList = function() { };
+EsquirolOptions.prototype.signalCloseTask = function() {};
 
 // Functions
 
@@ -31,8 +32,6 @@ EsquirolOptions.prototype.createMainBar = function(name) {
 	var hammerHeading = Hammer(heading);
 	hammerHeading.on("tap",this.signalOpenMain);
  
-        this.creaBotoOpcions(node, 'TOT', function() { alert(document.documentElement.innerHTML); });
-
 	// Create an area for the tasks being executed
 	var tasks = document.createElement('div');
 	tasks.className = 'tasks';
@@ -57,6 +56,7 @@ EsquirolOptions.prototype.createMainBar = function(name) {
 	// Swiping to the left or rigt is associated with a change of the task
 	var hammerTaskname = Hammer(this.taskname,{drag: true, prevent_default: true});
 	hammerTaskname.on("tap", function() { that.toggleTaskList(); });
+	hammerTaskname.on("hold", function() { that.showTaskOptions(); });
 	hammerTaskname.on("swipeleft", this.signalSwipeLeft);
 	hammerTaskname.on("swiperight", this.signalSwipeRight);
 
@@ -69,7 +69,6 @@ EsquirolOptions.prototype.addTask = function(task,index) {
 }
 
 EsquirolOptions.prototype.toggleTaskList = function() {
-	alert('Toggle' + this.taskmenu);
 	if (this.taskmenu.isVisible()) {
 		this.taskmenu.hideContainer();
 	} else {
@@ -83,11 +82,17 @@ EsquirolOptions.prototype.showSelectedItem = function(text,index) {
 
 EsquirolOptions.prototype.changeMainTask = function(widget,index) {
 	this.showSelectedItem(widget.returnText(),index);
-	this.toggleTaskList();
+	this.taskmenu.hideContainer();
 }
 
 EsquirolOptions.prototype.getSelectedIndex = function(text,index) {
 	this.signalSelectedTask(index);
+}
+
+EsquirolOptions.prototype.showTaskOptions = function() {
+	if (confirm('Tanca?' + this.taskname.innerHTML)) {
+		this.signalCloseTask();
+	}
 }
 
 

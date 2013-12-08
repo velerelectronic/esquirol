@@ -1,12 +1,17 @@
-function EsquirolPilaTasques() {
+function EsquirolWidgetStack() {
 	var that = this;
 	var pila = new Array();
 	var selectedtask = 0;
-	var actionChange = null;
 	
-	// Each element is a tuple with two components:
-	// First component: the object of one class
-	// Second component: the DIV with HTML
+	/*
+	A collection of EsquirolWidget.
+	Each element is a tuple with two components:
+	- First component: the object of one class
+	- Second component: the DIV with HTML
+	Each object in the stack must have these methods:
+	- returnBasicNode: to get the main HTML area
+	- returnText: to convert the widget into a string
+	*/
 
 	this.lengthOfPile = function() {
 		return pila.length;
@@ -32,19 +37,41 @@ function EsquirolPilaTasques() {
 			hideTask(selectedtask);
 		}
 		selectedtask = that.lengthOfPile();
-		callActionChange(that.returnCurrentTask());
 		object.showContents();
+		that.signalAddedWidget(object,selectedtask);
 	}
 
-	this.removeTask = function(pos) {
-		delete pila[pos];
+	var convertIndex = function(index) {
+		var newIndex;
+		var max = that.lengthOfPile();
+		if (selectedtask>0) {
+			newIndex = ((index-1) % max + max) % max + 1;
+		} else {
+			newIndex = 0;
+		}
+		return newIndex;
+	}
+
+	this.removeCurrentTask = function() {
+		removeTask(selectedtask);
+		selectedtask = convertIndex(selectedtask);
+		showTask(selectedtask);
+	}
+
+	var removeTask = function(index) {
+		var idx = convertIndex(index);
+		if (idx>0) {
+			delete pila[idx-1];
+			selectedtask = convertIndex(selectedtask);
+		}
 	}
 
 	var showTask = function(index) {
+		selectedtask = index;
 		var node = returnTaskNode(index);
 		node.style.visibility = 'visible';
 		node.style.display = 'block';		
-		callActionChange(that.returnCurrentTask());
+		that.signalShowWidget(that.returnCurrentTask(),index);
 	}
 
 	var hideTask = function(index) {
@@ -75,32 +102,29 @@ function EsquirolPilaTasques() {
 	}
 	
 	this.changeTask = function(e) {
-		hideTask(selectedtask);
-		
 		var newIndex = recoverHiddenInfo(e.currentTarget, 'select');
+		that.changeTaskToIndex(newIndex);
+	}
 
-		selectedtask = newIndex;
-		showTask(selectedtask);
+	this.changeToIndexedTask = function(index) {
+		if (selectedtask>0) {
+			hideTask(selectedtask);
+			var newIndex = (index - 1) % that.lengthOfPile() + 1;
+			showTask(newIndex);
+		}
 	}
 
 	this.changeToNextTask = function () {
 		if (selectedtask>0) {			
 			hideTask(selectedtask);
-			
-			selectedtask = (selectedtask) % that.lengthOfPile() + 1;
-			
-			showTask(selectedtask);
+			showTask(convertIndex(selectedtask+1));
 		}
 	}
 	
 	this.changeToPreviousTask = function () {
 		if (selectedtask>0) {
 			hideTask(selectedtask);
-			
-			var max = that.lengthOfPile();
-			selectedtask = ((selectedtask-2) % max + max) % max + 1;
-			
-			showTask(selectedtask);			
+			showTask(convertIndex(selectedtask-1));
 		}
 	}
 	
@@ -121,15 +145,6 @@ function EsquirolPilaTasques() {
 		*/
 	}
 	
-	function callActionChange (task) {
-		if (actionChange != null) {
-			actionChange(task);
-		}
-	}
-
-	this.connectSignalChangeTask = function (action) {
-		actionChange = action;
-	}
 }
 
 function Generator(funcio1, funcio2) {
@@ -137,3 +152,9 @@ function Generator(funcio1, funcio2) {
 		
 	}
 }
+
+// Signals
+
+EsquirolWidgetStack.prototype.signalAddedWidget = function(widget,index) { };
+EsquirolWidgetStack.prototype.signalShowWidget = function(widget,index) { };
+
