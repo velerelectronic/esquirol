@@ -225,7 +225,7 @@ EsquirolWidget.prototype.hideElement = function (element) {
 }
 
 EsquirolWidget.prototype.showElement = function (element) {
-	element.className = element.className.replace(/(^|\W)hide($|\W)/,' ').trim();
+	element.className = element.className.replace(/(^|\W)hide($|\W)/g,' ').trim();
 }
 
 EsquirolWidget.prototype.isElementVisible = function (element) {
