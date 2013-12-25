@@ -143,5 +143,13 @@ module.exports = [
             "navigator.notification"
         ]
     }
-]
+];
+module.exports.metadata = 
+// TOP OF METADATA
+{
+    "org.apache.cordova.file": "0.2.5",
+    "org.apache.cordova.dialogs": "0.2.3",
+    "org.apache.cordova.vibration": "0.3.4"
+}
+// BOTTOM OF METADATA
 });

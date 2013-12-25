@@ -32,6 +32,7 @@
         <param name="ios-package" value="CDVVibration" />
     </feature>
     <name>Esquirol</name>
+    <name>Esquirol</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

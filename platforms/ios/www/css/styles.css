@@ -12,7 +12,7 @@ html, body, div.fullscreen {
 
 header {
 	position: fixed;
-	display: block;
+	display: table-row;
 	background-color: green;
 	margin: 0;
 	left: 0;
@@ -25,9 +25,12 @@ header {
 h1 {
 	vertical-align: middle;
 	margin: 0;
-	display: inline-block;
+	display: table-cell;
 	color: white;
 	padding: 0.5ex;
+	min-width: -moz-fit-content;
+	min-width: -webkit-fit-content;
+	min-width: fit-content;
 }
 
 
@@ -125,13 +128,14 @@ footer {
 }
 
 .tasks {
-	display: inline-block;
+	display: table-cell;
 	margin: 0;
 	padding: 0;
 	right: 0;
-	width: 70%;
+	width: auto;
 	white-space: nowrap;
 	vertical-align: middle;
+	height: 8ex;
 }
 
 .taskname {
@@ -151,13 +155,15 @@ footer {
 	margin: 0;
 	padding: 0;
 	white-space: nowrap;
-	overflow: auto;
+	overflow: visible;
 	color: white;
+	width: auto;
 	vertical-align: middle;
 }
 
 .tasklist ul {
 	display: inline;
+	overflow: auto;
 }
 
 .tasklist li {
